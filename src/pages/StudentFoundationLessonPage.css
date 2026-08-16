@@ -1,0 +1,791 @@
+.foundation-lesson {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 12% 5%, rgba(197, 161, 92, 0.16), transparent 26%),
+    radial-gradient(circle at 90% 10%, rgba(34, 139, 130, 0.14), transparent 30%),
+    #f4efe4;
+  color: #143f3c;
+}
+
+.foundation-lesson__hero {
+  position: relative;
+  overflow: hidden;
+  padding: 70px 24px 100px;
+  background:
+    radial-gradient(circle at 85% 15%, rgba(218, 185, 112, 0.28), transparent 28%),
+    linear-gradient(135deg, #0c3735 0%, #105750 55%, #176f67 100%);
+}
+
+.foundation-lesson__hero::after {
+  content: '';
+  position: absolute;
+  right: -120px;
+  bottom: -200px;
+  width: 500px;
+  height: 500px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+}
+
+.foundation-lesson__hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.foundation-lesson__breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 30px;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 13px;
+}
+
+.foundation-lesson__breadcrumb a {
+  color: #f0d8a2;
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.foundation-lesson__badge {
+  display: inline-flex;
+  padding: 8px 13px;
+  border: 1px solid rgba(239, 215, 163, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #f1d7a0;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+}
+
+.foundation-lesson__hero h1 {
+  max-width: 850px;
+  margin: 18px 0 14px;
+  color: #fffdf8;
+  font-size: clamp(42px, 6vw, 72px);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+
+.foundation-lesson__summary {
+  max-width: 760px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.foundation-lesson__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.foundation-lesson__meta > div {
+  min-width: 170px;
+  padding: 15px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(12px);
+}
+
+.foundation-lesson__meta-label {
+  display: block;
+  margin-bottom: 5px;
+  color: #d8bd82;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+}
+
+.foundation-lesson__meta strong {
+  color: white;
+  font-size: 13px;
+}
+
+.foundation-lesson__workspace {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 24px;
+  max-width: 1180px;
+  margin: -48px auto 0;
+  padding: 0 24px 80px;
+}
+
+.foundation-lesson__side-card {
+  position: sticky;
+  top: 24px;
+  padding: 26px;
+  border: 1px solid rgba(190, 157, 88, 0.2);
+  border-radius: 24px;
+  background:
+    linear-gradient(160deg, #fffdf8, #f3ebdc);
+  box-shadow: 0 20px 50px rgba(20, 62, 58, 0.1);
+}
+
+.foundation-lesson__side-kicker {
+  color: #a57b35;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+}
+
+.foundation-lesson__side-card h2 {
+  margin: 12px 0 10px;
+  color: #174d48;
+  font-size: 23px;
+  line-height: 1.15;
+}
+
+.foundation-lesson__side-card > p {
+  margin: 0 0 22px;
+  color: #71807d;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.foundation-lesson__steps {
+  display: grid;
+  gap: 10px;
+}
+
+.foundation-lesson__steps div {
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  padding: 11px;
+  border-radius: 13px;
+  background: rgba(24, 111, 103, 0.06);
+}
+
+.foundation-lesson__steps span {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: 10px;
+  background: #176d65;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.foundation-lesson__steps p {
+  margin: 0;
+  color: #315b57;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.foundation-lesson__back {
+  display: inline-flex;
+  margin-top: 22px;
+  color: #176d65;
+  font-size: 12px;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.foundation-lesson__content {
+  overflow: hidden;
+  border: 1px solid rgba(23, 109, 101, 0.1);
+  border-radius: 28px;
+  background: #fffdf9;
+  box-shadow: 0 22px 55px rgba(19, 61, 57, 0.1);
+}
+
+.foundation-lesson__content-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 28px;
+  border-bottom: 1px solid rgba(23, 109, 101, 0.09);
+  background: #f7f1e5;
+}
+
+.foundation-lesson__content-top span {
+  color: #a77b34;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+}
+
+.foundation-lesson__content-top strong {
+  color: #235852;
+  font-size: 13px;
+}
+
+.foundation-lesson__content .lesson-content {
+  padding: 34px 42px 46px;
+}
+
+.foundation-lesson__state {
+  max-width: 700px;
+  margin: 100px auto;
+  padding: 36px;
+  border-radius: 24px;
+  background: #fffdf8;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(20, 62, 58, 0.1);
+}
+
+.foundation-lesson__state--error h2 {
+  color: #8e4138;
+}
+
+.foundation-lesson__state a {
+  display: inline-flex;
+  margin-top: 15px;
+  color: #176d65;
+  font-weight: 900;
+}
+
+@media (max-width: 900px) {
+  .foundation-lesson__workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .foundation-lesson__side-card {
+    position: static;
+  }
+}
+
+@media (max-width: 650px) {
+  .foundation-lesson__hero {
+    padding: 46px 18px 82px;
+  }
+
+  .foundation-lesson__workspace {
+    padding: 0 14px 60px;
+  }
+
+  .foundation-lesson__content .lesson-content {
+    padding: 24px 18px 34px;
+  }
+
+  .foundation-lesson__hero h1 {
+    font-size: 42px;
+  }
+
+  .foundation-lesson__meta > div {
+    flex: 1 1 140px;
+  }
+}
+
+/* =========================================================
+   JAK FOUNDATIONS — PREMIUM CONTENT OVERRIDES
+   Scoped only to Student Foundation Lesson
+   ========================================================= */
+
+.foundation-lesson__content {
+  background:
+    linear-gradient(
+      180deg,
+      #fffdf8 0%,
+      #fbf7ed 100%
+    );
+}
+
+/* Main lesson canvas */
+.foundation-lesson__content .lesson-content {
+  padding: 42px 46px 54px;
+  color: #173f3b;
+  background: transparent;
+}
+
+/* Block spacing */
+.foundation-lesson__content .lesson-content__block {
+  margin: 0 0 30px;
+}
+
+/* Headings */
+.foundation-lesson__content .lesson-content__heading {
+  color: #123f3b !important;
+  text-shadow: none !important;
+  letter-spacing: -0.02em;
+}
+
+.foundation-lesson__content .lesson-content__heading--one {
+  margin: 8px 0 22px;
+  font-size: clamp(34px, 4vw, 52px);
+  line-height: 1.08;
+  font-weight: 900;
+}
+
+.foundation-lesson__content .lesson-content__heading--two {
+  margin: 40px 0 18px;
+  padding-left: 18px;
+  border-left: 4px solid #c59b50;
+  font-size: 28px;
+  line-height: 1.2;
+  font-weight: 850;
+}
+
+.foundation-lesson__content .lesson-content__heading--three {
+  color: #176d65 !important;
+}
+
+/* Paragraphs */
+.foundation-lesson__content .lesson-content__paragraph {
+  max-width: 850px;
+  margin: 0;
+  color: #536c69 !important;
+  font-size: 17px;
+  line-height: 1.95;
+  font-weight: 500;
+  unicode-bidi: plaintext;
+}
+
+/* Notes */
+.foundation-lesson__content .lesson-content__note {
+  padding: 22px 24px;
+  border: 1px solid rgba(19, 96, 89, 0.12);
+  border-left: 4px solid #24867d;
+  border-radius: 18px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(222, 241, 236, 0.78),
+      rgba(255, 253, 247, 0.92)
+    );
+  box-shadow: none;
+}
+
+.foundation-lesson__content .lesson-content__note--tip {
+  border-left-color: #c59b50;
+  background:
+    linear-gradient(
+      135deg,
+      #fbf2dc,
+      #fffdf7
+    );
+}
+
+.foundation-lesson__content .lesson-content__note--important {
+  border-left-color: #b76e4c;
+  background:
+    linear-gradient(
+      135deg,
+      #f8e9df,
+      #fffaf4
+    );
+}
+
+.foundation-lesson__content .lesson-content__note-title {
+  display: block;
+  margin-bottom: 9px;
+  color: #135e58 !important;
+  font-size: 14px;
+  font-weight: 900;
+  unicode-bidi: plaintext;
+}
+
+.foundation-lesson__content .lesson-content__note p {
+  margin: 0;
+  color: #526c68 !important;
+  font-size: 16px;
+  line-height: 1.9;
+  unicode-bidi: plaintext;
+}
+
+/* Arabic content */
+.foundation-lesson__content .lesson-content__arabic {
+  direction: rtl;
+  text-align: right;
+  unicode-bidi: isolate;
+  color: #875f24 !important;
+  font-family:
+    "Segoe UI",
+    Tahoma,
+    Arial,
+    sans-serif;
+  font-weight: 700;
+}
+
+/* Make mixed Arabic note text behave correctly */
+.foundation-lesson__content
+.lesson-content__note-title,
+.foundation-lesson__content
+.lesson-content__note p {
+  unicode-bidi: plaintext;
+}
+
+/* Vocabulary block */
+.foundation-lesson__content .lesson-content__vocabulary {
+  overflow: hidden;
+  border: 1px solid rgba(18, 90, 83, 0.12);
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow:
+    0 14px 34px rgba(22, 66, 61, 0.07);
+}
+
+.foundation-lesson__content
+.lesson-content__vocabulary-title {
+  margin: 0;
+  padding: 20px 24px;
+  color: #ffffff !important;
+  background:
+    linear-gradient(
+      135deg,
+      #104f4a,
+      #18766e
+    );
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.foundation-lesson__content
+.lesson-content__vocabulary-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff !important;
+  color: #324f4c !important;
+}
+
+.foundation-lesson__content
+.lesson-content__vocabulary-table thead {
+  background: #e7f1ee !important;
+}
+
+.foundation-lesson__content
+.lesson-content__vocabulary-table th {
+  padding: 16px 18px;
+  border: 0;
+  border-bottom: 1px solid #dce8e5;
+  color: #155e58 !important;
+  background: #e7f1ee !important;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+}
+
+.foundation-lesson__content
+.lesson-content__vocabulary-table td {
+  padding: 18px;
+  border: 0;
+  border-bottom: 1px solid #edf1ef;
+  color: #536c69 !important;
+  background: #ffffff !important;
+  font-size: 15px;
+}
+
+.foundation-lesson__content
+.lesson-content__vocabulary-table tbody tr:hover td {
+  background: #f8faf7 !important;
+}
+
+.foundation-lesson__content
+.lesson-content__vocabulary-table td:first-child strong {
+  color: #145e58 !important;
+  font-size: 16px;
+}
+
+/* Divider */
+.foundation-lesson__content .lesson-content__divider {
+  margin: 34px 0;
+  border: 0;
+  height: 1px;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(197, 155, 80, 0.5),
+      transparent
+    );
+}
+
+/* Audio */
+.foundation-lesson__content .lesson-content__audio {
+  border: 1px solid rgba(25, 114, 106, 0.16);
+  border-radius: 20px;
+  background:
+    linear-gradient(
+      135deg,
+      #e6f2ef,
+      #fbf8ee
+    );
+}
+
+/* Side card stronger */
+.foundation-lesson__side-card {
+  border: 1px solid rgba(197, 155, 80, 0.25);
+  background:
+    linear-gradient(
+      160deg,
+      #fbf4e5 0%,
+      #f4ead6 100%
+    );
+}
+
+/* Mobile table */
+@media (max-width: 700px) {
+  .foundation-lesson__content .lesson-content {
+    padding: 28px 18px 38px;
+  }
+
+  .foundation-lesson__content
+  .lesson-content__vocabulary {
+    overflow-x: auto;
+  }
+
+  .foundation-lesson__content
+  .lesson-content__vocabulary-table {
+    min-width: 650px;
+  }
+}
+
+/* =========================================================
+   FOUNDATIONS — LANGUAGE DIRECTION SYSTEM
+   English = LTR / Arabic = RTL
+   ========================================================= */
+
+.foundation-lesson {
+  direction: ltr;
+}
+
+.foundation-lesson__hero,
+.foundation-lesson__hero-inner,
+.foundation-lesson__breadcrumb,
+.foundation-lesson__summary,
+.foundation-lesson__meta,
+.foundation-lesson__workspace,
+.foundation-lesson__side,
+.foundation-lesson__content,
+.foundation-lesson__content-top,
+.foundation-lesson__content .lesson-content {
+  direction: ltr;
+  text-align: left;
+}
+
+.foundation-lesson__hero h1,
+.foundation-lesson__content .lesson-content__heading,
+.foundation-lesson__content .lesson-content__paragraph,
+.foundation-lesson__content .lesson-content__note-title,
+.foundation-lesson__content .lesson-content__note p,
+.foundation-lesson__content .lesson-content__vocabulary-title {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: isolate;
+}
+
+.foundation-lesson__content .foundation-ar {
+  direction: rtl;
+  text-align: right;
+  unicode-bidi: isolate;
+  font-family:
+    "Tahoma",
+    "Segoe UI",
+    Arial,
+    sans-serif;
+}
+
+.foundation-lesson__content .foundation-ar--heading {
+  margin-top: 8px;
+  color: #916b2f;
+  font-size: 0.62em;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1.6;
+}
+
+.foundation-lesson__content .foundation-ar--paragraph {
+  margin-top: 9px;
+  color: #687b77;
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.foundation-lesson__content .foundation-ar--note-title {
+  display: block;
+  margin-top: 4px;
+  color: #946c2e;
+  font-size: 13px;
+}
+
+.foundation-lesson__content .foundation-ar--note {
+  margin-top: 7px !important;
+  color: #63736f !important;
+}
+
+.foundation-lesson__content
+.lesson-content__vocabulary-table th:nth-child(2),
+.foundation-lesson__content
+.lesson-content__vocabulary-table td:nth-child(2) {
+  direction: rtl;
+  text-align: right;
+}
+
+
+/* =========================================================
+   JAK FOUNDATION LESSON V2 FINISHING
+   ========================================================= */
+
+/* Arabic page shell, while lesson content keeps its own
+   English/Arabic direction rules below */
+.foundation-lesson {
+  font-family:
+    "Alexandria",
+    "Segoe UI",
+    Tahoma,
+    Arial,
+    sans-serif;
+}
+
+.foundation-lesson__hero-inner,
+.foundation-lesson__breadcrumb,
+.foundation-lesson__meta,
+.foundation-lesson__workspace,
+.foundation-lesson__side,
+.foundation-lesson__side-card,
+.foundation-lesson__content-top {
+  direction: rtl;
+  text-align: right;
+}
+
+
+/* Database titles keep their natural direction */
+
+.foundation-lesson__hero h1[dir="auto"],
+.foundation-lesson__summary[dir="auto"],
+.foundation-lesson__breadcrumb span[dir="auto"],
+.foundation-lesson__meta strong[dir="auto"],
+.foundation-lesson__content-top strong[dir="auto"] {
+  unicode-bidi: plaintext;
+}
+
+
+/* HERO */
+
+.foundation-lesson__hero {
+  padding-top: 64px;
+}
+
+.foundation-lesson__hero h1 {
+  max-width: 920px;
+}
+
+.foundation-lesson__badge {
+  letter-spacing: 0.12em;
+}
+
+
+/* META */
+
+.foundation-lesson__meta > div {
+  min-width: 190px;
+}
+
+.foundation-lesson__meta-label {
+  letter-spacing: 0;
+}
+
+
+/* SIDEBAR */
+
+.foundation-lesson__side-card {
+  text-align: right;
+}
+
+.foundation-lesson__side-card h2 {
+  line-height: 1.5;
+}
+
+.foundation-lesson__steps div {
+  direction: rtl;
+}
+
+.foundation-lesson__steps p {
+  text-align: right;
+}
+
+.foundation-lesson__back {
+  justify-content: flex-start;
+}
+
+
+/* CONTENT HEADER */
+
+.foundation-lesson__content-top {
+  align-items: center;
+}
+
+.foundation-lesson__content-top span {
+  letter-spacing: 0;
+}
+
+
+/* Vocabulary table: cleaner bilingual headers */
+
+.foundation-lesson__content
+.lesson-content__vocabulary-table th {
+  vertical-align: middle;
+  line-height: 1.6;
+}
+
+.foundation-lesson__content
+.lesson-content__vocabulary-table th:nth-child(1) {
+  direction: ltr;
+  text-align: left;
+}
+
+.foundation-lesson__content
+.lesson-content__vocabulary-table th:nth-child(2) {
+  direction: rtl;
+  text-align: right;
+}
+
+.foundation-lesson__content
+.lesson-content__vocabulary-table th:nth-child(3) {
+  direction: ltr;
+  text-align: left;
+}
+
+
+/* Keep Arabic cells clearly RTL */
+
+.foundation-lesson__content
+.lesson-content__vocabulary-table td:nth-child(2) {
+  direction: rtl;
+  text-align: right;
+  unicode-bidi: isolate;
+}
+
+
+/* Mobile */
+
+@media (max-width: 900px) {
+  .foundation-lesson__hero-inner,
+  .foundation-lesson__workspace {
+    width: 100%;
+  }
+}
+
+@media (max-width: 650px) {
+  .foundation-lesson__hero h1 {
+    font-size: 38px;
+  }
+
+  .foundation-lesson__meta {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .foundation-lesson__meta > div {
+    min-width: 0;
+  }
+
+  .foundation-lesson__content-top {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

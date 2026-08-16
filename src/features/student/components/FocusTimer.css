@@ -1,0 +1,202 @@
+.focus-timer {
+  padding: 25px;
+  border: 1px solid rgba(132, 171, 208, 0.15);
+  border-radius: 22px;
+  background:
+    radial-gradient(
+      circle at 85% 10%,
+      rgba(205, 169, 75, 0.12),
+      transparent 38%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(13, 29, 47, 0.95),
+      rgba(5, 15, 27, 0.92)
+    );
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.18),
+    inset 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.focus-timer__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.focus-timer__header span {
+  color: #cda94b;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+}
+
+.focus-timer__header h2 {
+  margin: 7px 0 0;
+  color: #ffffff;
+  font-size: 20px;
+  letter-spacing: -0.03em;
+}
+
+.focus-timer__status {
+  padding: 6px 9px;
+  border: 1px solid rgba(132, 171, 208, 0.15);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #8fa1b4;
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.focus-timer__status--active {
+  border-color: rgba(115, 221, 168, 0.25);
+  background: rgba(49, 143, 99, 0.12);
+  color: #86e8b6;
+}
+
+.focus-timer__status--paused {
+  border-color: rgba(240, 204, 104, 0.25);
+  background: rgba(205, 169, 75, 0.1);
+  color: #f0cc68;
+}
+
+.focus-timer__status--finished {
+  border-color: rgba(88, 169, 223, 0.25);
+  background: rgba(48, 126, 183, 0.12);
+  color: #78c4f0;
+}
+
+.focus-timer__clock {
+  margin: 27px 0 18px;
+  color: #ffffff;
+  font-size: 48px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+}
+
+.focus-timer__progress {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.focus-timer__progress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background:
+    linear-gradient(
+      90deg,
+      #287eba,
+      #61b6e8,
+      #d4b456
+    );
+  transition: width 0.4s linear;
+}
+
+.focus-timer__details {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 11px;
+  color: #8294a8;
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.focus-timer__duration {
+  display: grid;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.focus-timer__duration > span {
+  color: #8fa1b4;
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.focus-timer__duration select {
+  width: 100%;
+  min-height: 43px;
+  padding: 0 12px;
+  border: 1px solid rgba(132, 171, 208, 0.16);
+  border-radius: 11px;
+  outline: none;
+  background: #0a1929;
+  color: #dce7f0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.focus-timer__duration select:focus {
+  border-color: rgba(240, 204, 104, 0.35);
+}
+
+.focus-timer__error {
+  margin: 17px 0 0;
+  padding: 11px 13px;
+  border: 1px solid rgba(255, 118, 118, 0.22);
+  border-radius: 11px;
+  background: rgba(150, 43, 43, 0.12);
+  color: #ffb4b4;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.focus-timer__actions {
+  display: grid;
+  gap: 9px;
+  margin-top: 20px;
+}
+
+.focus-timer__button {
+  width: 100%;
+  min-height: 43px;
+  padding: 0 13px;
+  border: 1px solid rgba(88, 169, 223, 0.18);
+  border-radius: 11px;
+  background: rgba(51, 127, 180, 0.08);
+  color: #dce8f2;
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.focus-timer__button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  border-color: rgba(240, 204, 104, 0.3);
+}
+
+.focus-timer__button--primary {
+  border-color: rgba(240, 204, 104, 0.3);
+  background:
+    linear-gradient(
+      135deg,
+      #d1ad4c,
+      #a9842e
+    );
+  color: #07101b;
+}
+
+.focus-timer__button--danger {
+  border-color: rgba(255, 113, 113, 0.18);
+  background: rgba(142, 39, 39, 0.1);
+  color: #ffb0b0;
+}
+
+.focus-timer__button:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}

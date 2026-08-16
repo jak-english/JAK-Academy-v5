@@ -1,0 +1,265 @@
+/* =========================================================
+   JAK FOUNDATION LESSON EDITOR V2
+   Scoped only to AdminFoundationLessonEditorPage
+   ========================================================= */
+
+.admin-foundation-editor-page {
+  direction: ltr;
+  text-align: left;
+}
+
+/* ADD BLOCK TOOLBAR */
+
+.admin-foundation-editor-page > div > button {
+  min-height: 42px;
+  padding: 10px 16px;
+  border: 1px solid rgba(23, 109, 104, 0.18);
+  border-radius: 11px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 253, 247, 0.98),
+    rgba(241, 247, 243, 0.96)
+  );
+  color: #0c514e;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 850;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease;
+}
+
+.admin-foundation-editor-page > div > button:hover {
+  border-color: rgba(23, 109, 104, 0.38);
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(8, 52, 50, 0.1);
+  transform: translateY(-2px);
+}
+
+/* BLOCK CARDS */
+
+.admin-foundation-editor-page article {
+  color: #173d3b;
+  box-shadow: 0 14px 32px rgba(4, 35, 34, 0.08);
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.admin-foundation-editor-page article:hover {
+  border-color: rgba(23, 109, 104, 0.28) !important;
+  box-shadow: 0 18px 38px rgba(4, 35, 34, 0.11);
+}
+
+.admin-foundation-editor-page article strong {
+  color: #0d4643;
+}
+
+.admin-foundation-editor-page article > div:first-child > div:first-child > div {
+  margin-top: 4px;
+  color: #7a8d8b;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+/* BLOCK ACTION BUTTONS */
+
+.admin-foundation-editor-page article button {
+  min-height: 38px;
+  padding: 8px 12px;
+  border: 1px solid rgba(23, 109, 104, 0.14);
+  border-radius: 9px;
+  background: #f5faf7;
+  color: #145f5b;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    transform 150ms ease,
+    border-color 150ms ease,
+    background 150ms ease;
+}
+
+.admin-foundation-editor-page article button:hover:not(:disabled) {
+  border-color: rgba(23, 109, 104, 0.35);
+  background: #eaf5ef;
+  transform: translateY(-1px);
+}
+
+.admin-foundation-editor-page article button:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+
+/* FORM CONTROLS */
+
+.admin-foundation-editor-page article label {
+  display: block;
+  margin: 14px 0 6px;
+  color: #496663;
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 0.035em;
+}
+
+.admin-foundation-editor-page article input:not([type="file"]),
+.admin-foundation-editor-page article select,
+.admin-foundation-editor-page article textarea {
+  width: 100%;
+  min-height: 42px;
+  padding: 9px 11px;
+  border: 1px solid rgba(23, 109, 104, 0.17);
+  border-radius: 9px;
+  outline: none;
+  background: #ffffff;
+  color: #173d3b;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease,
+    background 150ms ease;
+}
+
+.admin-foundation-editor-page article textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+.admin-foundation-editor-page article select {
+  width: auto;
+  min-width: 110px;
+}
+
+.admin-foundation-editor-page article input:focus,
+.admin-foundation-editor-page article select:focus,
+.admin-foundation-editor-page article textarea:focus {
+  border-color: rgba(23, 109, 104, 0.52);
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(23, 109, 104, 0.08);
+}
+
+.admin-foundation-editor-page article input[type="file"] {
+  display: block;
+  width: 100%;
+  margin-top: 7px;
+  padding: 10px;
+  border: 1px dashed rgba(23, 109, 104, 0.25);
+  border-radius: 10px;
+  background: #f7fbf8;
+}
+
+/* LIVE PREVIEW */
+
+.admin-foundation-editor-page aside {
+  border: 1px solid rgba(197, 161, 71, 0.2);
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(197, 161, 71, 0.09),
+      transparent 30%
+    ),
+    #fbf7ea !important;
+  box-shadow: 0 18px 42px rgba(4, 35, 34, 0.1);
+}
+
+.admin-foundation-editor-page aside > h2 {
+  margin: 0 0 24px;
+  color: #112f4e;
+  font-size: clamp(28px, 3vw, 44px);
+  font-weight: 950;
+  letter-spacing: -0.035em;
+}
+
+/*
+  Preview renderer contrast:
+  keep Arabic/English direction behavior,
+  only strengthen readable foreground colors.
+*/
+
+.admin-foundation-editor-page aside h1,
+.admin-foundation-editor-page aside h2,
+.admin-foundation-editor-page aside h3,
+.admin-foundation-editor-page aside h4 {
+  color: #123f3d !important;
+}
+
+.admin-foundation-editor-page aside p,
+.admin-foundation-editor-page aside li {
+  color: #526f6c !important;
+}
+
+.admin-foundation-editor-page aside strong {
+  color: #173f3c !important;
+}
+
+/* BOTTOM ACTION AREA */
+
+.admin-foundation-editor-page > div:last-of-type {
+  direction: ltr;
+}
+
+.admin-foundation-editor-page > div:last-of-type > button {
+  min-height: 42px;
+  padding: 9px 17px;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.admin-foundation-editor-page > div:last-of-type > button:first-child {
+  border: 1px solid rgba(23, 109, 104, 0.28);
+  background: #176d68;
+  color: #ffffff;
+}
+
+.admin-foundation-editor-page > div:last-of-type > a {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  padding: 9px 15px;
+  border: 1px solid rgba(23, 109, 104, 0.15);
+  border-radius: 10px;
+  color: #176d68;
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+  .admin-foundation-editor-page aside {
+    position: static !important;
+  }
+}
+
+@media (max-width: 620px) {
+  .admin-foundation-editor-page article {
+    padding: 16px !important;
+  }
+
+  .admin-foundation-editor-page article select {
+    width: 100%;
+  }
+}
+/* FOUNDATION PREVIEW ARABIC CONTRAST FIX */
+
+.admin-foundation-editor-page aside [dir="rtl"],
+.admin-foundation-editor-page aside [dir="rtl"] * {
+  color: #536f6c !important;
+}
+
+.admin-foundation-editor-page aside [dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}

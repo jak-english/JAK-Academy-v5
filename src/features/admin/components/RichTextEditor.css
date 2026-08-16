@@ -1,0 +1,209 @@
+.jak-rich-editor {
+  overflow: hidden;
+  border: 1px solid rgba(132, 171, 208, 0.18);
+  border-radius: 16px;
+  background: rgba(6, 20, 37, 0.68);
+}
+
+.jak-rich-editor__topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(132, 171, 208, 0.12);
+}
+
+.jak-rich-editor__topbar > div {
+  display: grid;
+  gap: 2px;
+}
+
+.jak-rich-editor__eyebrow {
+  color: #d8b15a;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.jak-rich-editor__selection {
+  border-radius: 999px;
+  padding: 6px 9px;
+  background: rgba(132, 171, 208, 0.08);
+  color: #8195ac;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.jak-rich-editor__selection--active {
+  background: rgba(216, 177, 90, 0.12);
+  color: #e3c87d;
+}
+
+.jak-rich-editor__toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(132, 171, 208, 0.12);
+  background: rgba(11, 30, 51, 0.78);
+}
+
+.jak-rich-editor__tool-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-right: 8px;
+  border-right: 1px solid rgba(132, 171, 208, 0.14);
+}
+
+.jak-rich-editor__tool-group label {
+  display: grid;
+  gap: 3px;
+  margin: 0;
+  color: #8195ac;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.jak-rich-editor__toolbar button,
+.jak-rich-editor__toolbar select {
+  min-height: 34px;
+  border: 1px solid rgba(132, 171, 208, 0.2);
+  border-radius: 8px;
+  background: rgba(6, 20, 37, 0.86);
+  color: #e9eef7;
+  font: inherit;
+}
+
+.jak-rich-editor__toolbar button {
+  min-width: 36px;
+  padding: 7px 10px;
+  cursor: pointer;
+}
+
+.jak-rich-editor__toolbar select {
+  min-width: 92px;
+  padding: 6px 28px 6px 9px;
+}
+
+.jak-rich-editor__toolbar button:hover:not(:disabled),
+.jak-rich-editor__toolbar select:hover:not(:disabled) {
+  border-color: rgba(216, 177, 90, 0.52);
+}
+
+.jak-rich-editor__toolbar button:disabled,
+.jak-rich-editor__toolbar select:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
+}
+
+.jak-rich-editor__tool-group--roles button {
+  color: #d8e4f1;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.jak-rich-editor__clear {
+  margin-left: auto;
+  color: #e1c16f !important;
+}
+
+.jak-rich-editor__surface {
+  display: block;
+  width: 100%;
+  min-height: 230px;
+  padding: 22px;
+  border: 0;
+  background: rgba(3, 13, 24, 0.62);
+  color: #edf3fa;
+  outline: none;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-family: inherit;
+  font-size: 17px;
+  line-height: 1.95;
+  caret-color: #f0cc68;
+}
+
+.jak-rich-editor__surface:focus {
+  box-shadow:
+    inset 0 0 0 2px
+      rgba(216, 177, 90, 0.2);
+}
+
+.jak-rich-editor__surface::selection,
+.jak-rich-editor__surface *::selection {
+  background: rgba(120, 196, 240, 0.36);
+  color: inherit;
+}
+
+.jak-rich-editor__footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 10px 14px;
+  color: #72869d;
+  font-size: 11px;
+}
+
+@media (max-width: 760px) {
+  .jak-rich-editor__topbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .jak-rich-editor__tool-group {
+    width: 100%;
+    border-right: 0;
+    padding-right: 0;
+  }
+
+  .jak-rich-editor__tool-group--roles {
+    flex-wrap: wrap;
+  }
+
+  .jak-rich-editor__clear {
+    margin-left: 0;
+  }
+
+  .jak-rich-editor__surface {
+    min-height: 190px;
+    padding: 18px;
+    font-size: 16px;
+  }
+
+  .jak-rich-editor__footer {
+    flex-direction: column;
+  }
+}
+
+/* ===== ADAPTIVE TOOLBAR V1 ===== */
+
+.jak-rich-editor__mode {
+  padding: 6px 9px;
+  border: 1px solid rgba(216, 177, 90, 0.22);
+  border-radius: 999px;
+  background: rgba(216, 177, 90, 0.08);
+  color: #e3c87d;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.jak-rich-editor--reading .jak-rich-editor__mode {
+  border-color: rgba(96, 181, 255, 0.3);
+}
+
+.jak-rich-editor--grammar .jak-rich-editor__mode {
+  border-color: rgba(190, 139, 255, 0.3);
+}
+
+.jak-rich-editor--vocabulary .jak-rich-editor__mode {
+  border-color: rgba(216, 177, 90, 0.3);
+}
+

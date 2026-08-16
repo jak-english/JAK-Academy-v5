@@ -1,0 +1,554 @@
+.lesson-content {
+  --lesson-content-border:
+    var(--lesson-border, rgba(132, 171, 208, 0.18));
+  --lesson-content-muted:
+    var(--lesson-muted, #8495aa);
+  --lesson-content-blue:
+    var(--lesson-blue-bright, #78c4f0);
+  --lesson-content-gold:
+    var(--lesson-gold, #cda94b);
+  --lesson-content-gold-bright:
+    var(--lesson-gold-bright, #f0cc68);
+
+  direction: ltr;
+  display: grid;
+  gap: 25px;
+  color: #f5f8fb;
+  text-align: left;
+}
+
+.lesson-content__block {
+  min-width: 0;
+}
+
+.lesson-content__heading {
+  margin: 0;
+  color: #ffffff;
+  letter-spacing: -0.04em;
+}
+
+.lesson-content__heading--one {
+  font-size: clamp(38px, 5vw, 58px);
+}
+
+.lesson-content__heading--two {
+  padding-bottom: 15px;
+  border-bottom: 1px solid
+    var(--lesson-content-border);
+  font-size: clamp(31px, 4vw, 44px);
+}
+
+.lesson-content__heading--three {
+  font-size: 28px;
+}
+
+.lesson-content__heading--four {
+  font-size: 22px;
+}
+
+.lesson-content__paragraph {
+  max-width: 920px;
+  margin: 0;
+  color: #a0afbf;
+  font-size: 17px;
+  line-height: 1.9;
+  white-space: pre-wrap;
+}
+
+/* =========================================================
+   JAK Rich Text Engine v1
+   One central visual system for paragraph formatting.
+   ========================================================= */
+
+.lesson-rich-text__segment {
+  color: inherit;
+  font-size: inherit;
+  font-style: normal;
+  font-weight: inherit;
+  text-decoration: none;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  border-radius: 4px;
+  transition:
+    background 0.16s ease,
+    color 0.16s ease;
+}
+
+.lesson-rich-text__segment--bold {
+  font-weight: 800;
+}
+
+.lesson-rich-text__segment--italic {
+  font-style: italic;
+}
+
+.lesson-rich-text__segment--underline {
+  text-decoration-line: underline;
+}
+
+.lesson-rich-text__color--navy {
+  color: #6fb3e3;
+}
+
+.lesson-rich-text__color--gold {
+  color: #f0cc68;
+}
+
+.lesson-rich-text__color--red {
+  color: #ff8c8c;
+}
+
+.lesson-rich-text__color--green {
+  color: #7ed8aa;
+}
+
+.lesson-rich-text__color--purple {
+  color: #c6a3ff;
+}
+
+.lesson-rich-text__highlight--yellow {
+  padding: 0.08em 0.18em;
+  background: rgba(240, 204, 104, 0.28);
+  box-shadow:
+    inset 0 -0.56em 0
+      rgba(240, 204, 104, 0.12);
+}
+
+.lesson-rich-text__highlight--green {
+  padding: 0.08em 0.18em;
+  background: rgba(86, 201, 137, 0.23);
+  box-shadow:
+    inset 0 -0.56em 0
+      rgba(86, 201, 137, 0.1);
+}
+
+.lesson-rich-text__highlight--blue {
+  padding: 0.08em 0.18em;
+  background: rgba(88, 169, 223, 0.24);
+  box-shadow:
+    inset 0 -0.56em 0
+      rgba(88, 169, 223, 0.1);
+}
+
+.lesson-rich-text__highlight--pink {
+  padding: 0.08em 0.18em;
+  background: rgba(221, 125, 173, 0.22);
+  box-shadow:
+    inset 0 -0.56em 0
+      rgba(221, 125, 173, 0.09);
+}
+
+.lesson-rich-text__size--large {
+  font-size: 1.16em;
+  line-height: 1.65;
+}
+
+.lesson-rich-text__size--xl {
+  font-size: 1.34em;
+  line-height: 1.55;
+}
+
+/* Teaching roles
+   Role styling is deliberately additive: the same segment can
+   also be bold, colored, highlighted, or enlarged. */
+
+.lesson-rich-text__role--key_word {
+  color: #f0cc68;
+  font-weight: 800;
+  border-bottom: 2px solid
+    rgba(240, 204, 104, 0.6);
+}
+
+.lesson-rich-text__role--pronoun {
+  position: relative;
+  color: #8fd3ff;
+  font-weight: 800;
+  border-bottom: 2px dotted
+    rgba(120, 196, 240, 0.75);
+}
+
+.lesson-rich-text__role--answer_evidence {
+  padding: 0.08em 0.2em;
+  border-radius: 5px;
+  background:
+    linear-gradient(
+      180deg,
+      transparent 42%,
+      rgba(126, 216, 170, 0.24) 42%
+    );
+  color: #dff8ea;
+}
+
+.lesson-rich-text__role--important {
+  color: #ff9b9b;
+  font-weight: 800;
+}
+
+.lesson-rich-text__role--definition {
+  color: #c6a3ff;
+  font-weight: 700;
+}
+
+/* =========================================================
+   Vocabulary
+   ========================================================= */
+
+.lesson-content__vocabulary {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid
+    var(--lesson-content-border);
+  border-radius: 19px;
+  background: rgba(3, 12, 22, 0.48);
+}
+
+.lesson-content__vocabulary-title,
+.lesson-content__table-title {
+  margin: 0;
+  padding: 18px 20px;
+  border-bottom: 1px solid
+    var(--lesson-content-border);
+  color: #ffffff;
+  font-size: 20px;
+}
+
+.lesson-content__vocabulary-table {
+  direction: ltr;
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.lesson-content__vocabulary-table th,
+.lesson-content__vocabulary-table td {
+  padding: 18px 20px;
+  border-bottom: 1px solid
+    rgba(132, 171, 208, 0.11);
+  vertical-align: middle;
+  text-align: left;
+}
+
+.lesson-content__vocabulary-table th {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(47, 125, 180, 0.14),
+      rgba(201, 166, 73, 0.08)
+    );
+  color: #cfdae5;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.lesson-content__vocabulary-table th:nth-child(1),
+.lesson-content__vocabulary-table td:nth-child(1) {
+  width: 22%;
+}
+
+.lesson-content__vocabulary-table th:nth-child(2),
+.lesson-content__vocabulary-table td:nth-child(2) {
+  width: 25%;
+}
+
+.lesson-content__vocabulary-table th:nth-child(3),
+.lesson-content__vocabulary-table td:nth-child(3) {
+  width: 53%;
+}
+
+.lesson-content__vocabulary-table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.lesson-content__vocabulary-table tbody tr:hover {
+  background: rgba(88, 169, 223, 0.045);
+}
+
+.lesson-content__vocabulary-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.lesson-content__vocabulary-table td {
+  color: #9cacbd;
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.lesson-content__vocabulary-table td strong {
+  color: var(--lesson-content-blue);
+  font-size: 16px;
+}
+
+.lesson-content__arabic {
+  direction: rtl;
+  color: #f0d98f !important;
+  font-family:
+    Tahoma,
+    Arial,
+    sans-serif;
+  font-size: 17px !important;
+  text-align: right !important;
+}
+
+/* =========================================================
+   Notes
+   ========================================================= */
+
+.lesson-content__note {
+  padding: 21px 23px;
+  border: 1px solid
+    rgba(240, 204, 104, 0.2);
+  border-left: 4px solid
+    var(--lesson-content-gold);
+  border-radius: 15px;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(201, 166, 73, 0.1),
+      rgba(201, 166, 73, 0.025)
+    );
+}
+
+.lesson-content__note-title,
+.lesson-content__note strong {
+  color: var(--lesson-content-gold-bright);
+  font-size: 15px;
+}
+
+.lesson-content__note p {
+  margin: 8px 0 0;
+  color: #a6b2bf;
+  line-height: 1.75;
+}
+
+.lesson-content__divider {
+  width: 100%;
+  height: 1px;
+  margin: 5px 0;
+  border: 0;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(88, 169, 223, 0.28),
+      rgba(240, 204, 104, 0.24),
+      transparent
+    );
+}
+
+.lesson-content__empty,
+.lesson-content__empty-block {
+  padding: 48px 26px;
+  border: 1px dashed
+    var(--lesson-content-border);
+  border-radius: 19px;
+  color: var(--lesson-content-muted);
+  text-align: center;
+}
+
+.lesson-content__empty > span {
+  color: var(--lesson-content-gold);
+  font-size: 38px;
+}
+
+.lesson-content__empty > strong {
+  display: block;
+  margin: 13px 0 7px;
+  color: #ffffff;
+  font-size: 22px;
+}
+
+.lesson-content__empty p {
+  margin: 0;
+}
+
+.lesson-content__unsupported {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 17px 20px;
+  border: 1px solid
+    rgba(255, 159, 93, 0.2);
+  border-radius: 14px;
+  background: rgba(155, 76, 29, 0.1);
+  color: #ffc391;
+}
+
+.lesson-content__unsupported p {
+  margin: 0;
+  padding: 6px 9px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  font-family: monospace;
+}
+
+/* Student preview is light, so remap semantic Rich Text colors there
+   while keeping the same class names and the same renderer. */
+
+.admin-lesson-studio
+  .studio-preview
+  .lesson-rich-text__color--navy {
+  color: #163451;
+}
+
+.admin-lesson-studio
+  .studio-preview
+  .lesson-rich-text__color--gold {
+  color: #9c741d;
+}
+
+.admin-lesson-studio
+  .studio-preview
+  .lesson-rich-text__color--red {
+  color: #b53d45;
+}
+
+.admin-lesson-studio
+  .studio-preview
+  .lesson-rich-text__color--green {
+  color: #23794e;
+}
+
+.admin-lesson-studio
+  .studio-preview
+  .lesson-rich-text__color--purple {
+  color: #7651a8;
+}
+
+.admin-lesson-studio
+  .studio-preview
+  .lesson-rich-text__role--key_word {
+  color: #9c741d;
+}
+
+.admin-lesson-studio
+  .studio-preview
+  .lesson-rich-text__role--pronoun {
+  color: #245f88;
+}
+
+.admin-lesson-studio
+  .studio-preview
+  .lesson-rich-text__role--answer_evidence {
+  color: #24563d;
+}
+
+.admin-lesson-studio
+  .studio-preview
+  .lesson-rich-text__role--important {
+  color: #a9363e;
+}
+
+.admin-lesson-studio
+  .studio-preview
+  .lesson-rich-text__role--definition {
+  color: #68469a;
+}
+
+@media (max-width: 620px) {
+  .lesson-content__heading--two {
+    font-size: 31px;
+  }
+
+  .lesson-content__paragraph {
+    font-size: 16px;
+  }
+
+  .lesson-rich-text__size--large {
+    font-size: 1.1em;
+  }
+
+  .lesson-rich-text__size--xl {
+    font-size: 1.22em;
+  }
+
+  .lesson-content__unsupported {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+.lesson-content__audio {
+  padding: 20px;
+  border: 1px solid rgba(31, 109, 103, 0.18);
+  border-radius: 18px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(247, 242, 226, 0.95),
+      rgba(239, 249, 247, 0.95)
+    );
+}
+
+.lesson-content__audio-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.lesson-content__audio-icon {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 50%;
+  background: #176d68;
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.lesson-content__audio-title {
+  display: block;
+  font-size: 17px;
+  color: #173c39;
+}
+
+.lesson-content__audio-pronunciation {
+  margin-top: 3px;
+  color: #725d35;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.lesson-content__audio-player {
+  width: 100%;
+}
+
+.lesson-content__audio-status,
+.lesson-content__audio-error {
+  margin: 8px 0 0;
+  font-size: 14px;
+}
+
+.lesson-content__audio-error {
+  color: #a52828;
+}
+
+.lesson-content__audio-transcript,
+.lesson-content__audio-example {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(31, 109, 103, 0.12);
+}
+
+.lesson-content__audio-transcript > span,
+.lesson-content__audio-example > span {
+  display: block;
+  margin-bottom: 5px;
+  color: #176d68;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.lesson-content__audio-transcript p,
+.lesson-content__audio-example p {
+  margin: 0;
+  line-height: 1.7;
+}

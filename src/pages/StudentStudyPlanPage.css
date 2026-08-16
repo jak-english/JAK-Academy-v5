@@ -1,0 +1,1461 @@
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800;900&display=swap');
+
+.student-study-plan-page {
+  --student-bg: #030a13;
+  --student-panel: rgba(9, 20, 34, 0.9);
+  --student-panel-soft: rgba(13, 28, 47, 0.72);
+  --student-border: rgba(140, 174, 211, 0.14);
+  --student-text: #f5f7fb;
+  --student-muted: #91a0b5;
+  --student-blue-bright: #58a9df;
+  --student-gold: #d2ad50;
+
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+
+  direction: rtl;
+  text-align: right;
+
+  background:
+    radial-gradient(
+      circle at 86% 8%,
+      rgba(27, 91, 140, 0.16),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 12% 70%,
+      rgba(185, 149, 62, 0.08),
+      transparent 28%
+    ),
+    linear-gradient(
+      180deg,
+      #030a13 0%,
+      #06101c 48%,
+      #030914 100%
+    );
+
+  color: var(--student-text);
+
+  font-family:
+    "IBM Plex Sans Arabic",
+    "Tajawal",
+    "Segoe UI",
+    Arial,
+    sans-serif;
+}
+
+.student-study-plan-page * {
+  box-sizing: border-box;
+}
+
+.student-study-plan-page__background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.student-study-plan-page__glow {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(110px);
+  opacity: 0.2;
+}
+
+.student-study-plan-page__glow--blue {
+  top: 110px;
+  right: -140px;
+  width: 500px;
+  height: 500px;
+  background: #0878c4;
+}
+
+.student-study-plan-page__glow--gold {
+  top: 540px;
+  left: -160px;
+  width: 470px;
+  height: 470px;
+  background: #b9953e;
+}
+
+.student-study-plan-page__grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.022;
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.65) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.65) 1px,
+      transparent 1px
+    );
+  background-size: 48px 48px;
+}
+
+.student-study-plan-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+
+  border-bottom: 1px solid var(--student-border);
+
+  background: rgba(3, 10, 19, 0.84);
+  backdrop-filter: blur(22px);
+}
+
+.student-study-plan-navbar__inner {
+  width: min(1440px, calc(100% - 48px));
+  min-height: 84px;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  gap: 34px;
+}
+
+.student-study-plan-navbar__brand {
+  width: 196px;
+  margin-left: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.student-study-plan-navbar__brand img {
+  display: block;
+  width: 100%;
+  height: 48px;
+  object-fit: contain;
+  object-position: right center;
+}
+
+.student-study-plan-navbar__links {
+  display: flex;
+  gap: 8px;
+}
+
+.student-study-plan-navbar__links button {
+  position: relative;
+  padding: 13px 15px;
+  border: 0;
+  background: transparent;
+
+  color: var(--student-muted);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.student-study-plan-navbar__links button:hover,
+.student-study-plan-navbar__links button.is-active {
+  color: #fff;
+}
+
+.student-study-plan-navbar__links button.is-active::after {
+  content: "";
+  position: absolute;
+  right: 14px;
+  bottom: 4px;
+  left: 14px;
+
+  height: 2px;
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--student-blue-bright),
+      var(--student-gold)
+    );
+}
+
+.student-study-plan-page__content {
+  position: relative;
+  z-index: 1;
+
+  width: min(1220px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 56px 0 88px;
+}
+
+.student-study-plan-hero {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+
+  margin-bottom: 36px;
+}
+
+.student-study-plan-hero__eyebrow {
+  margin: 0 0 8px;
+
+  color: var(--student-gold);
+
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.student-study-plan-hero h1 {
+  margin: 0;
+
+  font-size: clamp(40px, 5vw, 68px);
+  font-weight: 900;
+  line-height: 1.12;
+}
+
+.student-study-plan-hero p {
+  max-width: 650px;
+  margin: 14px 0 0;
+
+  color: var(--student-muted);
+
+  font-size: 17px;
+  line-height: 1.9;
+}
+
+.student-study-plan-hero button,
+.student-study-plan-recommended button,
+.student-study-plan-lesson-card button,
+.student-study-plan-page__center button {
+  border:
+    1px solid rgba(88, 169, 223, 0.35);
+
+  border-radius: 13px;
+  padding: 12px 20px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(20, 73, 110, 0.48),
+      rgba(15, 46, 75, 0.58)
+    );
+
+  color: #fff;
+
+  font-family: inherit;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.student-study-plan-hero button:hover,
+.student-study-plan-recommended button:hover,
+.student-study-plan-lesson-card button:hover,
+.student-study-plan-page__center button:hover {
+  transform: translateY(-1px);
+
+  border-color:
+    rgba(88, 169, 223, 0.7);
+}
+
+.student-study-plan-stats {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 18px;
+  margin-bottom: 38px;
+}
+
+.student-study-plan-stats article,
+.student-study-plan-recommended,
+.student-study-plan-lesson-card,
+.student-study-plan-empty {
+  border:
+    1px solid var(--student-border);
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(12, 25, 42, 0.94),
+      rgba(7, 17, 29, 0.9)
+    );
+
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.student-study-plan-stats article {
+  position: relative;
+  overflow: hidden;
+
+  padding: 26px;
+}
+
+.student-study-plan-stats article::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 92px;
+  height: 2px;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--student-blue-bright),
+      var(--student-gold)
+    );
+}
+
+.student-study-plan-stats span,
+.student-study-plan-section__heading span,
+.student-study-plan-lesson-card__content span {
+  color: var(--student-muted);
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.student-study-plan-stats strong {
+  display: block;
+
+  margin: 12px 0 6px;
+
+  font-size: 34px;
+  font-weight: 900;
+}
+
+.student-study-plan-stats small {
+  color: var(--student-muted);
+}
+
+.student-study-plan-progress {
+  height: 8px;
+  margin-top: 19px;
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background:
+    rgba(255, 255, 255, 0.07);
+}
+
+.student-study-plan-progress div {
+  height: 100%;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--student-blue-bright),
+      var(--student-gold)
+    );
+
+  transition: width 0.35s ease;
+}
+
+.student-study-plan-section {
+  margin-top: 40px;
+}
+
+.student-study-plan-section__heading {
+  margin-bottom: 17px;
+}
+
+.student-study-plan-section__heading span {
+  color: var(--student-gold);
+}
+
+.student-study-plan-section__heading h2 {
+  margin: 5px 0 0;
+
+  font-size: 29px;
+  font-weight: 900;
+}
+
+.student-study-plan-recommended {
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+
+  padding: 30px;
+}
+
+.student-study-plan-recommended::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 5px;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      180deg,
+      var(--student-blue-bright),
+      var(--student-gold)
+    );
+}
+
+.student-study-plan-recommended__content {
+  flex: 1;
+}
+
+.student-study-plan-recommended h3 {
+  margin: 9px 0;
+
+  font-size: 27px;
+  font-weight: 900;
+}
+
+.student-study-plan-recommended p {
+  margin: 0;
+
+  color: var(--student-muted);
+
+  line-height: 1.8;
+}
+
+.student-study-plan-recommended__meta {
+  color: var(--student-gold);
+
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.student-study-plan-recommended__reason {
+  max-width: 700px;
+
+  margin-top: 19px;
+  padding: 15px 17px;
+
+  border:
+    1px solid rgba(88, 169, 223, 0.13);
+
+  border-radius: 14px;
+
+  background:
+    rgba(88, 169, 223, 0.055);
+}
+
+.student-study-plan-recommended__reason span {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: var(--student-blue-bright);
+
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.student-study-plan-recommended__reason p {
+  font-size: 14px;
+}
+
+.student-study-plan-lessons {
+  display: grid;
+  gap: 13px;
+}
+
+.student-study-plan-lesson-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
+  padding: 19px;
+}
+
+.student-study-plan-lesson-card__number {
+  width: 44px;
+  height: 44px;
+
+  flex: 0 0 auto;
+
+  display: grid;
+  place-items: center;
+
+  border:
+    1px solid rgba(88, 169, 223, 0.14);
+
+  border-radius: 13px;
+
+  background:
+    rgba(88, 169, 223, 0.1);
+
+  color: var(--student-blue-bright);
+
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.student-study-plan-lesson-card__content {
+  flex: 1;
+}
+
+.student-study-plan-lesson-card h3 {
+  margin: 5px 0;
+
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.student-study-plan-lesson-card p {
+  margin: 0;
+
+  color: var(--student-muted);
+}
+
+.student-study-plan-empty {
+  padding: 30px;
+
+  color: var(--student-muted);
+}
+
+.student-study-plan-empty strong {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #fff;
+
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.student-study-plan-page__center {
+  min-height: 100vh;
+
+  display: grid;
+  place-items: center;
+
+  padding: 24px;
+
+  text-align: center;
+
+  color: #fff;
+
+  font-family: inherit;
+}
+
+@media (max-width: 760px) {
+  .student-study-plan-navbar__inner,
+  .student-study-plan-page__content {
+    width: calc(100% - 28px);
+  }
+
+  .student-study-plan-navbar__inner {
+    flex-wrap: wrap;
+    gap: 10px;
+
+    padding: 12px 0;
+  }
+
+  .student-study-plan-navbar__brand {
+    width: 132px;
+    margin-left: auto;
+  }
+
+  .student-study-plan-navbar__brand img {
+    height: 38px;
+  }
+
+  .student-study-plan-navbar__links {
+    width: 100%;
+
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 4px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    padding: 4px 0 8px;
+
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .student-study-plan-navbar__links::-webkit-scrollbar {
+    display: none;
+  }
+
+  .student-study-plan-navbar__links button {
+    flex: 0 0 auto;
+
+    white-space: nowrap;
+
+    padding: 11px 13px;
+  }
+
+  .student-study-plan-page__content {
+    padding-top: 34px;
+  }
+
+  .student-study-plan-hero {
+    align-items: stretch;
+    flex-direction: column;
+
+    gap: 20px;
+  }
+
+  .student-study-plan-hero h1 {
+    font-size: 42px;
+  }
+
+  .student-study-plan-hero p {
+    margin-bottom: 0;
+
+    font-size: 15px;
+  }
+
+  .student-study-plan-hero > button {
+    width: 100%;
+  }
+
+  .student-study-plan-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .student-study-plan-recommended,
+  .student-study-plan-lesson-card {
+    width: 100%;
+
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .student-study-plan-recommended button,
+  .student-study-plan-lesson-card button {
+    width: 100%;
+  }
+
+  .student-study-plan-section__heading h2 {
+    font-size: 25px;
+  }
+
+  .student-study-plan-recommended h3 {
+    font-size: 23px;
+  }
+}
+/* ===================================================== */
+/* Study Plan Arabic Visual Polish v1                    */
+/* ===================================================== */
+.student-study-plan-page {
+  font-family:
+    "Alexandria",
+    "Segoe UI",
+    Tahoma,
+    Arial,
+    sans-serif;
+}
+
+.student-study-plan-hero h1,
+.student-study-plan-section__heading h2,
+.student-study-plan-recommended h3,
+.student-study-plan-lesson-card h3 {
+  color: #f7f9fc;
+}
+
+.student-study-plan-hero h1 {
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  text-shadow:
+    0 10px 35px rgba(88, 169, 223, 0.11);
+}
+
+.student-study-plan-hero__eyebrow,
+.student-study-plan-section__heading span {
+  font-weight: 800;
+}
+
+.student-study-plan-navbar__brand {
+  width: 180px;
+}
+
+.student-study-plan-navbar__brand img {
+  height: 54px;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 4px 16px rgba(88, 169, 223, 0.14));
+}
+
+.student-study-plan-hero {
+  min-height: 220px;
+  align-items: center;
+}
+
+.student-study-plan-hero > div {
+  max-width: 780px;
+}
+
+.student-study-plan-hero p {
+  color: #9dadc1;
+}
+
+.student-study-plan-stats article {
+  min-height: 190px;
+}
+
+.student-study-plan-stats span {
+  color: #a9b6c7;
+}
+
+.student-study-plan-stats strong {
+  color: #ffffff;
+}
+
+.student-study-plan-recommended {
+  min-height: 250px;
+}
+
+.student-study-plan-recommended h3 {
+  font-size: clamp(24px, 3vw, 32px);
+}
+
+.student-study-plan-recommended__meta {
+  color: #dfbb5a;
+}
+
+.student-study-plan-recommended__reason {
+  margin-top: 22px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(88, 169, 223, 0.09),
+      rgba(201, 166, 73, 0.04)
+    );
+}
+
+.student-study-plan-recommended__reason span {
+  color: #70b8e8;
+}
+
+.student-study-plan-lesson-card {
+  min-height: 112px;
+}
+
+.student-study-plan-lesson-card__content span {
+  color: #9dadc1;
+}
+
+.student-study-plan-lesson-card h3 {
+  font-size: 19px;
+}
+
+.student-study-plan-lesson-card__number {
+  color: #70b8e8;
+}
+
+.student-study-plan-recommended button,
+.student-study-plan-lesson-card button,
+.student-study-plan-hero button {
+  min-width: 112px;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.16);
+}
+
+@media (max-width: 760px) {
+  .student-study-plan-hero {
+    min-height: auto;
+  }
+
+  .student-study-plan-navbar__brand {
+    width: 145px;
+  }
+
+  .student-study-plan-navbar__brand img {
+    height: 44px;
+  }
+
+  .student-study-plan-stats article {
+    min-height: auto;
+  }
+
+  .student-study-plan-recommended {
+    min-height: auto;
+  }
+}
+
+/* ===================================================== */
+/* JAK Smart Insight UI                                  */
+/* ===================================================== */
+
+.student-study-plan-recommended__badge {
+  width: fit-content;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin: 14px 0 6px;
+  padding: 7px 11px;
+
+  border:
+    1px solid rgba(210, 173, 80, 0.2);
+
+  border-radius: 999px;
+
+  background:
+    rgba(210, 173, 80, 0.07);
+
+  color: #e3bf63;
+
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.student-study-plan-recommended__badge small {
+  padding-right: 10px;
+
+  border-right:
+    1px solid rgba(255, 255, 255, 0.12);
+
+  color: #8fa5bb;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.student-study-plan-insight__grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 16px;
+}
+
+.student-study-plan-insight__grid article {
+  position: relative;
+  overflow: hidden;
+
+  min-height: 190px;
+  padding: 25px;
+
+  border:
+    1px solid rgba(140, 174, 211, 0.14);
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(12, 27, 45, 0.94),
+      rgba(7, 17, 29, 0.9)
+    );
+
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.16);
+}
+
+.student-study-plan-insight__grid article::after {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 100%;
+  height: 2px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(88, 169, 223, 0.7),
+      rgba(210, 173, 80, 0.7),
+      transparent
+    );
+}
+
+.student-study-plan-insight__label {
+  display: block;
+
+  margin-bottom: 14px;
+
+  color: #8fa5bb;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.student-study-plan-insight__grid strong {
+  display: block;
+
+  margin-bottom: 12px;
+
+  color: #ffffff;
+
+  font-size: 27px;
+  font-weight: 900;
+}
+
+.student-study-plan-insight__grid p {
+  max-width: 520px;
+  margin: 0;
+
+  color: #91a0b5;
+
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+@media (max-width: 760px) {
+  .student-study-plan-insight__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .student-study-plan-insight__grid article {
+    min-height: auto;
+  }
+
+  .student-study-plan-recommended__badge {
+    flex-wrap: wrap;
+  }
+}
+
+/* ===================================================== */
+/* JAK Today's Smart Plan                               */
+/* ===================================================== */
+
+.student-study-plan-today {
+  position: relative;
+}
+
+.student-study-plan-today__heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+
+  margin-bottom: 18px;
+}
+
+.student-study-plan-today__heading > div:first-child {
+  max-width: 720px;
+}
+
+.student-study-plan-today__heading > div:first-child > span {
+  color: var(--student-gold);
+
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.student-study-plan-today__heading h2 {
+  margin: 6px 0 8px;
+
+  color: #f7f9fc;
+
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.student-study-plan-today__heading p {
+  margin: 0;
+
+  color: #91a0b5;
+
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.student-study-plan-today__summary {
+  min-width: 150px;
+
+  padding: 15px 18px;
+
+  border:
+    1px solid rgba(210, 173, 80, 0.18);
+
+  border-radius: 17px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(210, 173, 80, 0.08),
+      rgba(88, 169, 223, 0.05)
+    );
+
+  text-align: center;
+}
+
+.student-study-plan-today__summary strong {
+  display: block;
+
+  color: #fff;
+
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.student-study-plan-today__summary span {
+  display: block;
+
+  margin-top: 6px;
+
+  color: #dfbb5a;
+
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.student-study-plan-today__summary small {
+  display: block;
+
+  margin-top: 5px;
+
+  color: #8293a9;
+
+  font-size: 11px;
+}
+
+.student-study-plan-today__steps {
+  display: grid;
+  gap: 12px;
+}
+
+.student-study-plan-today__step {
+  position: relative;
+
+  display: grid;
+
+  grid-template-columns:
+    48px minmax(0, 1fr) 86px;
+
+  align-items: center;
+  gap: 18px;
+
+  min-height: 116px;
+  padding: 18px 20px;
+
+  overflow: hidden;
+
+  border:
+    1px solid rgba(140, 174, 211, 0.13);
+
+  border-radius: 19px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(11, 25, 42, 0.93),
+      rgba(6, 16, 28, 0.91)
+    );
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.student-study-plan-today__step:hover {
+  transform: translateY(-1px);
+
+  border-color:
+    rgba(88, 169, 223, 0.28);
+}
+
+.student-study-plan-today__step.is-now {
+  border-color:
+    rgba(88, 169, 223, 0.34);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(13, 40, 64, 0.95),
+      rgba(8, 21, 36, 0.94)
+    );
+
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.16);
+}
+
+.student-study-plan-today__step.is-now::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 4px;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      180deg,
+      var(--student-blue-bright),
+      var(--student-gold)
+    );
+}
+
+.student-study-plan-today__number {
+  width: 46px;
+  height: 46px;
+
+  display: grid;
+  place-items: center;
+
+  border:
+    1px solid rgba(88, 169, 223, 0.16);
+
+  border-radius: 14px;
+
+  background:
+    rgba(88, 169, 223, 0.09);
+
+  color: #70b8e8;
+
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.student-study-plan-today__step-content {
+  min-width: 0;
+}
+
+.student-study-plan-today__step-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-bottom: 5px;
+}
+
+.student-study-plan-today__state {
+  padding: 4px 9px;
+
+  border-radius: 999px;
+
+  background:
+    rgba(88, 169, 223, 0.1);
+
+  color: #70b8e8;
+
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.is-now .student-study-plan-today__state {
+  background:
+    rgba(210, 173, 80, 0.11);
+
+  color: #e2bd5e;
+}
+
+.student-study-plan-today__type {
+  color: #7f91a7;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.student-study-plan-today__step h3 {
+  margin: 0 0 6px;
+
+  color: #f7f9fc;
+
+  font-size: 18px;
+  font-weight: 850;
+}
+
+.student-study-plan-today__step p {
+  margin: 0;
+
+  color: #8f9fb2;
+
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.student-study-plan-today__time {
+  text-align: center;
+}
+
+.student-study-plan-today__time strong {
+  display: block;
+
+  color: #fff;
+
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.student-study-plan-today__time span {
+  display: block;
+
+  margin-top: 5px;
+
+  color: #7f91a7;
+
+  font-size: 11px;
+}
+
+@media (max-width: 760px) {
+  .student-study-plan-today__heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .student-study-plan-today__heading h2 {
+    font-size: 25px;
+  }
+
+  .student-study-plan-today__summary {
+    width: 100%;
+  }
+
+  .student-study-plan-today__step {
+    grid-template-columns:
+      42px minmax(0, 1fr);
+
+    gap: 13px;
+
+    padding: 16px;
+  }
+
+  .student-study-plan-today__number {
+    width: 42px;
+    height: 42px;
+  }
+
+  .student-study-plan-today__time {
+    grid-column: 2;
+
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+
+    text-align: right;
+  }
+
+  .student-study-plan-today__time strong {
+    font-size: 18px;
+  }
+}
+
+.study-plan-mistakes-button {
+  margin-top: 16px;
+  padding: 12px 18px;
+  border: 1px solid rgba(107, 202, 240, 0.32);
+  border-radius: 13px;
+  color: #06111d;
+  background: linear-gradient(
+    90deg,
+    #6bcaf0,
+    #e4bd56
+  );
+  font: inherit;
+  font-weight: 900;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.study-plan-mistakes-button:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 10px 28px rgba(73, 173, 220, 0.18);
+}
+/* ===================================================== */
+/* JAK STUDY PLAN V2 FINISHING                           */
+/* ===================================================== */
+
+.student-study-plan-page {
+  direction: rtl;
+}
+
+.student-study-plan-page__content {
+  text-align: right;
+}
+
+
+/* Keep database content natural */
+
+.student-study-plan-recommended h3,
+.student-study-plan-recommended__meta,
+.student-study-plan-lesson-card__content h3,
+.student-study-plan-lesson-card__content > span,
+.student-study-plan-today__step h3 {
+  unicode-bidi: plaintext;
+}
+
+
+/* Hero finishing */
+
+.student-study-plan-hero {
+  overflow: hidden;
+  border-radius: 26px;
+}
+
+.student-study-plan-hero h1 {
+  font-size: clamp(38px, 4.5vw, 58px);
+  line-height: 1.25;
+}
+
+.student-study-plan-hero__eyebrow {
+  color: #dfbb5a;
+  letter-spacing: 0.04em;
+}
+
+
+/* Today's goal cards */
+
+.student-study-plan-stats article {
+  border-color: rgba(140, 174, 211, 0.16);
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.student-study-plan-stats article:hover {
+  transform: translateY(-2px);
+  border-color: rgba(88, 169, 223, 0.25);
+  box-shadow:
+    0 24px 65px rgba(0, 0, 0, 0.23);
+}
+
+.student-study-plan-progress div {
+  box-shadow:
+    0 0 15px rgba(88, 169, 223, 0.14);
+}
+
+
+/* Smart recommendation becomes the visual brain */
+
+.student-study-plan-recommended {
+  border-color: rgba(88, 169, 223, 0.21);
+  background:
+    radial-gradient(
+      circle at 90% 0%,
+      rgba(201, 166, 73, 0.07),
+      transparent 28%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(12, 31, 50, 0.97),
+      rgba(6, 18, 31, 0.96)
+    );
+}
+
+.student-study-plan-recommended__badge {
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.035);
+}
+
+.student-study-plan-recommended__reason {
+  border-color: rgba(88, 169, 223, 0.16);
+}
+
+
+/* Main CTA */
+
+.student-study-plan-recommended > button {
+  min-height: 46px;
+  padding-inline: 22px;
+  border-radius: 13px;
+  font: inherit;
+  font-weight: 900;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.student-study-plan-recommended > button:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 30px rgba(88, 169, 223, 0.18);
+}
+
+
+/* Today's plan */
+
+.student-study-plan-today__step {
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.018);
+}
+
+.student-study-plan-today__step.is-now {
+  border-color: rgba(210, 173, 80, 0.31);
+}
+
+.student-study-plan-today__step.is-now
+.student-study-plan-today__number {
+  border-color: rgba(210, 173, 80, 0.22);
+  background: rgba(210, 173, 80, 0.1);
+  color: #e2bd5e;
+}
+
+
+/* Insight cards */
+
+.student-study-plan-insight__grid article {
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.student-study-plan-insight__grid article:hover {
+  transform: translateY(-2px);
+  border-color: rgba(88, 169, 223, 0.22);
+}
+
+
+/* Upcoming lessons */
+
+.student-study-plan-lesson-card {
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.student-study-plan-lesson-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(88, 169, 223, 0.24);
+}
+
+
+/* Better empty states */
+
+.student-study-plan-empty {
+  border-style: dashed;
+  border-color: rgba(140, 174, 211, 0.17);
+}
+
+
+/* Mobile */
+
+@media (max-width: 760px) {
+  .student-study-plan-hero h1 {
+    font-size: 34px;
+  }
+
+  .student-study-plan-section {
+    margin-top: 32px;
+  }
+
+  .student-study-plan-today__step h3 {
+    font-size: 17px;
+  }
+
+  .student-study-plan-recommended {
+    padding: 22px;
+  }
+}

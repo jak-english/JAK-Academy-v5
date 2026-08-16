@@ -1,0 +1,245 @@
+:root {
+  /* =========================================
+     BRAND COLORS
+  ========================================= */
+
+  --color-navy-950: #06111f;
+  --color-navy-900: #091a2d;
+  --color-navy-850: #0d2239;
+  --color-navy-800: #122d49;
+  --color-navy-700: #19466e;
+  --color-navy-600: #216090;
+
+  --color-blue-700: #075fb7;
+  --color-blue-600: #0877d1;
+  --color-blue-500: #1592ed;
+  --color-blue-400: #48adf5;
+  --color-blue-300: #88ccfb;
+  --color-blue-100: #e7f5ff;
+  --color-blue-50: #f3faff;
+
+  --color-gold-700: #9d6910;
+  --color-gold-600: #bc8219;
+  --color-gold-500: #d9a32d;
+  --color-gold-400: #f0c75e;
+  --color-gold-300: #f7dd94;
+  --color-gold-100: #fff3ce;
+  --color-gold-50: #fffaf0;
+
+  /* =========================================
+     NEUTRAL COLORS
+  ========================================= */
+
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --color-slate-950: #111827;
+  --color-slate-900: #172033;
+  --color-slate-800: #263247;
+  --color-slate-700: #3e4b61;
+  --color-slate-600: #5f6d82;
+  --color-slate-500: #7b8799;
+  --color-slate-400: #9da8b7;
+  --color-slate-300: #c3cbd5;
+  --color-slate-200: #dce2e9;
+  --color-slate-100: #edf1f5;
+  --color-slate-50: #f7f9fb;
+
+  /* =========================================
+     STATUS COLORS
+  ========================================= */
+
+  --color-success-700: #087044;
+  --color-success-600: #09965b;
+  --color-success-500: #13b86d;
+  --color-success-100: #dcf8e9;
+  --color-success-50: #effcf5;
+
+  --color-warning-700: #9a5e09;
+  --color-warning-600: #c57d0b;
+  --color-warning-500: #e99b16;
+  --color-warning-100: #ffefc7;
+  --color-warning-50: #fff9eb;
+
+  --color-danger-700: #a72a32;
+  --color-danger-600: #ce3440;
+  --color-danger-500: #e94b55;
+  --color-danger-100: #ffe1e4;
+  --color-danger-50: #fff4f5;
+
+  --color-info-700: #3156b5;
+  --color-info-600: #4169d4;
+  --color-info-500: #5d7fea;
+  --color-info-100: #e5ebff;
+  --color-info-50: #f4f6ff;
+
+  /* =========================================
+     SEMANTIC COLORS
+  ========================================= */
+
+  --color-background: #f5f8fc;
+  --color-background-soft: #eef4fa;
+  --color-surface: #ffffff;
+  --color-surface-soft: #f8fafc;
+  --color-surface-dark: var(--color-navy-900);
+
+  --color-text-primary: #132238;
+  --color-text-secondary: #526177;
+  --color-text-muted: #7a8798;
+  --color-text-inverse: #ffffff;
+
+  --color-border: #dfe7ef;
+  --color-border-light: #ebf0f5;
+  --color-border-strong: #c9d5e1;
+
+  --color-primary: var(--color-navy-900);
+  --color-primary-hover: var(--color-navy-800);
+  --color-accent: var(--color-blue-600);
+  --color-accent-hover: var(--color-blue-700);
+  --color-highlight: var(--color-gold-500);
+
+  /* =========================================
+     LEARNING STATUS
+  ========================================= */
+
+  --color-learning-active: var(--color-blue-600);
+  --color-learning-completed: var(--color-success-600);
+  --color-learning-locked: var(--color-slate-400);
+  --color-learning-attention: var(--color-danger-500);
+  --color-learning-reward: var(--color-gold-500);
+
+  /* =========================================
+     TYPOGRAPHY
+  ========================================= */
+
+  --font-arabic:
+    "IBM Plex Sans Arabic",
+    "Noto Sans Arabic",
+    "Segoe UI",
+    Tahoma,
+    Arial,
+    sans-serif;
+
+  --font-english:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  --font-system:
+    "Segoe UI",
+    Tahoma,
+    Arial,
+    sans-serif;
+
+  --font-size-100: 0.75rem;
+  --font-size-200: 0.8125rem;
+  --font-size-300: 0.875rem;
+  --font-size-400: 1rem;
+  --font-size-500: 1.125rem;
+  --font-size-600: 1.25rem;
+  --font-size-700: 1.5rem;
+  --font-size-800: 2rem;
+  --font-size-900: 2.5rem;
+  --font-size-1000: 3.25rem;
+  --font-size-1100: 4rem;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  --font-weight-black: 900;
+
+  --line-height-tight: 1.2;
+  --line-height-heading: 1.35;
+  --line-height-normal: 1.65;
+  --line-height-relaxed: 1.9;
+
+  /* =========================================
+     SPACING
+  ========================================= */
+
+  --space-0: 0;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-7: 1.75rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-14: 3.5rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-28: 7rem;
+  --space-32: 8rem;
+
+  /* =========================================
+     CONTAINER WIDTHS
+  ========================================= */
+
+  --container-small: 720px;
+  --container-medium: 960px;
+  --container-large: 1200px;
+  --container-wide: 1440px;
+
+  --page-padding-desktop: 6vw;
+  --page-padding-tablet: 5vw;
+  --page-padding-mobile: 1rem;
+
+  /* =========================================
+     BORDER RADIUS
+  ========================================= */
+
+  --radius-xs: 0.375rem;
+  --radius-sm: 0.625rem;
+  --radius-md: 0.875rem;
+  --radius-lg: 1.125rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+  --radius-full: 999px;
+
+  /* =========================================
+     SHADOWS
+  ========================================= */
+
+  --shadow-xs: 0 2px 8px rgba(6, 17, 31, 0.05);
+
+  --shadow-sm:
+    0 8px 24px rgba(6, 17, 31, 0.07);
+
+  --shadow-md:
+    0 16px 40px rgba(6, 17, 31, 0.1);
+
+  --shadow-lg:
+    0 28px 70px rgba(6, 17, 31, 0.14);
+
+  --shadow-focus:
+    0 0 0 4px rgba(8, 119, 209, 0.18);
+
+  /* =========================================
+     MOTION
+  ========================================= */
+
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasized: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* =========================================
+     LAYERS
+  ========================================= */
+
+  --z-base: 1;
+  --z-header: 100;
+  --z-dropdown: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+}

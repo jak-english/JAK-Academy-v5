@@ -1,0 +1,1342 @@
+.admin-user-details {
+  width: min(100%, 1250px);
+  margin-inline: auto;
+  padding-bottom: 40px;
+}
+
+/* =========================
+   Header
+========================= */
+
+.admin-user-details__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px;
+  margin-bottom: 24px;
+}
+
+.admin-user-details__back {
+  display: inline-flex;
+  margin-bottom: 24px;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 11px;
+  font-weight: 800;
+  text-decoration: none;
+  transition:
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.admin-user-details__back:hover {
+  color: #ffffff;
+  transform: translateX(-2px);
+}
+
+.admin-user-details__eyebrow {
+  display: block;
+  margin-bottom: 8px;
+  color: #e7bd59;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.admin-user-details__header h1 {
+  margin: 0 0 10px;
+  color: #ffffff;
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 950;
+  letter-spacing: -0.045em;
+}
+
+.admin-user-details__header p {
+  max-width: 650px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.admin-user-details__header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* =========================
+   Status
+========================= */
+
+.admin-user-details__status {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 15px;
+  border-radius: 999px;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.admin-user-details__status--premium {
+  border: 1px solid rgba(94, 220, 154, 0.24);
+  background: rgba(94, 220, 154, 0.09);
+  box-shadow: 0 0 22px rgba(94, 220, 154, 0.06);
+  color: #74e7ae;
+}
+
+.admin-user-details__status--free {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.admin-user-details__status--expired {
+  border: 1px solid rgba(255, 116, 116, 0.24);
+  background: rgba(255, 116, 116, 0.09);
+  box-shadow: 0 0 22px rgba(255, 116, 116, 0.05);
+  color: #ff9b9b;
+}
+
+/* =========================
+   Main profile strip
+========================= */
+
+.admin-user-details__profile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 18px;
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 22px;
+  background:
+    radial-gradient(
+      circle at 10% 0%,
+      rgba(125, 196, 255, 0.08),
+      transparent 32%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.055),
+      rgba(255, 255, 255, 0.025)
+    );
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.16);
+}
+
+.admin-user-details__identity {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.admin-user-details__avatar {
+  width: 60px;
+  height: 60px;
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  border: 1px solid rgba(231, 189, 89, 0.3);
+  border-radius: 18px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(125, 196, 255, 0.18),
+      rgba(231, 189, 89, 0.18)
+    );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 12px 25px rgba(0, 0, 0, 0.18);
+  color: #ffffff;
+  font-size: 21px;
+  font-weight: 950;
+}
+
+.admin-user-details__identity strong,
+.admin-user-details__identity span {
+  display: block;
+}
+
+.admin-user-details__identity strong {
+  margin-bottom: 5px;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.admin-user-details__identity div span {
+  color: #e7bd59;
+  font-size: 10px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.admin-user-details__id {
+  min-width: 300px;
+  padding: 13px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 13px;
+  background: rgba(2, 9, 19, 0.54);
+}
+
+.admin-user-details__id span,
+.admin-user-details__id code {
+  display: block;
+}
+
+.admin-user-details__id span {
+  margin-bottom: 6px;
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.admin-user-details__id code {
+  overflow-wrap: anywhere;
+  color: #8dcbfb;
+  font-size: 10px;
+}
+
+/* =========================
+   Information cards
+========================= */
+
+.admin-user-details__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.admin-user-details__card {
+  position: relative;
+  min-height: 180px;
+  overflow: hidden;
+  padding: 21px;
+  border: 1px solid rgba(255, 255, 255, 0.075);
+  border-radius: 19px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.045),
+      rgba(255, 255, 255, 0.018)
+    );
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease;
+}
+
+.admin-user-details__card::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 0 0 0 100%;
+  background: rgba(125, 196, 255, 0.035);
+  content: '';
+}
+
+.admin-user-details__card:nth-child(2)::before {
+  background: rgba(154, 125, 255, 0.045);
+}
+
+.admin-user-details__card:nth-child(3)::before {
+  background: rgba(94, 220, 154, 0.045);
+}
+
+.admin-user-details__card:nth-child(4)::before {
+  background: rgba(231, 189, 89, 0.045);
+}
+
+.admin-user-details__card:hover {
+  border-color: rgba(255, 255, 255, 0.13);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.06),
+      rgba(255, 255, 255, 0.025)
+    );
+  transform: translateY(-2px);
+}
+
+.admin-user-details__card-label {
+  display: block;
+  margin-bottom: 22px;
+  color: rgba(255, 255, 255, 0.38);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.admin-user-details__card strong {
+  display: block;
+  margin-bottom: 9px;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 950;
+}
+
+.admin-user-details__card p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 10px;
+  line-height: 1.65;
+}
+
+/* =========================
+   Main buttons
+========================= */
+
+.admin-user-details__edit-button,
+.admin-user-details__save-button,
+.admin-user-details__cancel-button {
+  min-height: 40px;
+  padding-inline: 17px;
+  border-radius: 11px;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 900;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.admin-user-details__edit-button {
+  border: 1px solid rgba(125, 196, 255, 0.35);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(125, 196, 255, 0.16),
+      rgba(68, 132, 195, 0.09)
+    );
+  color: #9bd5ff;
+}
+
+.admin-user-details__save-button {
+  border: 1px solid rgba(231, 189, 89, 0.38);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(231, 189, 89, 0.22),
+      rgba(173, 128, 34, 0.12)
+    );
+  color: #f2d57c;
+}
+
+.admin-user-details__cancel-button {
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  background: rgba(255, 255, 255, 0.045);
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.admin-user-details__edit-button:hover,
+.admin-user-details__save-button:hover:not(:disabled),
+.admin-user-details__cancel-button:hover:not(:disabled) {
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.admin-user-details__edit-button:hover {
+  border-color: rgba(125, 196, 255, 0.58);
+  background: rgba(125, 196, 255, 0.2);
+  box-shadow: 0 10px 24px rgba(58, 143, 213, 0.13);
+}
+
+.admin-user-details__save-button:hover:not(:disabled) {
+  border-color: rgba(231, 189, 89, 0.62);
+  background: rgba(231, 189, 89, 0.2);
+  box-shadow: 0 10px 24px rgba(231, 189, 89, 0.12);
+}
+
+.admin-user-details__cancel-button:hover:not(:disabled) {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.085);
+}
+
+.admin-user-details__save-button:disabled,
+.admin-user-details__cancel-button:disabled,
+.admin-user-details__edit-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+  transform: none;
+}
+
+/* =========================
+   Messages
+========================= */
+
+.admin-user-details__message {
+  margin-bottom: 18px;
+  padding: 14px 16px;
+  border-radius: 13px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.admin-user-details__message--success {
+  border: 1px solid rgba(94, 220, 154, 0.22);
+  background: rgba(94, 220, 154, 0.085);
+  color: #7ae7b0;
+}
+
+.admin-user-details__message--error {
+  border: 1px solid rgba(255, 116, 116, 0.22);
+  background: rgba(255, 116, 116, 0.085);
+  color: #ff9f9f;
+}
+
+/* =========================
+   Edit form
+========================= */
+
+.admin-user-details__edit-form {
+  margin-bottom: 18px;
+  padding: 27px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 22px;
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(125, 196, 255, 0.08),
+      transparent 30%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.02)
+    );
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.14);
+}
+
+.admin-user-details__form-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 26px;
+}
+
+.admin-user-details__form-heading h2 {
+  margin: 0 0 8px;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 950;
+}
+
+.admin-user-details__form-heading p {
+  max-width: 630px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.43);
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.admin-user-details__self-warning {
+  padding: 9px 12px;
+  border: 1px solid rgba(231, 189, 89, 0.2);
+  border-radius: 999px;
+  background: rgba(231, 189, 89, 0.085);
+  color: #e9c86d;
+  font-size: 8px;
+  font-weight: 900;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.admin-user-details__form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 19px;
+}
+
+.admin-user-details__form-grid label,
+.admin-user-details__button-field {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+}
+
+.admin-user-details__form-grid label > span,
+.admin-user-details__button-field > span {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.admin-user-details__form-grid input {
+  width: 100%;
+  min-height: 46px;
+  padding-inline: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 12px;
+  outline: none;
+  background: rgba(2, 9, 19, 0.76);
+  color: #ffffff;
+  font: inherit;
+  font-size: 11px;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease;
+}
+
+.admin-user-details__form-grid input:hover {
+  border-color: rgba(255, 255, 255, 0.17);
+}
+
+.admin-user-details__form-grid input:focus {
+  border-color: rgba(125, 196, 255, 0.52);
+  background: rgba(4, 15, 29, 0.92);
+  box-shadow: 0 0 0 4px rgba(125, 196, 255, 0.08);
+}
+
+.admin-user-details__form-grid small,
+.admin-user-details__button-field small {
+  color: rgba(255, 255, 255, 0.34);
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+/* =========================
+   Role / grade / cohort buttons
+========================= */
+
+.admin-user-details__option-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.admin-user-details__option-button {
+  min-height: 40px;
+  padding: 9px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.035);
+  color: rgba(255, 255, 255, 0.66);
+  font: inherit;
+  font-size: 10px;
+  font-weight: 900;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.admin-user-details__option-button:hover:not(:disabled) {
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* First option */
+.admin-user-details__option-button:nth-child(1) {
+  border-color: rgba(148, 163, 184, 0.24);
+  background: rgba(148, 163, 184, 0.07);
+  color: #c4cedb;
+}
+
+.admin-user-details__option-button:nth-child(1):hover:not(:disabled) {
+  border-color: rgba(148, 163, 184, 0.45);
+  background: rgba(148, 163, 184, 0.13);
+}
+
+/* Second option */
+.admin-user-details__option-button:nth-child(2) {
+  border-color: rgba(75, 169, 255, 0.28);
+  background: rgba(75, 169, 255, 0.08);
+  color: #88c9ff;
+}
+
+.admin-user-details__option-button:nth-child(2):hover:not(:disabled) {
+  border-color: rgba(75, 169, 255, 0.5);
+  background: rgba(75, 169, 255, 0.15);
+}
+
+/* Third option */
+.admin-user-details__option-button:nth-child(3) {
+  border-color: rgba(155, 118, 255, 0.28);
+  background: rgba(155, 118, 255, 0.08);
+  color: #b9a2ff;
+}
+
+.admin-user-details__option-button:nth-child(3):hover:not(:disabled) {
+  border-color: rgba(155, 118, 255, 0.52);
+  background: rgba(155, 118, 255, 0.15);
+}
+
+/* Fourth option */
+.admin-user-details__option-button:nth-child(4) {
+  border-color: rgba(94, 220, 154, 0.28);
+  background: rgba(94, 220, 154, 0.08);
+  color: #7ce5b0;
+}
+
+.admin-user-details__option-button:nth-child(4):hover:not(:disabled) {
+  border-color: rgba(94, 220, 154, 0.52);
+  background: rgba(94, 220, 154, 0.15);
+}
+
+.admin-user-details__option-button--active {
+  border-color: rgba(231, 189, 89, 0.7) !important;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(231, 189, 89, 0.24),
+      rgba(173, 128, 34, 0.14)
+    ) !important;
+  box-shadow:
+    0 0 0 3px rgba(231, 189, 89, 0.08),
+    0 12px 24px rgba(0, 0, 0, 0.14);
+  color: #fff1bd !important;
+  transform: translateY(-2px);
+}
+
+.admin-user-details__option-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
+}
+
+/* =========================
+   Form actions
+========================= */
+
+.admin-user-details__form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 24px;
+  padding-top: 21px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* =========================
+   Subscription section
+========================= */
+
+.admin-user-details__subscription {
+  display: grid;
+  gap: 25px;
+  padding: 28px;
+  border: 1px solid rgba(231, 189, 89, 0.14);
+  border-radius: 23px;
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(231, 189, 89, 0.11),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 0% 100%,
+      rgba(125, 196, 255, 0.06),
+      transparent 34%
+    ),
+    rgba(255, 255, 255, 0.025);
+  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.15);
+}
+
+.admin-user-details__subscription h2 {
+  margin: 0 0 8px;
+  color: #ffffff;
+  font-size: 25px;
+  font-weight: 950;
+}
+
+.admin-user-details__subscription p {
+  max-width: 700px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.43);
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.admin-user-details__subscription-data {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 11px;
+}
+
+.admin-user-details__subscription-data div {
+  min-height: 86px;
+  padding: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.075);
+  border-radius: 14px;
+  background: rgba(2, 9, 19, 0.48);
+}
+
+.admin-user-details__subscription-data div:nth-child(1) {
+  border-color: rgba(94, 220, 154, 0.17);
+}
+
+.admin-user-details__subscription-data div:nth-child(2) {
+  border-color: rgba(125, 196, 255, 0.17);
+}
+
+.admin-user-details__subscription-data div:nth-child(3) {
+  border-color: rgba(231, 189, 89, 0.17);
+}
+
+.admin-user-details__subscription-data div:nth-child(4) {
+  border-color: rgba(155, 118, 255, 0.17);
+}
+
+.admin-user-details__subscription-data div:nth-child(5) {
+  border-color: rgba(255, 138, 91, 0.17);
+}
+
+.admin-user-details__subscription-data span,
+.admin-user-details__subscription-data strong {
+  display: block;
+}
+
+.admin-user-details__subscription-data span {
+  margin-bottom: 8px;
+  color: rgba(255, 255, 255, 0.34);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.admin-user-details__subscription-data strong {
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 850;
+  line-height: 1.5;
+}
+
+/* =========================
+   Subscription plans
+========================= */
+
+.admin-user-details__plans {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.admin-user-details__plan {
+  position: relative;
+  min-height: 165px;
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 8px;
+  padding: 21px;
+  border-radius: 18px;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.admin-user-details__plan::after {
+  position: absolute;
+  right: -28px;
+  bottom: -34px;
+  width: 105px;
+  height: 105px;
+  border-radius: 50%;
+  content: '';
+  opacity: 0.15;
+}
+
+/* Free */
+.admin-user-details__plan:nth-child(1) {
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(148, 163, 184, 0.11),
+      rgba(148, 163, 184, 0.035)
+    );
+  color: #d2d9e3;
+}
+
+.admin-user-details__plan:nth-child(1)::after {
+  background: #94a3b8;
+}
+
+/* Monthly */
+.admin-user-details__plan:nth-child(2) {
+  border: 1px solid rgba(66, 169, 255, 0.3);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(66, 169, 255, 0.14),
+      rgba(41, 104, 167, 0.04)
+    );
+  color: #91d1ff;
+}
+
+.admin-user-details__plan:nth-child(2)::after {
+  background: #42a9ff;
+}
+
+/* Five months */
+.admin-user-details__plan:nth-child(3) {
+  border: 1px solid rgba(155, 118, 255, 0.31);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(155, 118, 255, 0.15),
+      rgba(95, 62, 180, 0.04)
+    );
+  color: #c0a9ff;
+}
+
+.admin-user-details__plan:nth-child(3)::after {
+  background: #9b76ff;
+}
+
+/* Annual */
+.admin-user-details__plan:nth-child(4) {
+  border: 1px solid rgba(231, 189, 89, 0.36);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(231, 189, 89, 0.17),
+      rgba(173, 128, 34, 0.05)
+    );
+  color: #f0d074;
+}
+
+.admin-user-details__plan:nth-child(4)::after {
+  background: #e7bd59;
+}
+
+.admin-user-details__plan:hover:not(:disabled) {
+  transform: translateY(-4px);
+}
+
+.admin-user-details__plan:nth-child(1):hover:not(:disabled) {
+  border-color: rgba(148, 163, 184, 0.52);
+  box-shadow: 0 14px 30px rgba(148, 163, 184, 0.08);
+}
+
+.admin-user-details__plan:nth-child(2):hover:not(:disabled) {
+  border-color: rgba(66, 169, 255, 0.58);
+  box-shadow: 0 14px 30px rgba(66, 169, 255, 0.11);
+}
+
+.admin-user-details__plan:nth-child(3):hover:not(:disabled) {
+  border-color: rgba(155, 118, 255, 0.58);
+  box-shadow: 0 14px 30px rgba(155, 118, 255, 0.11);
+}
+
+.admin-user-details__plan:nth-child(4):hover:not(:disabled) {
+  border-color: rgba(231, 189, 89, 0.65);
+  box-shadow: 0 14px 30px rgba(231, 189, 89, 0.11);
+}
+
+.admin-user-details__plan-name {
+  position: relative;
+  z-index: 1;
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.admin-user-details__plan strong {
+  position: relative;
+  z-index: 1;
+  color: #ffffff;
+  font-size: 25px;
+  font-weight: 950;
+}
+
+.admin-user-details__plan small {
+  position: relative;
+  z-index: 1;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.admin-user-details__plan--selected {
+  border-color: #ffffff !important;
+  box-shadow:
+    0 0 0 3px rgba(255, 255, 255, 0.08),
+    0 18px 35px rgba(0, 0, 0, 0.22) !important;
+  transform: translateY(-4px);
+}
+
+.admin-user-details__plan--current {
+  box-shadow:
+    inset 0 0 0 2px rgba(94, 220, 154, 0.28),
+    0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+.admin-user-details__plan-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  padding: 6px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(2, 9, 19, 0.64);
+  color: #ffffff;
+  font-size: 7px;
+  font-weight: 950;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.admin-user-details__plan--current
+  .admin-user-details__plan-badge {
+  border-color: rgba(94, 220, 154, 0.26);
+  background: rgba(94, 220, 154, 0.1);
+  color: #82ebb8;
+}
+
+.admin-user-details__plan--selected
+  .admin-user-details__plan-badge {
+  border-color: rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.admin-user-details__plan:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+/* =========================
+   Subscription confirmation
+========================= */
+
+.admin-user-details__subscription-confirmation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  padding: 19px;
+  border: 1px solid rgba(125, 196, 255, 0.18);
+  border-radius: 16px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(125, 196, 255, 0.09),
+      rgba(255, 255, 255, 0.025)
+    );
+}
+
+.admin-user-details__subscription-confirmation strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 950;
+}
+
+.admin-user-details__subscription-confirmation p {
+  max-width: 680px;
+  color: rgba(255, 255, 255, 0.46);
+  font-size: 10px;
+}
+
+.admin-user-details__subscription-actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 9px;
+}
+
+/* =========================
+   Loading / error state
+========================= */
+
+.admin-user-details__state {
+  min-height: 500px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  padding: 30px;
+  text-align: center;
+}
+
+.admin-user-details__state strong {
+  margin-top: 14px;
+  color: #ffffff;
+  font-size: 16px;
+}
+
+.admin-user-details__state p {
+  max-width: 440px;
+  margin: 8px 0 16px;
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 11px;
+}
+
+.admin-user-details__state a {
+  color: #8dcbfb;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.admin-user-details__state--error strong {
+  color: #ff9696;
+}
+
+.admin-user-details__loader {
+  width: 34px;
+  height: 34px;
+  border: 3px solid rgba(255, 255, 255, 0.09);
+  border-top-color: #79c4ff;
+  border-radius: 50%;
+  animation:
+    admin-user-details-spin 700ms linear infinite;
+}
+
+@keyframes admin-user-details-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 1100px) {
+  .admin-user-details__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-user-details__subscription-data {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .admin-user-details__plans {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 820px) {
+  .admin-user-details__header,
+  .admin-user-details__profile,
+  .admin-user-details__subscription-confirmation {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .admin-user-details__header-actions,
+  .admin-user-details__subscription-actions {
+    width: 100%;
+  }
+
+  .admin-user-details__subscription-actions {
+    justify-content: flex-end;
+  }
+
+  .admin-user-details__id {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .admin-user-details__form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .admin-user-details {
+    padding-bottom: 24px;
+  }
+
+  .admin-user-details__header h1 {
+    font-size: 34px;
+  }
+
+  .admin-user-details__profile,
+  .admin-user-details__edit-form,
+  .admin-user-details__subscription {
+    padding: 20px;
+    border-radius: 18px;
+  }
+
+  .admin-user-details__grid,
+  .admin-user-details__subscription-data,
+  .admin-user-details__plans {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-user-details__card {
+    min-height: 145px;
+  }
+
+  .admin-user-details__plan {
+    min-height: 140px;
+  }
+
+  .admin-user-details__header-actions,
+  .admin-user-details__form-heading,
+  .admin-user-details__subscription-actions,
+  .admin-user-details__form-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .admin-user-details__form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .admin-user-details__option-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-user-details__option-button {
+    width: 100%;
+  }
+
+  .admin-user-details__edit-button,
+  .admin-user-details__save-button,
+  .admin-user-details__cancel-button {
+    width: 100%;
+  }
+
+  .admin-user-details__subscription-confirmation {
+    padding: 16px;
+  }
+}
+/* =========================================================
+   JAK ADMIN USER DETAILS V2 FINISHING
+   English Administration Workspace
+   ========================================================= */
+
+.admin-user-details {
+  direction: ltr;
+  text-align: left;
+}
+
+
+/* HEADER */
+
+.admin-user-details__header,
+.admin-user-details__header > div,
+.admin-user-details__header-actions {
+  direction: ltr;
+  text-align: left;
+}
+
+.admin-user-details__back {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: isolate;
+}
+
+.admin-user-details__eyebrow,
+.admin-user-details__header h1,
+.admin-user-details__header p {
+  direction: ltr;
+  text-align: left;
+}
+
+
+/* PROFILE STRIP */
+
+.admin-user-details__profile {
+  direction: ltr;
+  text-align: left;
+}
+
+.admin-user-details__identity {
+  direction: ltr;
+  text-align: left;
+}
+
+.admin-user-details__identity strong,
+.admin-user-details__identity span {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: plaintext;
+}
+
+.admin-user-details__id {
+  direction: ltr;
+  text-align: left;
+}
+
+.admin-user-details__id span,
+.admin-user-details__id code {
+  direction: ltr;
+  text-align: left;
+}
+
+.admin-user-details__id code {
+  unicode-bidi: isolate;
+}
+
+
+/* INFORMATION CARDS */
+
+.admin-user-details__grid {
+  direction: ltr;
+}
+
+.admin-user-details__card {
+  direction: ltr;
+  text-align: left;
+}
+
+.admin-user-details__card-label,
+.admin-user-details__card strong,
+.admin-user-details__card p {
+  direction: ltr;
+  text-align: left;
+}
+
+.admin-user-details__card strong {
+  unicode-bidi: plaintext;
+}
+
+
+/* STATUS + BUTTONS */
+
+.admin-user-details__status,
+.admin-user-details__edit-button,
+.admin-user-details__save-button,
+.admin-user-details__cancel-button {
+  direction: ltr;
+}
+
+
+/* MESSAGES */
+
+.admin-user-details__message {
+  direction: ltr;
+  text-align: left;
+}
+
+
+/* EDIT FORM */
+
+.admin-user-details__edit-form,
+.admin-user-details__form-heading,
+.admin-user-details__form-grid,
+.admin-user-details__button-field,
+.admin-user-details__option-buttons,
+.admin-user-details__form-actions {
+  direction: ltr;
+  text-align: left;
+}
+
+.admin-user-details__form-heading h2,
+.admin-user-details__form-heading p,
+.admin-user-details__form-grid label,
+.admin-user-details__form-grid label > span,
+.admin-user-details__button-field > span,
+.admin-user-details__form-grid small,
+.admin-user-details__button-field small {
+  direction: ltr;
+  text-align: left;
+}
+
+.admin-user-details__form-grid input {
+  direction: ltr;
+  text-align: left;
+}
+
+.admin-user-details__option-button {
+  direction: ltr;
+}
+
+
+/* SUBSCRIPTION */
+
+.admin-user-details__subscription {
+  direction: ltr;
+  text-align: left;
+}
+
+.admin-user-details__subscription h2,
+.admin-user-details__subscription p {
+  direction: ltr;
+  text-align: left;
+}
+
+.admin-user-details__subscription-data,
+.admin-user-details__plans {
+  direction: ltr;
+}
+
+.admin-user-details__subscription-data div,
+.admin-user-details__subscription-data span,
+.admin-user-details__subscription-data strong {
+  direction: ltr;
+  text-align: left;
+}
+
+.admin-user-details__subscription-data strong {
+  unicode-bidi: plaintext;
+}
+
+
+/* PLAN CARDS */
+
+.admin-user-details__plan {
+  direction: ltr;
+  text-align: left;
+}
+
+.admin-user-details__plan-name,
+.admin-user-details__plan strong,
+.admin-user-details__plan small,
+.admin-user-details__plan-badge {
+  direction: ltr;
+  text-align: left;
+}
+
+
+/* CONFIRMATION */
+
+.admin-user-details__subscription-confirmation,
+.admin-user-details__subscription-actions {
+  direction: ltr;
+  text-align: left;
+}
+
+
+/* STATES */
+
+.admin-user-details__state {
+  direction: ltr;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 820px) {
+  .admin-user-details__header,
+  .admin-user-details__profile,
+  .admin-user-details__subscription-confirmation {
+    text-align: left;
+  }
+}
