@@ -181,12 +181,66 @@ Vocabulary Items
 
 Do not create separate Vocabulary progress calculations in Study Plan or Dashboard.
 
+### Vocabulary Study Intelligence v2
+
+Current smart-study integration now includes:
+
+- `get_student_study_intelligence_v2`
+- new smart action: `vocabulary_review`
+- Vocabulary review decisions remain separate from:
+  - exam mistake review
+  - general spaced review
+- Vocabulary review priority uses its own mastery/review data:
+  - due items
+  - weak items
+  - cumulative wrong answers
+  - average mastery
+  - average retention
+
+### Study Plan smart recommendation
+
+Study Plan now understands `vocabulary_review` explicitly.
+
+When Vocabulary review is the recommended action, the UI shows:
+
+- Vocabulary-specific recommendation reason
+- `راجع مفرداتك`
+- Vocabulary review priority score
+- direct navigation to the Vocabulary lesson
+
+### Dashboard smart recommendation
+
+Dashboard now understands `vocabulary_review` explicitly.
+
+The main recommendation card can now show:
+
+- `حان وقت مراجعة المفردات`
+- `راجع مفرداتك الآن`
+- due Vocabulary guidance
+- direct navigation to the Vocabulary lesson
+
+### Current smart-learning chain
+
+Vocabulary Items
+→ Student Vocabulary Progress
+→ Vocabulary Mastery Engine
+→ Vocabulary Lesson Summary
+→ student_lesson_progress
+→ Study Intelligence v2
+→ Study Plan
+→ Dashboard
+
+### Stable Git milestones
+
+- `f47d8ee` — integrate vocabulary intelligence across student learning flow
+- `ae23148` — enable interleaved vocabulary sessions
+- `6f0ad45` — integrate vocabulary review into study intelligence
+- `b0540cc` — surface vocabulary review on dashboard
+
 ### Next planned work
 
-1. interleave vocabulary material types
-2. connect mistakes to review decisions
-3. smarter daily Vocabulary recommendations
-4. strength / weakness explanations
-5. long-term retention intelligence
-6. server-side completion protection for Vocabulary
-7. then continue expanding Unit 1 vocabulary content
+1. strength / weakness explanations
+2. long-term retention intelligence
+3. server-side completion protection for Vocabulary
+4. smarter daily Vocabulary recommendations
+5. then continue expanding Unit 1 vocabulary content
