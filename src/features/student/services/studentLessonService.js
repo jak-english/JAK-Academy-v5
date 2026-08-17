@@ -207,7 +207,7 @@ async function getStudentVocabularySession(
   }
 
   const { data, error } = await supabase.rpc(
-    'get_student_vocabulary_session',
+    'get_student_vocabulary_session_v2',
     {
       p_lesson_id: cleanLessonId,
       p_limit: limit,
