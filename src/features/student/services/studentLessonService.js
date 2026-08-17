@@ -192,8 +192,134 @@ async function updateStudentLessonProgress({
   return data
 }
 
+
+async function getStudentVocabularySession(
+  lessonId,
+  limit = 10,
+) {
+  const cleanLessonId =
+    String(lessonId || '').trim()
+
+  if (!cleanLessonId) {
+    throw new Error(
+      'Lesson id is required.',
+    )
+  }
+
+  const { data, error } = await supabase.rpc(
+    'get_student_vocabulary_session',
+    {
+      p_lesson_id: cleanLessonId,
+      p_limit: limit,
+    },
+  )
+
+  if (error) {
+    throw new Error(
+      error.message ||
+        'Vocabulary session could not be loaded.',
+    )
+  }
+
+  return data
+}
+
+async function submitStudentVocabularyAnswer({
+  vocabularyItemId,
+  questionType,
+  answer = '',
+  answerJson = {},
+  responseTimeMs = null,
+  confidence = null,
+}) {
+  const cleanItemId =
+    String(vocabularyItemId || '').trim()
+
+  const cleanQuestionType =
+    String(questionType || '').trim()
+
+  if (!cleanItemId) {
+    throw new Error(
+      'Vocabulary item id is required.',
+    )
+  }
+
+  if (!cleanQuestionType) {
+    throw new Error(
+      'Question type is required.',
+    )
+  }
+
+  const { data, error } = await supabase.rpc(
+    'submit_vocabulary_answer_v3',
+    {
+      p_vocabulary_item_id: cleanItemId,
+      p_question_type: cleanQuestionType,
+      p_answer_json: {
+        ...(
+          answerJson &&
+          typeof answerJson === 'object'
+            ? answerJson
+            : {}
+        ),
+        answer: String(answer ?? '').trim(),
+      },
+      p_response_time_ms:
+        Number.isInteger(responseTimeMs)
+          ? responseTimeMs
+          : null,
+      p_confidence:
+        Number.isInteger(confidence)
+          ? confidence
+          : null,
+    },
+  )
+
+  if (error) {
+    throw new Error(
+      error.message ||
+        'Vocabulary answer could not be submitted.',
+    )
+  }
+
+  return data
+}
+
+async function getStudentVocabularyCatalog(
+  lessonId,
+) {
+  const cleanLessonId =
+    String(lessonId || '').trim()
+
+  if (!cleanLessonId) {
+    throw new Error(
+      'Lesson id is required.',
+    )
+  }
+
+  const { data, error } = await supabase.rpc(
+    'get_student_vocabulary_catalog',
+    {
+      p_lesson_id: cleanLessonId,
+    },
+  )
+
+  if (error) {
+    throw new Error(
+      error.message ||
+        'Vocabulary catalog could not be loaded.',
+    )
+  }
+
+  return data
+}
+
+
 export {
   getStudentLesson,
   openStudentLesson,
   updateStudentLessonProgress,
+  getStudentVocabularySession,
+  getStudentVocabularyCatalog,
+  submitStudentVocabularyAnswer,
 }

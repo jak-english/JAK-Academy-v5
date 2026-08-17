@@ -13,6 +13,8 @@ import {
 import logo from '../assets/logo.png'
 
 import LessonContentRenderer from '../features/student/components/LessonContentRenderer'
+import VocabularyMasteryPanel from '../features/student/components/VocabularyMasteryPanel'
+import VocabularyReferenceTables from '../features/student/components/VocabularyReferenceTables'
 import FocusTimer from '../features/student/components/FocusTimer'
 import {
   getStudentLesson,
@@ -938,11 +940,27 @@ function StudentLessonPage() {
         </section>
 
         <section className="student-lesson-layout">
-          <article className="student-lesson-content-card">
-            <LessonContentRenderer
-              content={lesson.content}
-            />
-          </article>
+          <div>
+            <article className="student-lesson-content-card">
+              {lesson.id ===
+              '0414ad4f-3ca6-401b-8f87-77b5d743e4f6' ? (
+                <VocabularyMasteryPanel
+                  lessonId={lesson.id}
+                />
+              ) : (
+                <LessonContentRenderer
+                  content={lesson.content}
+                />
+              )}
+            </article>
+
+            {lesson.id ===
+              '0414ad4f-3ca6-401b-8f87-77b5d743e4f6' && (
+                <VocabularyReferenceTables
+                  lessonId={lesson.id}
+                />
+              )}
+          </div>
 
           <aside className="student-lesson-sidebar">
             <section className="student-lesson-sidebar__card">
