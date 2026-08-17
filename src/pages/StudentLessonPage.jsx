@@ -26,6 +26,9 @@ import './StudentLessonPage.css'
 
 const AUTO_SAVE_DELAY = 2500
 
+const VOCABULARY_MASTERY_LESSON_ID =
+  '0414ad4f-3ca6-401b-8f87-77b5d743e4f6'
+
 function formatStudyTime(totalSeconds = 0) {
   const safeSeconds = Math.max(
     0,
@@ -221,6 +224,13 @@ function StudentLessonPage() {
           lessonRef.current
 
         if (!currentLesson?.id) {
+          return
+        }
+
+        if (
+          currentLesson.id ===
+          VOCABULARY_MASTERY_LESSON_ID
+        ) {
           return
         }
 
@@ -603,6 +613,62 @@ function StudentLessonPage() {
     saveReadingProgress,
   ])
 
+  function handleVocabularyProgressChange(
+    vocabularyProgress,
+  ) {
+    const nextProgress =
+      Math.max(
+        0,
+        Math.min(
+          100,
+          Number(
+            vocabularyProgress
+              ?.synced_progress_percent,
+          ) || 0,
+        ),
+      )
+
+    const nextStatus =
+      vocabularyProgress?.lesson_status ||
+      (nextProgress >= 100
+        ? 'completed'
+        : nextProgress > 0
+          ? 'in_progress'
+          : 'not_started')
+
+    setLessonData((currentData) => {
+      if (!currentData?.lesson) {
+        return currentData
+      }
+
+      return {
+        ...currentData,
+
+        lesson: {
+          ...currentData.lesson,
+
+          progress: {
+            ...currentData.lesson.progress,
+
+            progressPercent:
+              nextProgress,
+
+            status:
+              nextStatus,
+
+            completedAt:
+              vocabularyProgress
+                ?.completed_at ??
+              currentData.lesson.progress
+                ?.completedAt ??
+              null,
+          },
+        },
+      }
+    })
+  }
+
+
   async function handleCompleteLesson() {
     if (!lesson?.id || isSaving) {
       return
@@ -946,6 +1012,9 @@ function StudentLessonPage() {
               '0414ad4f-3ca6-401b-8f87-77b5d743e4f6' ? (
                 <VocabularyMasteryPanel
                   lessonId={lesson.id}
+                  onProgressChange={
+                    handleVocabularyProgressChange
+                  }
                 />
               ) : (
                 <LessonContentRenderer
@@ -981,22 +1050,36 @@ function StudentLessonPage() {
                 %
               </p>
 
-              <button
-                type="button"
-                disabled={
-                  isSaving ||
-                  lesson.progress.status ===
-                    'completed'
-                }
-                onClick={handleCompleteLesson}
-              >
-                {lesson.progress.status ===
-                'completed'
-                  ? 'تم إكمال الدرس'
-                  : isSaving
-                    ? 'جارٍ الحفظ...'
-                    : 'إكمال الدرس'}
-              </button>
+              {lesson.id ===
+              VOCABULARY_MASTERY_LESSON_ID ? (
+                <p
+                  style={{
+                    marginTop: '14px',
+                    fontWeight: 700,
+                    lineHeight: 1.8,
+                  }}
+                >
+                  يكتمل هذا الدرس تلقائيًا عند
+                  تحقيق شروط الإتقان.
+                </p>
+              ) : (
+                <button
+                  type="button"
+                  disabled={
+                    isSaving ||
+                    lesson.progress.status ===
+                      'completed'
+                  }
+                  onClick={handleCompleteLesson}
+                >
+                  {lesson.progress.status ===
+                  'completed'
+                    ? 'تم إكمال الدرس'
+                    : isSaving
+                      ? 'جارٍ الحفظ...'
+                      : 'إكمال الدرس'}
+                </button>
+              )}
             </section>
 
             <section className="student-lesson-sidebar__card">

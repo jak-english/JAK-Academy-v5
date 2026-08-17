@@ -251,7 +251,7 @@ async function submitStudentVocabularyAnswer({
   }
 
   const { data, error } = await supabase.rpc(
-    'submit_vocabulary_answer_v3',
+    'submit_vocabulary_answer_v5',
     {
       p_vocabulary_item_id: cleanItemId,
       p_question_type: cleanQuestionType,
@@ -284,6 +284,36 @@ async function submitStudentVocabularyAnswer({
 
   return data
 }
+
+async function getStudentVocabularyLessonSummary(
+  lessonId,
+) {
+  const cleanLessonId =
+    String(lessonId || '').trim()
+
+  if (!cleanLessonId) {
+    throw new Error(
+      'Lesson id is required.',
+    )
+  }
+
+  const { data, error } = await supabase.rpc(
+    'get_student_vocabulary_lesson_summary_v2',
+    {
+      p_lesson_id: cleanLessonId,
+    },
+  )
+
+  if (error) {
+    throw new Error(
+      error.message ||
+        'Vocabulary lesson summary could not be loaded.',
+    )
+  }
+
+  return data
+}
+
 
 async function getStudentVocabularyCatalog(
   lessonId,
@@ -320,6 +350,7 @@ export {
   openStudentLesson,
   updateStudentLessonProgress,
   getStudentVocabularySession,
+  getStudentVocabularyLessonSummary,
   getStudentVocabularyCatalog,
   submitStudentVocabularyAnswer,
 }

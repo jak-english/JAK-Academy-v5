@@ -1,4 +1,4 @@
-﻿# JAK Academy v5 — Project State
+# JAK Academy v5 — Project State
 
 Last updated: 2026-08-16
 
@@ -92,3 +92,101 @@ Before work:
 5. Verify.
 6. Update this file.
 7. Git commit stable milestone.
+
+---
+
+## Vocabulary Intelligence Integration — 2026-08-17
+
+### Stable milestone
+
+Vocabulary Mastery is now integrated with the main student learning flow.
+
+### Vocabulary lesson
+
+Target lesson:
+
+- Unit 1 Vocabulary — Getting Started
+- Lesson ID: `0414ad4f-3ca6-401b-8f87-77b5d743e4f6`
+- 25 published vocabulary items
+
+### Vocabulary progress model
+
+Vocabulary lesson progress is no longer controlled by scroll position.
+
+Learning Progress formula:
+
+`40% Coverage + 60% Average Mastery`
+
+Vocabulary completion reaches 100% only when all published items satisfy the mastery requirements.
+
+### Current engine
+
+- `submit_vocabulary_answer_v5`
+- `get_student_vocabulary_lesson_summary_v2`
+- `sync_student_vocabulary_lesson_progress_v2`
+
+Vocabulary progress is synchronized to:
+
+`student_lesson_progress`
+
+### Student lesson integration
+
+- scroll-based progress is disabled for the Vocabulary Mastery lesson
+- manual completion is disabled for Vocabulary
+- progress updates immediately after vocabulary answers
+- Vocabulary progress header shows:
+  - total items
+  - started
+  - mastered
+  - due
+  - current mastery
+  - coverage
+  - learning progress
+
+### Study Plan integration
+
+Study Plan frontend now uses:
+
+`get_student_study_plan_v2`
+
+The recommended Vocabulary lesson receives:
+
+`vocabularySummary`
+
+Study Plan guidance can use:
+
+- Learning Progress
+- Coverage
+- Average Mastery
+- Started Items
+- Mastered Items
+- Due Items
+
+### Dashboard integration
+
+Dashboard already loads Study Plan, so it receives the same `vocabularySummary`.
+
+The main recommendation card now uses Vocabulary-specific progress and guidance.
+
+### Source-of-truth chain
+
+Vocabulary Items
+→ Student Vocabulary Progress
+→ Vocabulary Mastery Engine
+→ Vocabulary Lesson Summary
+→ student_lesson_progress
+→ Student Lesson
+→ Study Plan
+→ Dashboard
+
+Do not create separate Vocabulary progress calculations in Study Plan or Dashboard.
+
+### Next planned work
+
+1. interleave vocabulary material types
+2. connect mistakes to review decisions
+3. smarter daily Vocabulary recommendations
+4. strength / weakness explanations
+5. long-term retention intelligence
+6. server-side completion protection for Vocabulary
+7. then continue expanding Unit 1 vocabulary content

@@ -9,6 +9,42 @@ import {
 } from '../services/studentLessonService'
 
 const GROUP_CONFIG = {
+  core_words: {
+    title: 'Core Words',
+    subtitle: 'الكلمات الأساسية',
+    background:
+      'rgba(167, 243, 208, 0.18)',
+    border:
+      'rgba(167, 243, 208, 0.48)',
+  },
+
+  fixed_expressions: {
+    title: 'Fixed Expressions',
+    subtitle: 'التعبيرات الثابتة',
+    background:
+      'rgba(221, 214, 254, 0.18)',
+    border:
+      'rgba(221, 214, 254, 0.48)',
+  },
+
+  additional_personality_adjectives: {
+    title: 'Additional Personality Adjectives',
+    subtitle: 'صفات شخصية إضافية',
+    background:
+      'rgba(186, 230, 253, 0.16)',
+    border:
+      'rgba(186, 230, 253, 0.42)',
+  },
+
+  words_definitions: {
+    title: 'Words & Definitions',
+    subtitle: 'كلمات وتعريفات',
+    background:
+      'rgba(254, 215, 170, 0.16)',
+    border:
+      'rgba(254, 215, 170, 0.42)',
+  },
+
   core_word: {
     title: 'Core Words',
     subtitle: 'الكلمات الأساسية',
@@ -156,8 +192,13 @@ function VocabularyReferenceTables({
     const result = new Map()
 
     for (const item of catalog?.items ?? []) {
+      const sectionKey =
+        item?.extra_json?.section_key
+
       const key =
-        item.item_type || 'other'
+        sectionKey ||
+        item.item_type ||
+        'other'
 
       if (!result.has(key)) {
         result.set(key, [])
@@ -327,100 +368,273 @@ function VocabularyReferenceTables({
                   padding: '8px 18px 18px',
                 }}
               >
-                <table
-                  style={{
-                    width: '100%',
-                    minWidth: '720px',
-                    borderCollapse:
-                      'separate',
-                    borderSpacing: 0,
-                  }}
-                >
-                  <thead>
-                    <tr>
-                      <th
-                        dir="ltr"
-                        style={{
-                          padding:
-                            '16px 12px',
-                          textAlign: 'left',
-                          opacity: 0.72,
-                          borderBottom:
-                            '1px solid rgba(255,255,255,0.10)',
-                        }}
-                      >
-                        Word
-                      </th>
+                {itemType === 'word_families' ? (
+                  <table
+                    style={{
+                      width: '100%',
+                      minWidth: '780px',
+                      borderCollapse:
+                        'separate',
+                      borderSpacing: 0,
+                    }}
+                  >
+                    <thead>
+                      <tr>
+                        <th
+                          dir="ltr"
+                          style={{
+                            padding:
+                              '16px 12px',
+                            textAlign: 'left',
+                            opacity: 0.72,
+                            borderBottom:
+                              '1px solid rgba(255,255,255,0.10)',
+                          }}
+                        >
+                          Adjective
+                        </th>
 
-                      <th
-                        style={{
-                          padding:
-                            '16px 12px',
-                          textAlign: 'right',
-                          opacity: 0.72,
-                          borderBottom:
-                            '1px solid rgba(255,255,255,0.10)',
-                        }}
-                      >
-                        المعنى
-                      </th>
+                        <th
+                          style={{
+                            padding:
+                              '16px 12px',
+                            textAlign: 'right',
+                            opacity: 0.72,
+                            borderBottom:
+                              '1px solid rgba(255,255,255,0.10)',
+                          }}
+                        >
+                          معنى الصفة
+                        </th>
 
-                      <th
-                        dir="ltr"
-                        style={{
-                          padding:
-                            '16px 12px',
-                          textAlign: 'left',
-                          opacity: 0.72,
-                          borderBottom:
-                            '1px solid rgba(255,255,255,0.10)',
-                        }}
-                      >
-                        Part of Speech
-                      </th>
+                        <th
+                          dir="ltr"
+                          style={{
+                            padding:
+                              '16px 12px',
+                            textAlign: 'left',
+                            opacity: 0.72,
+                            borderBottom:
+                              '1px solid rgba(255,255,255,0.10)',
+                          }}
+                        >
+                          Noun
+                        </th>
 
-                      <th
-                        dir="ltr"
-                        style={{
-                          padding:
-                            '16px 12px',
-                          textAlign: 'left',
-                          opacity: 0.72,
-                          borderBottom:
-                            '1px solid rgba(255,255,255,0.10)',
-                        }}
-                      >
-                        Definition
-                      </th>
+                        <th
+                          style={{
+                            padding:
+                              '16px 12px',
+                            textAlign: 'right',
+                            opacity: 0.72,
+                            borderBottom:
+                              '1px solid rgba(255,255,255,0.10)',
+                          }}
+                        >
+                          معنى الاسم
+                        </th>
 
-                      <th
-                        style={{
-                          padding:
-                            '16px 12px',
-                          textAlign: 'center',
-                          opacity: 0.72,
-                          borderBottom:
-                            '1px solid rgba(255,255,255,0.10)',
-                        }}
-                      >
-                        Mastery
-                      </th>
-                    </tr>
-                  </thead>
+                        <th
+                          style={{
+                            padding:
+                              '16px 12px',
+                            textAlign: 'center',
+                            opacity: 0.72,
+                            borderBottom:
+                              '1px solid rgba(255,255,255,0.10)',
+                          }}
+                        >
+                          Mastery
+                        </th>
+                      </tr>
+                    </thead>
 
-                  <tbody>
-                    {items.map(
-                      (item) => (
+                    <tbody>
+                      {items.map((item) => (
                         <tr key={item.id}>
                           <td
                             dir="ltr"
                             style={{
                               padding:
                                 '16px 12px',
-                              textAlign:
-                                'left',
-                              fontWeight:
-                                900,
+                              textAlign: 'left',
+                              fontWeight: 900,
+                              borderBottom:
+                                '1px solid rgba(255,255,255,0.06)',
+                            }}
+                          >
+                            {item.term}
+                          </td>
+
+                          <td
+                            style={{
+                              padding:
+                                '16px 12px',
+                              borderBottom:
+                                '1px solid rgba(255,255,255,0.06)',
+                            }}
+                          >
+                            {item.meaning_ar || '—'}
+                          </td>
+
+                          <td
+                            dir="ltr"
+                            style={{
+                              padding:
+                                '16px 12px',
+                              textAlign: 'left',
+                              fontWeight: 800,
+                              borderBottom:
+                                '1px solid rgba(255,255,255,0.06)',
+                            }}
+                          >
+                            {item.extra_json
+                              ?.noun_form || '—'}
+                          </td>
+
+                          <td
+                            style={{
+                              padding:
+                                '16px 12px',
+                              borderBottom:
+                                '1px solid rgba(255,255,255,0.06)',
+                            }}
+                          >
+                            {item.extra_json
+                              ?.noun_meaning_ar ||
+                              '—'}
+                          </td>
+
+                          <td
+                            style={{
+                              padding:
+                                '16px 12px',
+                              textAlign: 'center',
+                              fontWeight: 900,
+                              borderBottom:
+                                '1px solid rgba(255,255,255,0.06)',
+                            }}
+                          >
+                            <span
+                              style={{
+                                display:
+                                  'inline-flex',
+                                alignItems:
+                                  'center',
+                                justifyContent:
+                                  'center',
+                                minWidth: '62px',
+                                padding:
+                                  '6px 10px',
+                                borderRadius:
+                                  '999px',
+                                background:
+                                  'rgba(254, 215, 170, 0.10)',
+                                border:
+                                  '1px solid rgba(254, 215, 170, 0.28)',
+                              }}
+                            >
+                              {item.mastery_score ??
+                                0}
+                              %
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                ) : (
+                  <table
+                    style={{
+                      width: '100%',
+                      minWidth: '720px',
+                      borderCollapse:
+                        'separate',
+                      borderSpacing: 0,
+                    }}
+                  >
+                    <thead>
+                      <tr>
+                        <th
+                          dir="ltr"
+                          style={{
+                            padding:
+                              '16px 12px',
+                            textAlign: 'left',
+                            opacity: 0.72,
+                            borderBottom:
+                              '1px solid rgba(255,255,255,0.10)',
+                          }}
+                        >
+                          Word
+                        </th>
+
+                        <th
+                          style={{
+                            padding:
+                              '16px 12px',
+                            textAlign: 'right',
+                            opacity: 0.72,
+                            borderBottom:
+                              '1px solid rgba(255,255,255,0.10)',
+                          }}
+                        >
+                          المعنى
+                        </th>
+
+                        <th
+                          dir="ltr"
+                          style={{
+                            padding:
+                              '16px 12px',
+                            textAlign: 'left',
+                            opacity: 0.72,
+                            borderBottom:
+                              '1px solid rgba(255,255,255,0.10)',
+                          }}
+                        >
+                          Part of Speech
+                        </th>
+
+                        <th
+                          dir="ltr"
+                          style={{
+                            padding:
+                              '16px 12px',
+                            textAlign: 'left',
+                            opacity: 0.72,
+                            borderBottom:
+                              '1px solid rgba(255,255,255,0.10)',
+                          }}
+                        >
+                          Definition
+                        </th>
+
+                        <th
+                          style={{
+                            padding:
+                              '16px 12px',
+                            textAlign: 'center',
+                            opacity: 0.72,
+                            borderBottom:
+                              '1px solid rgba(255,255,255,0.10)',
+                          }}
+                        >
+                          Mastery
+                        </th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      {items.map((item) => (
+                        <tr key={item.id}>
+                          <td
+                            dir="ltr"
+                            style={{
+                              padding:
+                                '16px 12px',
+                              textAlign: 'left',
+                              fontWeight: 900,
                               borderBottom:
                                 '1px solid rgba(255,255,255,0.06)',
                             }}
@@ -445,8 +659,7 @@ function VocabularyReferenceTables({
                             style={{
                               padding:
                                 '16px 12px',
-                              textAlign:
-                                'left',
+                              textAlign: 'left',
                               borderBottom:
                                 '1px solid rgba(255,255,255,0.06)',
                             }}
@@ -460,8 +673,7 @@ function VocabularyReferenceTables({
                             style={{
                               padding:
                                 '16px 12px',
-                              textAlign:
-                                'left',
+                              textAlign: 'left',
                               lineHeight: 1.7,
                               borderBottom:
                                 '1px solid rgba(255,255,255,0.06)',
@@ -475,18 +687,18 @@ function VocabularyReferenceTables({
                             style={{
                               padding:
                                 '16px 12px',
-                              textAlign:
-                                'center',
-                              fontWeight:
-                                900,
+                              textAlign: 'center',
+                              fontWeight: 900,
                               borderBottom:
                                 '1px solid rgba(255,255,255,0.06)',
                             }}
                           >
                             <span
                               style={{
-                                display: 'inline-flex',
-                                alignItems: 'center',
+                                display:
+                                  'inline-flex',
+                                alignItems:
+                                  'center',
                                 justifyContent:
                                   'center',
                                 minWidth: '62px',
@@ -506,10 +718,10 @@ function VocabularyReferenceTables({
                             </span>
                           </td>
                         </tr>
-                      ),
-                    )}
-                  </tbody>
-                </table>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
               </div>
             </article>
           )

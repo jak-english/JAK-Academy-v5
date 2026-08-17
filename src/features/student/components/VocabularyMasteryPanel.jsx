@@ -7,12 +7,15 @@ import {
 
 import {
   getStudentVocabularySession,
+  getStudentVocabularyLessonSummary,
   submitStudentVocabularyAnswer,
 } from '../services/studentLessonService'
 
 const SAFE_QUESTION_TYPES = new Set([
   'meaning_en_ar',
   'meaning_ar_en',
+  'definition',
+  'word_family',
 ])
 
 function getSafeQuestionType(item) {
@@ -38,9 +41,23 @@ function getSafeQuestionType(item) {
     : 'meaning_en_ar'
 }
 
-function getQuestionLabel(questionType) {
+function getQuestionLabel(
+  questionType,
+  wordFamilyDirection,
+) {
   if (questionType === 'meaning_ar_en') {
     return 'اكتب الكلمة بالإنجليزية'
+  }
+
+  if (questionType === 'definition') {
+    return 'اكتب الكلمة الإنجليزية المناسبة للتعريف'
+  }
+
+  if (questionType === 'word_family') {
+    return wordFamilyDirection ===
+      'noun_to_adjective'
+      ? 'اكتب الصفة المناسبة'
+      : 'اكتب صيغة الاسم المناسبة'
   }
 
   return 'اكتب المعنى بالعربية'
@@ -61,8 +78,10 @@ function getPhaseLabel(phase) {
 
 function VocabularyMasteryPanel({
   lessonId,
+  onProgressChange,
 }) {
   const [session, setSession] = useState(null)
+  const [summary, setSummary] = useState(null)
 
   const [currentIndex, setCurrentIndex] = useState(0)
   const [answer, setAnswer] = useState('')
@@ -89,13 +108,21 @@ function VocabularyMasteryPanel({
         setIsLoading(true)
         setErrorMessage('')
 
-        const data =
-          await getStudentVocabularySession(
+        const [
+          data,
+          summaryData,
+        ] = await Promise.all([
+          getStudentVocabularySession(
             lessonId,
-            10,
-          )
+            50,
+          ),
+          getStudentVocabularyLessonSummary(
+            lessonId,
+          ),
+        ])
 
         setSession(data)
+        setSummary(summaryData)
         setCurrentIndex(0)
       } catch (error) {
         setErrorMessage(
@@ -121,15 +148,23 @@ function VocabularyMasteryPanel({
         setIsLoading(true)
         setErrorMessage('')
 
-        const data =
-          await getStudentVocabularySession(
+        const [
+          data,
+          summaryData,
+        ] = await Promise.all([
+          getStudentVocabularySession(
             lessonId,
-            10,
-          )
+            50,
+          ),
+          getStudentVocabularyLessonSummary(
+            lessonId,
+          ),
+        ])
 
         if (isMounted) {
           setSession(data)
-        setCurrentIndex(0)
+          setSummary(summaryData)
+          setCurrentIndex(0)
         }
       } catch (error) {
         if (isMounted) {
@@ -164,15 +199,25 @@ function VocabularyMasteryPanel({
     [currentItem],
   )
 
+  const wordFamilyDirection =
+    currentItem?.word_family_direction ?? null
+
   const displayedPrompt =
     questionType === 'meaning_ar_en'
       ? currentItem?.meaning_ar
-      : currentItem?.term
+      : questionType === 'definition'
+        ? currentItem?.definition_en
+        : questionType === 'word_family' &&
+            wordFamilyDirection ===
+              'noun_to_adjective'
+          ? currentItem?.extra_json
+              ?.noun_form
+          : currentItem?.term
 
   const inputDirection =
-    questionType === 'meaning_ar_en'
-      ? 'ltr'
-      : 'rtl'
+    questionType === 'meaning_en_ar'
+      ? 'rtl'
+      : 'ltr'
 
   async function handleSubmit(event) {
     event.preventDefault()
@@ -197,12 +242,35 @@ function VocabularyMasteryPanel({
             currentItem.id,
           questionType,
           answer: cleanAnswer,
+          answerJson:
+            questionType === 'word_family'
+              ? {
+                  direction:
+                    wordFamilyDirection,
+                }
+              : {},
           responseTimeMs: null,
           confidence: null,
         })
 
       setAnsweredItem(currentItem)
       setResult(data)
+
+      if (
+        data?.lesson_progress &&
+        typeof data.lesson_progress === 'object'
+      ) {
+        setSummary(data.lesson_progress)
+
+        if (
+          typeof onProgressChange === 'function'
+        ) {
+          onProgressChange(
+            data.lesson_progress,
+          )
+        }
+      }
+
       setAnswer('')
     } catch (error) {
       setErrorMessage(
@@ -285,6 +353,185 @@ function VocabularyMasteryPanel({
         direction: 'rtl',
       }}
     >
+      {summary && (
+        <section
+          style={{
+            marginBottom: '30px',
+            padding: '20px',
+            borderRadius: '24px',
+            border:
+              '1px solid rgba(94, 234, 212, 0.32)',
+            background:
+              'linear-gradient(135deg, rgba(15, 118, 110, 0.16), rgba(30, 64, 175, 0.10))',
+            boxShadow:
+              '0 14px 42px rgba(0, 0, 0, 0.18)',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              gap: '18px',
+              flexWrap: 'wrap',
+              marginBottom: '18px',
+            }}
+          >
+            <div>
+              <div
+                style={{
+                  fontSize: '13px',
+                  fontWeight: 800,
+                  color: 'rgba(94, 234, 212, 0.88)',
+                  marginBottom: '5px',
+                }}
+              >
+                VOCABULARY PROGRESS
+              </div>
+
+              <div
+                style={{
+                  fontSize: '20px',
+                  fontWeight: 900,
+                }}
+              >
+                تقدمك في مفردات الدرس
+              </div>
+            </div>
+
+            <div
+              style={{
+                minWidth: '150px',
+                padding: '12px 18px',
+                borderRadius: '18px',
+                border:
+                  '1px solid rgba(250, 204, 21, 0.38)',
+                background:
+                  'rgba(250, 204, 21, 0.10)',
+                textAlign: 'center',
+              }}
+            >
+              <div
+                style={{
+                  fontSize: '12px',
+                  fontWeight: 800,
+                  opacity: 0.78,
+                  marginBottom: '3px',
+                }}
+              >
+                مستوى التقدم
+              </div>
+
+              <strong
+                style={{
+                  display: 'block',
+                  fontSize: '30px',
+                  lineHeight: 1,
+                  color: '#fde68a',
+                }}
+              >
+                {summary.learning_progress ?? 0}%
+              </strong>
+            </div>
+          </div>
+
+          <div
+            style={{
+              height: '9px',
+              borderRadius: '999px',
+              background:
+                'rgba(255, 255, 255, 0.08)',
+              overflow: 'hidden',
+              marginBottom: '18px',
+            }}
+          >
+            <div
+              style={{
+                width: `${
+                  summary.learning_progress ?? 0
+                }%`,
+                height: '100%',
+                borderRadius: '999px',
+                background:
+                  'linear-gradient(90deg, #2dd4bf, #fde68a)',
+                transition: 'width 0.35s ease',
+              }}
+            />
+          </div>
+
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns:
+                'repeat(auto-fit, minmax(92px, 1fr))',
+              gap: '10px',
+            }}
+          >
+            {[
+              {
+                label: 'إجمالي العناصر',
+                value: summary.total_items ?? 0,
+              },
+              {
+                label: 'بدأت',
+                value: summary.started_items ?? 0,
+              },
+              {
+                label: 'متقنة',
+                value: summary.mastered_items ?? 0,
+              },
+              {
+                label: 'للمراجعة',
+                value: summary.due_items ?? 0,
+              },
+              {
+                label: 'Mastery',
+                value:
+                  `${summary.average_mastery ?? 0}%`,
+              },
+              {
+                label: 'Coverage',
+                value:
+                  `${summary.coverage_percent ?? 0}%`,
+              },
+            ].map((stat) => (
+              <div
+                key={stat.label}
+                style={{
+                  padding: '12px 10px',
+                  borderRadius: '16px',
+                  border:
+                    '1px solid rgba(255, 255, 255, 0.08)',
+                  background:
+                    'rgba(4, 15, 26, 0.34)',
+                  textAlign: 'center',
+                }}
+              >
+                <span
+                  style={{
+                    display: 'block',
+                    fontSize: '12px',
+                    opacity: 0.68,
+                    marginBottom: '6px',
+                  }}
+                >
+                  {stat.label}
+                </span>
+
+                <strong
+                  style={{
+                    display: 'block',
+                    fontSize: '21px',
+                    lineHeight: 1,
+                  }}
+                >
+                  {stat.value}
+                </strong>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
       <header
         style={{
           marginBottom: '28px',
@@ -309,8 +556,9 @@ function VocabularyMasteryPanel({
           }}
         >
           {getQuestionLabel(
-            questionType,
-          )}
+                questionType,
+                wordFamilyDirection,
+              )}
         </p>
       </header>
 
@@ -377,11 +625,17 @@ function VocabularyMasteryPanel({
               autoComplete="off"
               autoFocus
               placeholder={
-                questionType ===
-                'meaning_ar_en'
-                  ? 'اكتب الكلمة بالإنجليزية'
-                  : 'اكتب المعنى بالعربية'
-              }
+                  questionType === 'meaning_en_ar'
+                    ? 'اكتب المعنى بالعربية'
+                    : questionType === 'definition'
+                      ? 'اكتب الكلمة بالإنجليزية'
+                      : questionType === 'word_family'
+                        ? wordFamilyDirection ===
+                          'noun_to_adjective'
+                          ? 'اكتب الصفة بالإنجليزية'
+                          : 'اكتب الاسم بالإنجليزية'
+                        : 'اكتب الكلمة بالإنجليزية'
+                }
               style={{
                 width: '100%',
                 minHeight: '54px',

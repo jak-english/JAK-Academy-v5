@@ -238,6 +238,35 @@ function StudentDashboardPage() {
   const planRecommendedLesson =
     studyPlan?.recommendedLesson
 
+  const dashboardTargetLessonId =
+    continuityLesson?.id ||
+    planRecommendedLesson?.id ||
+    continueLearning?.lessonId ||
+    null
+
+  const dashboardVocabularySummary =
+    planRecommendedLesson?.id ===
+        dashboardTargetLessonId &&
+      planRecommendedLesson?.section
+        ?.sectionType === 'vocabulary'
+      ? planRecommendedLesson
+          ?.vocabularySummary || null
+      : null
+
+  const dashboardVocabularyGuidance =
+    !dashboardVocabularySummary
+      ? null
+      : dashboardVocabularySummary.dueItems > 0
+        ? `لديك ${dashboardVocabularySummary.dueItems} عناصر مستحقة للمراجعة. ابدأ بتثبيتها قبل إضافة المزيد.`
+        : dashboardVocabularySummary.coveragePercent < 60
+          ? 'أنت في مرحلة بناء التغطية. أكمل عناصر جديدة مع تثبيت ما بدأت به.'
+          : dashboardVocabularySummary.averageMastery < 70
+            ? 'تغطيتك أصبحت جيدة. ركّز الآن على رفع الإتقان والاسترجاع من الذاكرة.'
+            : dashboardVocabularySummary.masteredItems <
+                dashboardVocabularySummary.totalItems
+              ? 'أنت قريب من الإتقان. واصل المراجعة المتباعدة حتى تثبت جميع العناصر.'
+              : 'وصلت عناصر هذا الدرس إلى مستوى إتقان قوي.'
+
   const dashboardRecommendation =
     recommendedAction?.type === 'retry_mistakes'
       ? {
@@ -281,6 +310,7 @@ function StudentDashboardPage() {
                   continueLearning?.lessonTitle ||
                   'أكمل درسك الحالي',
                 description:
+                  dashboardVocabularyGuidance ||
                   'إنهاء ما بدأت به الآن يحافظ على استمرارية تعلمك وتركيزك.',
                 buttonLabel: 'أكمل الدرس الآن',
                 action: () => {
@@ -586,6 +616,89 @@ function StudentDashboardPage() {
             <p>
               {dashboardRecommendation.description}
             </p>
+
+            {dashboardVocabularySummary && (
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns:
+                    'repeat(auto-fit, minmax(105px, 1fr))',
+                  gap: '10px',
+                  marginTop: '18px',
+                  marginBottom: '20px',
+                  padding: '14px',
+                  borderRadius: '18px',
+                  border:
+                    '1px solid rgba(45, 212, 191, 0.24)',
+                  background:
+                    'linear-gradient(135deg, rgba(15,118,110,0.12), rgba(30,64,175,0.08))',
+                }}
+              >
+                {[
+                  {
+                    label: 'تقدم التعلم',
+                    value:
+                      `${dashboardVocabularySummary.learningProgress || 0}%`,
+                    featured: true,
+                  },
+                  {
+                    label: 'بدأت',
+                    value:
+                      `${dashboardVocabularySummary.startedItems || 0}/${dashboardVocabularySummary.totalItems || 0}`,
+                  },
+                  {
+                    label: 'Mastery',
+                    value:
+                      `${dashboardVocabularySummary.averageMastery || 0}%`,
+                  },
+                  {
+                    label: 'للمراجعة',
+                    value:
+                      dashboardVocabularySummary.dueItems || 0,
+                  },
+                ].map((item) => (
+                  <div
+                    key={item.label}
+                    style={{
+                      padding: '10px',
+                      borderRadius: '14px',
+                      textAlign: 'center',
+                      border: item.featured
+                        ? '1px solid rgba(250,204,21,0.36)'
+                        : '1px solid rgba(255,255,255,0.08)',
+                      background: item.featured
+                        ? 'rgba(250,204,21,0.10)'
+                        : 'rgba(3,15,25,0.28)',
+                    }}
+                  >
+                    <span
+                      style={{
+                        display: 'block',
+                        fontSize: '12px',
+                        opacity: 0.72,
+                        marginBottom: '5px',
+                      }}
+                    >
+                      {item.label}
+                    </span>
+
+                    <strong
+                      style={{
+                        display: 'block',
+                        fontSize: item.featured
+                          ? '21px'
+                          : '18px',
+                        color: item.featured
+                          ? '#fde68a'
+                          : 'inherit',
+                      }}
+                    >
+                      {item.value}
+                    </strong>
+                  </div>
+                ))}
+              </div>
+            )}
 
             <div className="student-dashboard-goal-row">
               <span>

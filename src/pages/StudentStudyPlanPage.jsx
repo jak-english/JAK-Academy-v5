@@ -201,6 +201,28 @@ function StudentStudyPlanPage() {
         }
       : studyPlanRecommendedLesson
 
+  const vocabularySummary =
+    recommendedLesson?.vocabularySummary || null
+
+  const isVocabularyRecommendation =
+    recommendedLesson?.section?.sectionType ===
+      'vocabulary' &&
+    vocabularySummary
+
+  const vocabularyGuidance =
+    !isVocabularyRecommendation
+      ? null
+      : vocabularySummary.dueItems > 0
+        ? `لديك ${vocabularySummary.dueItems} عناصر حان وقت مراجعتها. ابدأ بها أولًا لتثبيت الذاكرة.`
+        : vocabularySummary.coveragePercent < 60
+          ? 'أنت الآن في مرحلة بناء التغطية. ركّز على إضافة عناصر جديدة مع تثبيت ما بدأت به.'
+          : vocabularySummary.averageMastery < 70
+            ? 'تغطيتك جيدة، والخطوة الأهم الآن هي رفع مستوى الإتقان والاسترجاع.'
+            : vocabularySummary.masteredItems <
+                vocabularySummary.totalItems
+              ? 'أنت قريب من مرحلة الإتقان. واصل المراجعة المتباعدة حتى تثبت جميع العناصر.'
+              : 'أحسنت. جميع عناصر هذا الدرس وصلت إلى مستوى الإتقان المطلوب.'
+
   const retryMistakes =
     studyIntelligence?.retryMistakes
 
@@ -582,6 +604,105 @@ function StudentStudyPlanPage() {
                   {recommendedLesson.estimatedMinutes || 0}{' '}
                   دقيقة
                 </p>
+
+                {isVocabularyRecommendation && (
+                  <div
+                    style={{
+                      marginTop: '18px',
+                      marginBottom: '18px',
+                      padding: '16px',
+                      borderRadius: '18px',
+                      border:
+                        '1px solid rgba(45, 212, 191, 0.24)',
+                      background:
+                        'linear-gradient(135deg, rgba(15,118,110,0.12), rgba(30,64,175,0.08))',
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: 'grid',
+                        gridTemplateColumns:
+                          'repeat(auto-fit, minmax(105px, 1fr))',
+                        gap: '10px',
+                        marginBottom: '14px',
+                      }}
+                    >
+                      {[
+                        {
+                          label: 'تقدم التعلم',
+                          value:
+                            `${vocabularySummary.learningProgress || 0}%`,
+                          featured: true,
+                        },
+                        {
+                          label: 'بدأت',
+                          value:
+                            `${vocabularySummary.startedItems || 0}/${vocabularySummary.totalItems || 0}`,
+                        },
+                        {
+                          label: 'Mastery',
+                          value:
+                            `${vocabularySummary.averageMastery || 0}%`,
+                        },
+                        {
+                          label: 'متقنة',
+                          value:
+                            vocabularySummary.masteredItems || 0,
+                        },
+                      ].map((item) => (
+                        <div
+                          key={item.label}
+                          style={{
+                            padding: '11px 10px',
+                            borderRadius: '14px',
+                            textAlign: 'center',
+                            border: item.featured
+                              ? '1px solid rgba(250,204,21,0.34)'
+                              : '1px solid rgba(255,255,255,0.08)',
+                            background: item.featured
+                              ? 'rgba(250,204,21,0.10)'
+                              : 'rgba(3,15,25,0.28)',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'block',
+                              fontSize: '12px',
+                              opacity: 0.72,
+                              marginBottom: '5px',
+                            }}
+                          >
+                            {item.label}
+                          </span>
+
+                          <strong
+                            style={{
+                              display: 'block',
+                              fontSize: item.featured
+                                ? '22px'
+                                : '18px',
+                              color: item.featured
+                                ? '#fde68a'
+                                : 'inherit',
+                            }}
+                          >
+                            {item.value}
+                          </strong>
+                        </div>
+                      ))}
+                    </div>
+
+                    <p
+                      style={{
+                        margin: 0,
+                        lineHeight: 1.8,
+                        fontWeight: 700,
+                      }}
+                    >
+                      {vocabularyGuidance}
+                    </p>
+                  </div>
+                )}
 
                 <div className="student-study-plan-recommended__reason">
                   <span>
