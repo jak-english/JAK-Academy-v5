@@ -233,22 +233,26 @@ function StudentStudyPlanPage() {
     studyIntelligence?.weakArea
 
   const recommendationReason =
-    recommendedAction?.type === 'continue_lesson'
-      ? 'لأنك بدأت هذا الدرس بالفعل، وإكماله الآن يحافظ على تركيزك ويمنع تشتيت التعلّم.'
-      : recommendedAction?.type === 'retry_mistakes'
-        ? `لديك ${retryMistakes?.questionCount || 0} أخطاء حديثة تحتاج إلى تثبيت قبل إضافة مادة جديدة.`
-        : recommendedAction?.type === 'review_weak_area'
-          ? `نتائجك الأخيرة تشير إلى أن ${weakArea?.sectionType || 'هذه المهارة'} تحتاج إلى مراجعة مركزة.`
-          : 'هذه هي الخطوة الأنسب التالية حسب ترتيب مسارك الدراسي الحالي.'
+    recommendedAction?.type === 'vocabulary_review'
+      ? `لديك ${studyIntelligence?.vocabularyReview?.dueItems || 0} عناصر مفردات حان وقت مراجعتها الآن. تثبيتها أولوية قبل إضافة مفردات جديدة.`
+      : recommendedAction?.type === 'continue_lesson'
+        ? 'لأنك بدأت هذا الدرس بالفعل، وإكماله الآن يحافظ على تركيزك ويمنع تشتيت التعلّم.'
+        : recommendedAction?.type === 'retry_mistakes'
+          ? `لديك ${retryMistakes?.questionCount || 0} أخطاء حديثة تحتاج إلى تثبيت قبل إضافة مادة جديدة.`
+          : recommendedAction?.type === 'review_weak_area'
+            ? `نتائجك الأخيرة تشير إلى أن ${weakArea?.sectionType || 'هذه المهارة'} تحتاج إلى مراجعة مركزة.`
+            : 'هذه هي الخطوة الأنسب التالية حسب ترتيب مسارك الدراسي الحالي.'
 
   const recommendationBadge =
-    recommendedAction?.type === 'continue_lesson'
-      ? 'أكمل ما بدأت'
-      : recommendedAction?.type === 'retry_mistakes'
-        ? 'راجع أخطاءك'
-        : recommendedAction?.type === 'review_weak_area'
-          ? 'قوِّ نقطة الضعف'
-          : 'الخطوة التالية'
+    recommendedAction?.type === 'vocabulary_review'
+      ? 'راجع مفرداتك'
+      : recommendedAction?.type === 'continue_lesson'
+        ? 'أكمل ما بدأت'
+        : recommendedAction?.type === 'retry_mistakes'
+          ? 'راجع أخطاءك'
+          : recommendedAction?.type === 'review_weak_area'
+            ? 'قوِّ نقطة الضعف'
+            : 'الخطوة التالية'
 
   const smartPlanSteps = []
 
@@ -263,9 +267,11 @@ function StudentStudyPlanPage() {
 
   if (recommendedLesson) {
     const learningPriority =
-      recommendedAction?.type === 'continue_lesson'
-        ? smartScores.continuity || 0
-        : smartScores.nextLesson || 25
+      recommendedAction?.type === 'vocabulary_review'
+        ? smartScores.vocabularyReview || 0
+        : recommendedAction?.type === 'continue_lesson'
+          ? smartScores.continuity || 0
+          : smartScores.nextLesson || 25
 
     smartPlanSteps.push({
       id: `lesson-${recommendedLesson.id}`,

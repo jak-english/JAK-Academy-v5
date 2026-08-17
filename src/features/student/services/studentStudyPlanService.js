@@ -28,7 +28,7 @@ function normalizeStudyPlanData(data) {
 
 async function getStudentStudyIntelligence() {
   const { data, error } = await supabase.rpc(
-    'get_student_study_intelligence',
+    'get_student_study_intelligence_v2',
   )
 
   if (error) {
