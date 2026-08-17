@@ -268,90 +268,116 @@ function StudentDashboardPage() {
               : 'وصلت عناصر هذا الدرس إلى مستوى إتقان قوي.'
 
   const dashboardRecommendation =
-    recommendedAction?.type === 'retry_mistakes'
+    recommendedAction?.type === 'vocabulary_review'
       ? {
-          eyebrow: 'JAK يقترح عليك الآن',
-          title: 'راجع أخطاءك قبل أن تكمل',
+          eyebrow: 'حان وقت مراجعة المفردات',
+          title: 'راجع مفرداتك الآن',
           description:
-            'لديك أخطاء حديثة تستحق المراجعة حتى لا تتكرر معك.',
-          buttonLabel: 'راجع أخطاءك الآن',
-          action: () =>
-            navigate('/student/mistakes'),
-        }
-      : recommendedAction?.type === 'spaced_review'
-        ? {
-            eyebrow: 'حان وقت التثبيت',
-            title: 'لديك مراجعة مستحقة اليوم',
-            description:
-              'هذه المراجعة ظهرت في الوقت المناسب لتثبيت المعلومة قبل أن تبدأ بالنسيان.',
-            buttonLabel: 'ابدأ مراجعة اليوم',
-            action: () =>
-              navigate('/student/reviews'),
-          }
-        : recommendedAction?.type === 'review_weak_area'
-          ? {
-              eyebrow: 'JAK اكتشف نقطة تحتاج تقوية',
-              title: `قوِّ ${
-                studyIntelligence?.weakArea
-                  ?.sectionType ||
-                'مهارتك الأضعف'
-              }`,
-              description:
-                'نتائجك الأخيرة تشير إلى أن هذه المهارة تستحق تركيزًا إضافيًا.',
-              buttonLabel: 'افتح خطتي الذكية',
-              action: () =>
-                navigate('/student/study-plan'),
+            dashboardVocabularyGuidance ||
+            `لديك ${studyIntelligence?.vocabularyReview?.dueItems || 0} عناصر مفردات مستحقة للمراجعة الآن.`,
+          buttonLabel: 'ابدأ مراجعة المفردات',
+          action: () => {
+            const lessonSlug =
+              studyIntelligence?.vocabularyReview
+                ?.lesson?.slug ||
+              planRecommendedLesson?.slug ||
+              continuityLesson?.slug ||
+              continueLearning?.lessonSlug
+
+            if (lessonSlug) {
+              navigate(
+                `/student/lessons/${lessonSlug}`,
+              )
+              return
             }
-          : recommendedAction?.type === 'continue_lesson'
+
+            navigate('/student/study-plan')
+          },
+        }
+      : recommendedAction?.type === 'retry_mistakes'
+        ? {
+            eyebrow: 'JAK يقترح عليك الآن',
+            title: 'راجع أخطاءك قبل أن تكمل',
+            description:
+              'لديك أخطاء حديثة تستحق المراجعة حتى لا تتكرر معك.',
+            buttonLabel: 'راجع أخطاءك الآن',
+            action: () =>
+              navigate('/student/mistakes'),
+          }
+        : recommendedAction?.type === 'spaced_review'
+          ? {
+              eyebrow: 'حان وقت التثبيت',
+              title: 'لديك مراجعة مستحقة اليوم',
+              description:
+                'هذه المراجعة ظهرت في الوقت المناسب لتثبيت المعلومة قبل أن تبدأ بالنسيان.',
+              buttonLabel: 'ابدأ مراجعة اليوم',
+              action: () =>
+                navigate('/student/reviews'),
+            }
+          : recommendedAction?.type === 'review_weak_area'
             ? {
-                eyebrow: 'أكمل ما بدأت',
-                title:
-                  continuityLesson?.title ||
-                  continueLearning?.lessonTitle ||
-                  'أكمل درسك الحالي',
+                eyebrow: 'JAK اكتشف نقطة تحتاج تقوية',
+                title: `قوِّ ${
+                  studyIntelligence?.weakArea
+                    ?.sectionType ||
+                  'مهارتك الأضعف'
+                }`,
                 description:
-                  dashboardVocabularyGuidance ||
-                  'إنهاء ما بدأت به الآن يحافظ على استمرارية تعلمك وتركيزك.',
-                buttonLabel: 'أكمل الدرس الآن',
-                action: () => {
-                  const lessonSlug =
-                    continuityLesson?.slug ||
-                    continueLearning?.lessonSlug
-
-                  if (lessonSlug) {
-                    navigate(
-                      `/student/lessons/${lessonSlug}`,
-                    )
-                    return
-                  }
-
-                  navigate('/student/study-plan')
-                },
+                  'نتائجك الأخيرة تشير إلى أن هذه المهارة تستحق تركيزًا إضافيًا.',
+                buttonLabel: 'افتح خطتي الذكية',
+                action: () =>
+                  navigate('/student/study-plan'),
               }
-            : {
-                eyebrow: 'خطوتك الأفضل الآن',
-                title:
-                  planRecommendedLesson?.title ||
-                  continueLearning?.lessonTitle ||
-                  'ابدأ خطتك الدراسية',
-                description:
-                  'JAK رتّب لك الخطوة التالية بناءً على تقدمك الحالي.',
-                buttonLabel: 'ابدأ الآن',
-                action: () => {
-                  const lessonSlug =
-                    planRecommendedLesson?.slug ||
-                    continueLearning?.lessonSlug
+            : recommendedAction?.type === 'continue_lesson'
+              ? {
+                  eyebrow: 'أكمل ما بدأت',
+                  title:
+                    continuityLesson?.title ||
+                    continueLearning?.lessonTitle ||
+                    'أكمل درسك الحالي',
+                  description:
+                    dashboardVocabularyGuidance ||
+                    'إنهاء ما بدأت به الآن يحافظ على استمرارية تعلمك وتركيزك.',
+                  buttonLabel: 'أكمل الدرس الآن',
+                  action: () => {
+                    const lessonSlug =
+                      continuityLesson?.slug ||
+                      continueLearning?.lessonSlug
 
-                  if (lessonSlug) {
-                    navigate(
-                      `/student/lessons/${lessonSlug}`,
-                    )
-                    return
-                  }
+                    if (lessonSlug) {
+                      navigate(
+                        `/student/lessons/${lessonSlug}`,
+                      )
+                      return
+                    }
 
-                  navigate('/student/study-plan')
-                },
-              }
+                    navigate('/student/study-plan')
+                  },
+                }
+              : {
+                  eyebrow: 'خطوتك الأفضل الآن',
+                  title:
+                    planRecommendedLesson?.title ||
+                    continueLearning?.lessonTitle ||
+                    'ابدأ خطتك الدراسية',
+                  description:
+                    'JAK رتّب لك الخطوة التالية بناءً على تقدمك الحالي.',
+                  buttonLabel: 'ابدأ الآن',
+                  action: () => {
+                    const lessonSlug =
+                      planRecommendedLesson?.slug ||
+                      continueLearning?.lessonSlug
+
+                    if (lessonSlug) {
+                      navigate(
+                        `/student/lessons/${lessonSlug}`,
+                      )
+                      return
+                    }
+
+                    navigate('/student/study-plan')
+                  },
+                }
 
   const focusLessonId = activeSession?.lessonId || continueLearning?.lessonId || null
 
