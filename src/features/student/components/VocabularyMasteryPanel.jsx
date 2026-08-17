@@ -124,14 +124,24 @@ function getVocabularyStrengthInsight(result) {
   const strongest = scores[0]
   const weakest = scores[scores.length - 1]
 
+  const isEarlyEvidence =
+    Number(result.total_attempts || 0) < 3
+
   return {
     strengthText:
-      strongest.score >= 40
-        ? `${strongest.label} — ${strongest.score}%`
-        : 'نقطة قوتك ما زالت قيد البناء',
+      isEarlyEvidence
+        ? 'البيانات ما زالت أولية'
+        : strongest.score >= 40
+          ? `${strongest.label} — ${strongest.score}%`
+          : 'نقطة قوتك ما زالت قيد البناء',
     weaknessText:
-      `${weakest.label} — ${weakest.score}%`,
-    advice: weakest.advice,
+      isEarlyEvidence
+        ? 'نحتاج محاولات إضافية لتحديدها بدقة'
+        : `${weakest.label} — ${weakest.score}%`,
+    advice:
+      isEarlyEvidence
+        ? 'أكمل عدة محاولات، وبعدها سيبدأ النظام بتحديد نقاط القوة والضعف بدقة أكبر.'
+        : weakest.advice,
   }
 }
 function VocabularyMasteryPanel({
