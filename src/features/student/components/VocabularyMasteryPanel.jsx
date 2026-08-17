@@ -76,6 +76,64 @@ function getPhaseLabel(phase) {
   return labels[phase] || phase || 'قيد التعلّم'
 }
 
+function getVocabularyStrengthInsight(result) {
+  if (!result?.dimensions) {
+    return null
+  }
+
+  const dimensions = result.dimensions
+
+  const dimensionMap = {
+    meaning: {
+      label: 'فهم المعنى',
+      advice:
+        'راجع معنى الكلمة وحاول استرجاعه من الذاكرة قبل النظر إلى الإجابة.',
+    },
+    form: {
+      label: 'استرجاع الكلمة',
+      advice:
+        'ركّز على إنتاج الكلمة الإنجليزية من المعنى بدون مساعدة.',
+    },
+    connections: {
+      label: 'الربط بين الصيغ',
+      advice:
+        'تدرّب على الربط بين الصفة والاسم في الاتجاهين.',
+    },
+    retention: {
+      label: 'التثبيت طويل المدى',
+      advice:
+        'هذه الكلمة تحتاج مراجعة متباعدة في موعدها حتى تثبت في الذاكرة.',
+    },
+  }
+
+  const applicableKeys =
+    result.mastery_model === 'word_family'
+      ? ['connections', 'retention']
+      : result.mastery_model === 'definition'
+        ? ['meaning', 'retention']
+        : ['meaning', 'form', 'retention']
+
+  const scores = applicableKeys
+    .map((key) => ({
+      label: dimensionMap[key].label,
+      advice: dimensionMap[key].advice,
+      score: Number(dimensions[key]) || 0,
+    }))
+    .sort((a, b) => b.score - a.score)
+
+  const strongest = scores[0]
+  const weakest = scores[scores.length - 1]
+
+  return {
+    strengthText:
+      strongest.score >= 40
+        ? `${strongest.label} — ${strongest.score}%`
+        : 'نقطة قوتك ما زالت قيد البناء',
+    weaknessText:
+      `${weakest.label} — ${weakest.score}%`,
+    advice: weakest.advice,
+  }
+}
 function VocabularyMasteryPanel({
   lessonId,
   onProgressChange,
@@ -219,6 +277,8 @@ function VocabularyMasteryPanel({
       ? 'rtl'
       : 'ltr'
 
+  const resultInsight =
+    getVocabularyStrengthInsight(result)
   async function handleSubmit(event) {
     event.preventDefault()
 
@@ -701,7 +761,7 @@ function VocabularyMasteryPanel({
           <p
             style={{
               marginBottom: '28px',
-              opacity: 0.75,
+              opacity: 0.88,
             }}
           >
             {answeredItem?.term}
@@ -755,6 +815,48 @@ function VocabularyMasteryPanel({
             </div>
           </div>
 
+          {resultInsight && (
+            <div
+              dir="rtl"
+              style={{
+                textAlign: 'right',
+                padding: '16px',
+                borderRadius: '16px',
+                background:
+                  'rgba(255,255,255,0.06)',
+                marginBottom: '22px',
+              }}
+            >
+              <div
+                style={{
+                  marginBottom: '10px',
+                }}
+              >
+                <strong>نقطة قوتك الآن</strong>
+                <p style={{ margin: '4px 0 0' }}>
+                  {resultInsight.strengthText}
+                </p>
+              </div>
+
+              <div
+                style={{
+                  marginBottom: '10px',
+                }}
+              >
+                <strong>تحتاج تقوية</strong>
+                <p style={{ margin: '4px 0 0' }}>
+                  {resultInsight.weaknessText}
+                </p>
+              </div>
+
+              <div>
+                <strong>نصيحة JAK</strong>
+                <p style={{ margin: '4px 0 0' }}>
+                  {resultInsight.advice}
+                </p>
+              </div>
+            </div>
+          )}
           <button
             type="button"
             onClick={handleNext}
