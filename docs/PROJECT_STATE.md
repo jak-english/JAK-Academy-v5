@@ -371,7 +371,78 @@ Verification:
 
 `vocabulary_completion_guard_installed = true`
 
+### Study Intelligence v4 — Smarter Daily Vocabulary Recommendations
+
+Completed and connected to the student learning flow.
+
+Current authoritative frontend RPC:
+
+`get_student_study_intelligence_v4()`
+
+Study Intelligence v4 extends v3 without replacing the stable earlier engines.
+
+Main behavior:
+
+- keeps Study Intelligence v3 as the complete intelligence base
+- preserves the original non-Vocabulary recommendation engine
+- prevents premature Vocabulary review
+- Vocabulary weakness, previous mistakes, or low retention alone do not force early repetition
+- Vocabulary review is allowed to become urgent only when review is actually due
+- scheduled review time remains the primary memory signal
+
+New Vocabulary daily recommendation states:
+
+- `review_fragile_now`
+- `review_due_now`
+- `wait_for_review`
+- `maintain_spacing`
+- `learn_new`
+- `continue_learning`
+
+The new `vocabularyDailyRecommendation` signal includes:
+
+- recommendation type
+- priority
+- student-facing message
+- retention state
+- due item count
+- fragile due item count
+- early-review protection
+
+Important design rule:
+
+Vocabulary recommendations must support the student's full study plan and must not dominate other priorities without real evidence.
+
+The general Study Intelligence recommendation system still preserves:
+
+- lesson continuity
+- unresolved mistakes
+- spaced review
+- weak-area review
+- next lesson progression
+
+Frontend integration:
+
+`src/features/student/services/studentStudyPlanService.js`
+
+now calls:
+
+`get_student_study_intelligence_v4()`
+
+Verification:
+
+- v4 function installed on Supabase
+- `vocabularyDailyRecommendation` verified
+- premature-review guard verified
+- Dashboard loaded successfully
+- Study Plan loaded successfully
+- `npm run lint` passed
+
+Stable Git milestone:
+
+- `d151d84` — enable Study Intelligence v4 recommendations
+
 ### Next planned work
 
-1. smarter daily Vocabulary recommendations
-2. then continue expanding Unit 1 vocabulary content
+1. surface `vocabularyDailyRecommendation` more explicitly in Study Plan / Dashboard if needed
+2. continue expanding Unit 1 vocabulary content
