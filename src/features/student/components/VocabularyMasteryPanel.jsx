@@ -144,6 +144,89 @@ function getVocabularyStrengthInsight(result) {
         : weakest.advice,
   }
 }
+function getVocabularyMemoryState(result) {
+  if (!result) {
+    return null
+  }
+
+  const stage = Number(result.stage ?? 0)
+  const retention = Number(result.retention ?? 0)
+  const stabilityDays =
+    Number(result.stability_days ?? 0)
+
+  const isMastered =
+    result.mastered === true ||
+    result.is_mastered === true
+
+  const nextReviewDate =
+    result.next_review_at
+      ? new Date(result.next_review_at)
+      : null
+
+  const hasValidNextReview =
+    nextReviewDate &&
+    !Number.isNaN(nextReviewDate.getTime())
+
+  const isDueNow =
+    !isMastered &&
+    hasValidNextReview &&
+    nextReviewDate.getTime() <= Date.now()
+
+  const nextReviewLabel =
+    hasValidNextReview
+      ? nextReviewDate.toLocaleString('ar-JO', {
+          dateStyle: 'medium',
+          timeStyle: 'short',
+        })
+      : null
+
+  if (
+    isMastered ||
+    (retention >= 75 && stage >= 4)
+  ) {
+    return {
+      key: 'stable',
+      label: 'ذاكرة مستقرة',
+      message:
+        'أداء هذه الكلمة أصبح ثابتًا. حافظ فقط على المراجعات المجدولة.',
+      nextReviewLabel,
+    }
+  }
+
+  if (isDueNow) {
+    return {
+      key: 'due',
+      label: 'مستحق الآن',
+      message:
+        stage === 0 || stabilityDays < 1
+          ? 'حان وقت المراجعة، وثبات هذه الكلمة ما زال هشًا.'
+          : 'حان موعد اختبار الاسترجاع لهذه الكلمة الآن.',
+      nextReviewLabel: null,
+    }
+  }
+
+  if (
+    stage === 0 ||
+    stabilityDays < 1
+  ) {
+    return {
+      key: 'fragile',
+      label: 'ذاكرة هشة',
+      message:
+        'الكلمة ما زالت في بداية التثبيت. لا تكررها مبكرًا؛ انتظر موعدها المجدول.',
+      nextReviewLabel,
+    }
+  }
+
+  return {
+    key: 'building',
+    label: 'قيد التثبيت',
+    message:
+      'الذاكرة تبني ثباتها الآن. المراجعة في موعدها أهم من التكرار المبكر.',
+    nextReviewLabel,
+  }
+}
+
 function VocabularyMasteryPanel({
   lessonId,
   onProgressChange,
@@ -289,6 +372,9 @@ function VocabularyMasteryPanel({
 
   const resultInsight =
     getVocabularyStrengthInsight(result)
+
+  const memoryState =
+    getVocabularyMemoryState(result)
   async function handleSubmit(event) {
     event.preventDefault()
 
@@ -825,6 +911,57 @@ function VocabularyMasteryPanel({
             </div>
           </div>
 
+          {memoryState && (
+            <div
+              dir="rtl"
+              style={{
+                textAlign: 'right',
+                padding: '14px 16px',
+                borderRadius: '16px',
+                background:
+                  'rgba(45, 212, 191, 0.08)',
+                border:
+                  '1px solid rgba(45, 212, 191, 0.20)',
+                marginBottom: '18px',
+              }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  gap: '12px',
+                  flexWrap: 'wrap',
+                  marginBottom: '6px',
+                }}
+              >
+                <strong>حالة الذاكرة</strong>
+                <strong>{memoryState.label}</strong>
+              </div>
+
+              <p
+                style={{
+                  margin: 0,
+                  lineHeight: 1.7,
+                }}
+              >
+                {memoryState.message}
+              </p>
+
+              {memoryState.nextReviewLabel && (
+                <small
+                  style={{
+                    display: 'block',
+                    marginTop: '8px',
+                    opacity: 0.72,
+                  }}
+                >
+                  المراجعة القادمة:{' '}
+                  {memoryState.nextReviewLabel}
+                </small>
+              )}
+            </div>
+          )}
+
           {resultInsight && (
             <div
               dir="rtl"
@@ -926,7 +1063,9 @@ function VocabularyMasteryPanel({
 
         <span>
           Mastery الحالي:{' '}
-          {currentItem.mastery_score ?? 0}%
+          {result?.mastery_score ??
+            currentItem.mastery_score ??
+            0}%
         </span>
       </footer>
     </section>
