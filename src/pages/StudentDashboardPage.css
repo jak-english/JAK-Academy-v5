@@ -3129,3 +3129,132 @@
   text-shadow:
     0 0 16px var(--unit-accent-soft);
 }
+
+/* JAK EXAM UNIT GROUPING */
+
+.student-exam-units {
+  display: grid;
+  gap: 18px;
+}
+
+.student-exam-unit {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  border-radius: 22px;
+  background: rgba(7, 20, 43, 0.72);
+}
+
+.student-exam-unit__summary {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 78px;
+  padding: 20px 22px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+  cursor: pointer;
+  list-style: none;
+  color: #f8fbff;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(212, 175, 55, 0.08),
+      rgba(255, 255, 255, 0.015)
+    );
+}
+
+.student-exam-unit__summary::-webkit-details-marker {
+  display: none;
+}
+
+.student-exam-unit__identity {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.student-exam-unit__identity > div {
+  display: grid;
+  gap: 4px;
+}
+
+.student-exam-unit__identity strong {
+  font-size: 18px;
+}
+
+.student-exam-unit__identity small {
+  opacity: 0.7;
+}
+
+.student-exam-unit__badge {
+  min-width: 70px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.24);
+}
+
+.student-exam-unit__stats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.student-exam-unit__stats > span:not(.student-exam-unit__chevron) {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  opacity: 0.82;
+}
+
+.student-exam-unit__stats strong {
+  font-size: 15px;
+}
+
+.student-exam-unit__chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  transition: transform 0.2s ease;
+}
+
+.student-exam-unit[open]
+  .student-exam-unit__chevron {
+  transform: rotate(180deg);
+}
+
+.student-exam-unit > .student-exams-grid {
+  padding: 4px 20px 22px;
+}
+
+@media (max-width: 720px) {
+  .student-exam-unit__summary {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .student-exam-unit__stats {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .student-exam-unit__chevron {
+    margin-inline-start: auto;
+  }
+
+  .student-exam-unit > .student-exams-grid {
+    padding-inline: 14px;
+  }
+}

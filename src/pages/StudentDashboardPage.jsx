@@ -417,6 +417,37 @@ function StudentDashboardPage() {
     ).length,
   }
 
+  const examGroups = Object.values(
+    exams.reduce((groups, exam) => {
+      const unitKey =
+        exam.unit_id ||
+        `unassigned-${exam.exam_id}`
+
+      if (!groups[unitKey]) {
+        groups[unitKey] = {
+          unitId: exam.unit_id || null,
+          unitTitle:
+            exam.unit_title || 'اختبارات إضافية',
+          unitNumber:
+            Number(exam.unit_number) || null,
+          unitSortOrder:
+            Number(exam.unit_sort_order) || 9999,
+          exams: [],
+        }
+      }
+
+      groups[unitKey].exams.push(exam)
+
+      return groups
+    }, {}),
+  ).sort(
+    (firstGroup, secondGroup) =>
+      firstGroup.unitSortOrder -
+        secondGroup.unitSortOrder ||
+      (firstGroup.unitNumber || 9999) -
+        (secondGroup.unitNumber || 9999),
+  )
+
   const featuredExam =
     exams.find(
       (exam) => exam.action === 'continue',
@@ -1032,8 +1063,100 @@ function StudentDashboardPage() {
           )}
 
           {exams.length > 0 ? (
-            <div id="student-exams-grid" className="student-exams-grid">
-              {exams.map((exam) => {
+            <div
+              id="student-exams-grid"
+              className="student-exam-units"
+            >
+              {examGroups.map((group, groupIndex) => {
+                const groupCompleted =
+                  group.exams.filter(
+                    (exam) =>
+                      exam.action === 'result' ||
+                      exam.availability_state ===
+                        'attempt_limit_reached',
+                  ).length
+
+                const groupAvailable =
+                  group.exams.filter(
+                    (exam) => exam.action === 'start',
+                  ).length
+
+                const groupInProgress =
+                  group.exams.filter(
+                    (exam) =>
+                      exam.action === 'continue',
+                  ).length
+
+                const shouldOpen =
+                  group.exams.some(
+                    (exam) =>
+                      exam.exam_id ===
+                      featuredExam?.exam_id,
+                  ) || groupIndex === 0
+
+                return (
+                  <details
+                    className="student-exam-unit"
+                    key={
+                      group.unitId ||
+                      `exam-group-${groupIndex}`
+                    }
+                    open={shouldOpen}
+                  >
+                    <summary className="student-exam-unit__summary">
+                      <div className="student-exam-unit__identity">
+                        <span className="student-exam-unit__badge">
+                          {group.unitNumber
+                            ? `UNIT ${group.unitNumber}`
+                            : 'EXAMS'}
+                        </span>
+
+                        <div>
+                          <strong>
+                            {group.unitTitle}
+                          </strong>
+
+                          <small>
+                            {group.exams.length} اختبارات
+                          </small>
+                        </div>
+                      </div>
+
+                      <div className="student-exam-unit__stats">
+                        <span>
+                          <strong>
+                            {groupAvailable}
+                          </strong>
+                          متاح
+                        </span>
+
+                        {groupInProgress > 0 && (
+                          <span>
+                            <strong>
+                              {groupInProgress}
+                            </strong>
+                            قيد التنفيذ
+                          </span>
+                        )}
+
+                        <span>
+                          <strong>
+                            {groupCompleted}
+                          </strong>
+                          مكتمل
+                        </span>
+
+                        <span
+                          className="student-exam-unit__chevron"
+                          aria-hidden="true"
+                        >
+                          ⌄
+                        </span>
+                      </div>
+                    </summary>
+
+                    <div className="student-exams-grid">
+                      {group.exams.map((exam) => {
                 const isResult =
                   exam.action === 'result'
 
@@ -1271,6 +1394,10 @@ function StudentDashboardPage() {
               </article>
             )
           })}
+                    </div>
+                  </details>
+                )
+              })}
             </div>
           ) : (
             <div className="student-exams-empty">
