@@ -343,8 +343,35 @@ This UI does not change the Mastery engine or spaced-review scheduling logic.
 - `70e4c35` — surface vocabulary retention summary on Dashboard
 - `01da20b` — add vocabulary memory state feedback
 
+### Server-Side Vocabulary Completion Protection — 2026-08-18
+
+Completed and verified on Supabase.
+
+`public.update_lesson_progress(...)` now includes a server-side guard for Vocabulary lessons.
+
+Current behavior:
+
+- normal lessons keep the existing progress behavior
+- Vocabulary lessons are detected by published rows in `public.vocabulary_items`
+- when a Vocabulary lesson requests 100% progress, the function checks:
+  - `public.get_student_vocabulary_lesson_summary_v2(...)`
+  - `completion_ready`
+- if `completion_ready = false`, the server rejects completion
+- no Mastery or Retention calculations are duplicated inside `update_lesson_progress`
+- the existing Vocabulary summary remains the source of truth
+- Vocabulary completion therefore requires all published Vocabulary items to be mastered
+
+Current protected lesson:
+
+- Unit 1 Vocabulary — Getting Started
+- 25 published Vocabulary items
+- Lesson ID: `0414ad4f-3ca6-401b-8f87-77b5d743e4f6`
+
+Verification:
+
+`vocabulary_completion_guard_installed = true`
+
 ### Next planned work
 
-1. server-side completion protection for Vocabulary
-2. smarter daily Vocabulary recommendations
-3. then continue expanding Unit 1 vocabulary content
+1. smarter daily Vocabulary recommendations
+2. then continue expanding Unit 1 vocabulary content
