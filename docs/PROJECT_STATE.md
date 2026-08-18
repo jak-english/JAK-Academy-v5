@@ -476,7 +476,94 @@ Verification:
 - definition question type still installed
 - frontend testing confirmed all three retrieval directions work successfully
 
+### Unit 1 Vocabulary Exams — 2026-08-18
+
+Unit 1 Vocabulary assessment is now complete.
+
+Published exams:
+
+- Unit 1 - Lesson 1A Vocabulary Exam
+  - 20 MCQ
+  - answer distribution: A5 / B5 / C5 / D5
+- Unit 1 - Lesson 2A Vocabulary Exam
+  - 16 MCQ
+  - answer distribution: A4 / B4 / C4 / D4
+- Unit 1 - Lesson 3A Vocabulary Exam
+  - 16 MCQ
+  - answer distribution: A4 / B4 / C4 / D4
+- Unit 1 - Comprehensive Vocabulary Exam
+  - 30 questions
+  - answer distribution: A8 / B8 / C7 / D7
+
+Source policy:
+
+- official 2026 Student's Book and Workbook are the primary sources
+- supplementary vocabulary material may support Arabic meanings and compiled vocabulary
+- official material takes priority whenever sources differ
+- exams are created lesson by lesson before the comprehensive Unit exam
+
+Important audit correction:
+
+- Lesson 3A `disposition` = character or personality
+- Lesson 3A `trait` = a particular characteristic or way of behaving
+- the two affected questions were corrected and verified
+- the Comprehensive Exam reuses the same Question Bank rows, so the corrections propagate automatically
+
+Exam grading semantics:
+
+- Exam Score = earned points / total exam points
+- unanswered questions receive zero exam points after submission
+- Answered counts only questions actually attempted
+- Needs Attention after submission = wrong + unanswered
+- unanswered questions are not evidence of vocabulary weakness
+- weakness / skill analysis uses only actually answered questions
+
+### Exam Arena Unit Grouping — 2026-08-18
+
+The student Exam Arena is now organized by Unit instead of one flat exam list.
+
+Implementation:
+
+- `student_list_available_exams()` now returns:
+  - `unit_id`
+  - `unit_title`
+  - `unit_number`
+  - `unit_sort_order`
+- Unit metadata is resolved from the database relationship:
+  - exam_items
+  - questions
+  - lessons
+  - unit_sections
+  - units
+- exam titles are not used to infer Unit membership
+- Student Dashboard groups exam cards under expandable Unit sections
+- Unit headers show:
+  - exam count
+  - available count
+  - in-progress count
+  - completed count
+- existing exam cards, result navigation, retry behavior, and attempt logic were preserved
+
+Verified Unit 1 metadata:
+
+- Unit ID: `a77941f5-a762-40f8-b7c6-3db779efdeb0`
+- Unit number: 1
+- Unit sort order: 1
+- all four current Vocabulary exams resolve to Unit 1
+
+Verification:
+
+- Dashboard visual check passed
+- Unit 1 grouping header is visible
+- existing four exam cards remain functional
+- `npm run lint` passed
+
+Stable Git milestone:
+
+- `05506a9` — group student exams by unit
+
 ### Next planned work
 
-1. surface `vocabularyDailyRecommendation` more explicitly in Study Plan / Dashboard if needed
-2. continue expanding Unit 1 vocabulary content
+1. begin Unit 2 Vocabulary from the official 2026 Student's Book and Workbook
+2. build Unit 2 exams lesson by lesson
+3. create the Unit 2 comprehensive Vocabulary exam only after the lesson exams are complete
