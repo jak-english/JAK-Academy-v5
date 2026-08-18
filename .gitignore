@@ -33,3 +33,6 @@ build-error.txt
 *.backup
 *.backup.*
 *.mobile-menu-backup
+
+# Local Netlify folder
+.netlify
