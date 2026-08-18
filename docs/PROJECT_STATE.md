@@ -567,3 +567,32 @@ Stable Git milestone:
 1. begin Unit 2 Vocabulary from the official 2026 Student's Book and Workbook
 2. build Unit 2 exams lesson by lesson
 3. create the Unit 2 comprehensive Vocabulary exam only after the lesson exams are complete
+## 2026-08-18 — Unit 1 Grammar Intelligence
+
+- Added dedicated `GrammarLessonRenderer` for Unit 1 Grammar.
+- Grammar lesson: `Continuous & Perfect Tenses`.
+- Added interactive Grammar Explorer with:
+  - tense family theming
+  - smart function chips
+  - function explanations
+  - multiple examples
+  - key clues
+  - example navigation
+- Added Family Tabs so each tense family shows one tense at a time:
+  - Continuous
+  - Perfect Simple
+  - Perfect Continuous
+- Added Compare Lab with:
+  - Present Perfect vs Present Perfect Continuous
+  - Past Perfect vs Past Perfect Continuous
+  - Future Perfect vs Future Perfect Continuous
+- Added Mini Compare Challenge.
+- Unit 1 Grammar content now covers all 9 target tenses.
+- Grammar lesson is deployed live on Netlify.
+- Production URL:
+  `https://jak-academy-jo.netlify.app`
+- Production deploy verified working.
+- Current frontend snapshot commit:
+  `4d6ee8b feat: add unit 1 grammar intelligence lesson`
+- Next planned milestone:
+  connect grammar interactions and diagnostic evidence to Grammar Intelligence / student grammar evidence.
