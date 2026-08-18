@@ -300,7 +300,7 @@ function VocabularyReferenceTables({
                 border:
                   `1px solid ${config.border}`,
                 background:
-                  'linear-gradient(180deg, rgba(8, 28, 38, 0.94), rgba(4, 20, 35, 0.84))',
+                  `linear-gradient(180deg, ${config.background}, rgba(4, 20, 35, 0.90) 48%, rgba(4, 20, 35, 0.97))`,
                 boxShadow:
                   '0 14px 38px rgba(0, 0, 0, 0.18)',
               }}
@@ -310,6 +310,7 @@ function VocabularyReferenceTables({
                   padding: '17px 22px',
                   background:
                     config.background,
+              color: '#f8fafc',
                   borderBottom:
                     `1px solid ${config.border}`,
                 }}
@@ -366,6 +367,10 @@ function VocabularyReferenceTables({
                 style={{
                   overflowX: 'auto',
                   padding: '8px 18px 18px',
+                  background:
+                    `linear-gradient(180deg, ${config.background}, rgba(4, 20, 35, 0.10) 55%, transparent 100%)`,
+                  boxShadow:
+                    `inset 0 1px 0 ${config.border}`,
                 }}
               >
                 {itemType === 'word_families' ? (
@@ -378,7 +383,7 @@ function VocabularyReferenceTables({
                       borderSpacing: 0,
                     }}
                   >
-                    <thead>
+                    <thead style={{ background: config.background, color: '#f8fafc' }}>
                       <tr>
                         <th
                           dir="ltr"
@@ -386,7 +391,7 @@ function VocabularyReferenceTables({
                             padding:
                               '16px 12px',
                             textAlign: 'left',
-                            opacity: 0.72,
+                            opacity: 0.96,
                             borderBottom:
                               '1px solid rgba(255,255,255,0.10)',
                           }}
@@ -399,7 +404,7 @@ function VocabularyReferenceTables({
                             padding:
                               '16px 12px',
                             textAlign: 'right',
-                            opacity: 0.72,
+                            opacity: 0.96,
                             borderBottom:
                               '1px solid rgba(255,255,255,0.10)',
                           }}
@@ -413,7 +418,7 @@ function VocabularyReferenceTables({
                             padding:
                               '16px 12px',
                             textAlign: 'left',
-                            opacity: 0.72,
+                            opacity: 0.96,
                             borderBottom:
                               '1px solid rgba(255,255,255,0.10)',
                           }}
@@ -426,7 +431,7 @@ function VocabularyReferenceTables({
                             padding:
                               '16px 12px',
                             textAlign: 'right',
-                            opacity: 0.72,
+                            opacity: 0.96,
                             borderBottom:
                               '1px solid rgba(255,255,255,0.10)',
                           }}
@@ -439,7 +444,7 @@ function VocabularyReferenceTables({
                             padding:
                               '16px 12px',
                             textAlign: 'center',
-                            opacity: 0.72,
+                            opacity: 0.96,
                             borderBottom:
                               '1px solid rgba(255,255,255,0.10)',
                           }}
@@ -553,7 +558,7 @@ function VocabularyReferenceTables({
                       borderSpacing: 0,
                     }}
                   >
-                    <thead>
+                    <thead style={{ background: config.background, color: '#f8fafc' }}>
                       <tr>
                         <th
                           dir="ltr"
@@ -561,7 +566,7 @@ function VocabularyReferenceTables({
                             padding:
                               '16px 12px',
                             textAlign: 'left',
-                            opacity: 0.72,
+                            opacity: 0.96,
                             borderBottom:
                               '1px solid rgba(255,255,255,0.10)',
                           }}
@@ -574,7 +579,7 @@ function VocabularyReferenceTables({
                             padding:
                               '16px 12px',
                             textAlign: 'right',
-                            opacity: 0.72,
+                            opacity: 0.96,
                             borderBottom:
                               '1px solid rgba(255,255,255,0.10)',
                           }}
@@ -588,7 +593,7 @@ function VocabularyReferenceTables({
                             padding:
                               '16px 12px',
                             textAlign: 'left',
-                            opacity: 0.72,
+                            opacity: 0.96,
                             borderBottom:
                               '1px solid rgba(255,255,255,0.10)',
                           }}
@@ -602,7 +607,7 @@ function VocabularyReferenceTables({
                             padding:
                               '16px 12px',
                             textAlign: 'left',
-                            opacity: 0.72,
+                            opacity: 0.96,
                             borderBottom:
                               '1px solid rgba(255,255,255,0.10)',
                           }}
@@ -615,7 +620,7 @@ function VocabularyReferenceTables({
                             padding:
                               '16px 12px',
                             textAlign: 'center',
-                            opacity: 0.72,
+                            opacity: 0.96,
                             borderBottom:
                               '1px solid rgba(255,255,255,0.10)',
                           }}
