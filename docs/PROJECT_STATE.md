@@ -442,6 +442,36 @@ Stable Git milestone:
 
 - `d151d84` — enable Study Intelligence v4 recommendations
 
+### Definition Retrieval Rule — 2026-08-18
+
+Vocabulary session question selection now gives English definitions priority when a published Vocabulary item contains a non-empty `definition_en`.
+
+Current behavior:
+
+- `word_family` items keep the dedicated word-family retrieval flow
+- when `definition_en` exists:
+  - the English definition is shown as the prompt
+  - the student must retrieve and type the English word
+  - question type is `definition`
+- when no English definition exists:
+  - bilingual Vocabulary items continue using English → Arabic / Arabic → English retrieval
+- this change is implemented in `get_student_vocabulary_session_v2(...)`
+- `VocabularyMasteryPanel.jsx` already supports the `definition` question type
+- Mastery scoring, Retention scheduling, interleaving, and Study Intelligence were not changed
+
+Example:
+
+Definition:
+`the quality of being honest and direct`
+
+Expected student answer:
+`frankness`
+
+Verification:
+
+- definition rule installed on Supabase
+- meaning rule still installed
+- frontend test confirmed Definition → English Word behavior
 ### Next planned work
 
 1. surface `vocabularyDailyRecommendation` more explicitly in Study Plan / Dashboard if needed
