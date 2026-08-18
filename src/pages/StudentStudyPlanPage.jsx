@@ -223,6 +223,30 @@ function StudentStudyPlanPage() {
               ? 'أنت قريب من مرحلة الإتقان. واصل المراجعة المتباعدة حتى تثبت جميع العناصر.'
               : 'أحسنت. جميع عناصر هذا الدرس وصلت إلى مستوى الإتقان المطلوب.'
 
+  const vocabularyRetention =
+    studyIntelligence?.vocabularyRetention || null
+
+  const vocabularyRetentionLabel =
+    vocabularyRetention?.state === 'fragile_due'
+      ? 'ذاكرة هشة — راجع الآن'
+      : vocabularyRetention?.state === 'review_due'
+        ? 'حان وقت المراجعة'
+        : vocabularyRetention?.state === 'building'
+          ? 'الذاكرة قيد التثبيت'
+          : vocabularyRetention?.state === 'stable'
+            ? 'ذاكرة مستقرة'
+            : 'بيانات الذاكرة قيد البناء'
+
+  const vocabularyNextReviewLabel =
+    vocabularyRetention?.nextReviewAt
+      ? new Date(
+          vocabularyRetention.nextReviewAt,
+        ).toLocaleString('ar-JO', {
+          dateStyle: 'medium',
+          timeStyle: 'short',
+        })
+      : null
+
   const retryMistakes =
     studyIntelligence?.retryMistakes
 
@@ -698,15 +722,103 @@ function StudentStudyPlanPage() {
                       ))}
                     </div>
 
-                    <p
-                      style={{
-                        margin: 0,
-                        lineHeight: 1.8,
-                        fontWeight: 700,
-                      }}
-                    >
-                      {vocabularyGuidance}
-                    </p>
+                    {vocabularyRetention && (
+                      <div
+                        style={{
+                          marginBottom: '14px',
+                          padding: '14px',
+                          borderRadius: '14px',
+                          border:
+                            '1px solid rgba(45, 212, 191, 0.18)',
+                          background:
+                            'rgba(3,15,25,0.24)',
+                        }}
+                      >
+                        <strong
+                          style={{
+                            display: 'block',
+                            marginBottom: '10px',
+                          }}
+                        >
+                          ثبات الذاكرة: {vocabularyRetentionLabel}
+                        </strong>
+
+                        <div
+                          style={{
+                            display: 'grid',
+                            gridTemplateColumns:
+                              'repeat(auto-fit, minmax(110px, 1fr))',
+                            gap: '8px',
+                            marginBottom: '10px',
+                          }}
+                        >
+                          <small>
+                            مستحقة الآن:{' '}
+                            <strong>
+                              {vocabularyRetention.dueItems || 0}
+                            </strong>
+                          </small>
+
+                          <small>
+                            هشة:{' '}
+                            <strong>
+                              {vocabularyRetention.fragileDueItems || 0}
+                            </strong>
+                          </small>
+
+                          <small>
+                            Retention:{' '}
+                            <strong>
+                              {vocabularyRetention.averageRetention || 0}%
+                            </strong>
+                          </small>
+
+                          <small>
+                            متوسط الثبات:{' '}
+                            <strong>
+                              {vocabularyRetention.averageStabilityDays || 0}
+                              {' '}يوم
+                            </strong>
+                          </small>
+                        </div>
+
+                        <p
+                          style={{
+                            margin: 0,
+                            lineHeight: 1.7,
+                            fontSize: '13px',
+                          }}
+                        >
+                          {vocabularyRetention.message}
+                        </p>
+
+                        {vocabularyRetention.dueItems === 0 &&
+                          vocabularyNextReviewLabel && (
+                          <small
+                            style={{
+                              display: 'block',
+                              marginTop: '8px',
+                              opacity: 0.72,
+                            }}
+                          >
+                            المراجعة القادمة المجدولة:{' '}
+                            {vocabularyNextReviewLabel}
+                          </small>
+                        )}
+                      </div>
+                    )}
+
+                    {!vocabularyRetention && (
+                      <p
+                        style={{
+                          margin: 0,
+                          lineHeight: 1.8,
+                          fontWeight: 700,
+                        }}
+                      >
+                        {vocabularyGuidance}
+                      </p>
+                    )}
                   </div>
                 )}
 
