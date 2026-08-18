@@ -444,34 +444,38 @@ Stable Git milestone:
 
 ### Definition Retrieval Rule — 2026-08-18
 
-Vocabulary session question selection now gives English definitions priority when a published Vocabulary item contains a non-empty `definition_en`.
+Vocabulary session question selection now supports three-way retrieval when a published Vocabulary item contains both a non-empty `meaning_ar` and `definition_en`.
 
 Current behavior:
 
 - `word_family` items keep the dedicated word-family retrieval flow
-- when `definition_en` exists:
-  - the English definition is shown as the prompt
-  - the student must retrieve and type the English word
-  - question type is `definition`
-- when no English definition exists:
-  - bilingual Vocabulary items continue using English → Arabic / Arabic → English retrieval
-- this change is implemented in `get_student_vocabulary_session_v2(...)`
-- `VocabularyMasteryPanel.jsx` already supports the `definition` question type
+- bilingual items with both `meaning_ar` and `definition_en` rotate through:
+  1. English word → Arabic meaning (`meaning_en_ar`)
+  2. Arabic meaning → English word (`meaning_ar_en`)
+  3. English definition → English word (`definition`)
+- definition-only items use:
+  - English definition → English word
+- bilingual items without `definition_en` continue alternating:
+  - English → Arabic
+  - Arabic → English
+- rotation is driven by `attempt_count`
+- this behavior is implemented in `get_student_vocabulary_session_v2(...)`
+- `VocabularyMasteryPanel.jsx` already supports all required question types
+- Word Family logic was not changed
 - Mastery scoring, Retention scheduling, interleaving, and Study Intelligence were not changed
 
-Example:
+Example for `frankness`:
 
-Definition:
-`the quality of being honest and direct`
-
-Expected student answer:
-`frankness`
+1. `frankness` → `الصراحة`
+2. `الصراحة` → `frankness`
+3. `the quality of being honest and direct` → `frankness`
 
 Verification:
 
-- definition rule installed on Supabase
-- meaning rule still installed
-- frontend test confirmed Definition → English Word behavior
+- three-way rotation rule installed on Supabase
+- definition question type still installed
+- frontend testing confirmed all three retrieval directions work successfully
+
 ### Next planned work
 
 1. surface `vocabularyDailyRecommendation` more explicitly in Study Plan / Dashboard if needed
