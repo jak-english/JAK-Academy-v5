@@ -266,7 +266,7 @@ function StudentStudyPlanPage() {
       : recommendedAction?.type === 'continue_lesson'
         ? 'لأنك بدأت هذا الدرس بالفعل، وإكماله الآن يحافظ على تركيزك ويمنع تشتيت التعلّم.'
         : recommendedAction?.type === 'retry_mistakes'
-          ? `لديك ${retryMistakes?.questionCount || 0} أخطاء حديثة تحتاج إلى تثبيت قبل إضافة مادة جديدة.`
+          ? `لديك ${retryMistakes?.questionCount || 0} خطأ حديثًا تحتاج إلى تثبيت قبل إضافة مادة جديدة.`
           : recommendedAction?.type === 'review_weak_area'
             ? `نتائجك الأخيرة تشير إلى أن ${weakArea?.sectionType || 'هذه المهارة'} تحتاج إلى مراجعة مركزة.`
             : 'هذه هي الخطوة الأنسب التالية حسب ترتيب مسارك الدراسي الحالي.'
@@ -336,7 +336,7 @@ function StudentStudyPlanPage() {
       title:
         retryMistakes.questionCount === 1
           ? 'راجع خطأك الأخير'
-          : `راجع ${retryMistakes.questionCount} أخطاء حديثة`,
+          : `راجع ${retryMistakes.questionCount} خطأ حديثًا`,
       description:
         'معالجة الخطأ الآن تمنع تكراره لاحقًا وتثبّت الفكرة بشكل أفضل.',
       minutes: mistakeMinutes,
@@ -1010,14 +1010,16 @@ function StudentStudyPlanPage() {
                   <strong>
                     {weakArea.sectionType}
                     {' '}
-                    {weakArea.accuracyPercent != null
-                      ? `${weakArea.accuracyPercent}%`
-                      : ''}
+                    {weakArea.available
+                      ? (weakArea.accuracyPercent != null
+                        ? `${weakArea.accuracyPercent}%`
+                        : '')
+                      : '— قيد التقييم'}
                   </strong>
 
                   <p>
                     {weakArea.available
-                      ? `هذه إشارة حقيقية مبنية على ${weakArea.answeredCount} إجابات.`
+                      ? `هذه إشارة أولية مبنية على ${weakArea.answeredCount} إجابات.`
                       : `لدينا ${weakArea.answeredCount || 0} إجابات فقط حتى الآن، لذلك لن نحكم على مستواك قبل توفر بيانات كافية.`}
                   </p>
                 </>
