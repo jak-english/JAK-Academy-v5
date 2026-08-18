@@ -13,6 +13,7 @@ import {
 import logo from '../assets/logo.png'
 
 import LessonContentRenderer from '../features/student/components/LessonContentRenderer'
+import GrammarLessonRenderer from '../features/student/components/GrammarLessonRenderer'
 import VocabularyMasteryPanel from '../features/student/components/VocabularyMasteryPanel'
 import VocabularyReferenceTables from '../features/student/components/VocabularyReferenceTables'
 import FocusTimer from '../features/student/components/FocusTimer'
@@ -28,6 +29,9 @@ const AUTO_SAVE_DELAY = 2500
 
 const VOCABULARY_MASTERY_LESSON_ID =
   '0414ad4f-3ca6-401b-8f87-77b5d743e4f6'
+
+const GRAMMAR_INTELLIGENCE_LESSON_ID =
+  '7eab195c-4d5a-482f-83e3-379810624124'
 
 function formatStudyTime(totalSeconds = 0) {
   const safeSeconds = Math.max(
@@ -1009,12 +1013,18 @@ function StudentLessonPage() {
           <div>
             <article className="student-lesson-content-card">
               {lesson.id ===
-              '0414ad4f-3ca6-401b-8f87-77b5d743e4f6' ? (
+              VOCABULARY_MASTERY_LESSON_ID ? (
                 <VocabularyMasteryPanel
                   lessonId={lesson.id}
                   onProgressChange={
                     handleVocabularyProgressChange
                   }
+                />
+              ) : lesson.id ===
+                GRAMMAR_INTELLIGENCE_LESSON_ID ? (
+                <GrammarLessonRenderer
+                  lessonId={lesson.id}
+                  content={lesson.content}
                 />
               ) : (
                 <LessonContentRenderer
