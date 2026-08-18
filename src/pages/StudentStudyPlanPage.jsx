@@ -226,6 +226,9 @@ function StudentStudyPlanPage() {
   const vocabularyRetention =
     studyIntelligence?.vocabularyRetention || null
 
+  const vocabularyDailyRecommendation =
+    studyIntelligence?.vocabularyDailyRecommendation || null
+
   const vocabularyRetentionLabel =
     vocabularyRetention?.state === 'fragile_due'
       ? 'ذاكرة هشة — راجع الآن'
@@ -258,7 +261,8 @@ function StudentStudyPlanPage() {
 
   const recommendationReason =
     recommendedAction?.type === 'vocabulary_review'
-      ? `لديك ${studyIntelligence?.vocabularyReview?.dueItems || 0} عناصر مفردات حان وقت مراجعتها الآن. تثبيتها أولوية قبل إضافة مفردات جديدة.`
+      ? vocabularyDailyRecommendation?.message ||
+        `لديك ${studyIntelligence?.vocabularyReview?.dueItems || 0} عناصر مفردات حان وقت مراجعتها الآن. تثبيتها أولوية قبل إضافة مفردات جديدة.`
       : recommendedAction?.type === 'continue_lesson'
         ? 'لأنك بدأت هذا الدرس بالفعل، وإكماله الآن يحافظ على تركيزك ويمنع تشتيت التعلّم.'
         : recommendedAction?.type === 'retry_mistakes'
