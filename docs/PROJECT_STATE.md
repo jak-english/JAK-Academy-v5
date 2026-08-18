@@ -237,10 +237,34 @@ Vocabulary Items
 - `6f0ad45` — integrate vocabulary review into study intelligence
 - `b0540cc` — surface vocabulary review on dashboard
 
+### Vocabulary Strength / Weakness Intelligence
+
+Completed and integrated in `VocabularyMasteryPanel.jsx`.
+
+Current behavior:
+
+- uses the authoritative multidimensional scores returned by the Vocabulary mastery engine
+- explanations are type-aware:
+  - bilingual: meaning, form, retention
+  - definition: meaning, retention
+  - word family: connections, retention
+- `context` is intentionally excluded because it is not part of the current v4 mastery models
+- early evidence protection prevents premature strength / weakness judgments when `total_attempts < 3`
+- after enough evidence, the student sees:
+  - current strongest dimension
+  - dimension that needs strengthening
+  - targeted JAK review advice
+- cumulative `wrong_count` must not be described as unresolved current mistakes
+- no Supabase or service changes were required for this feature
+
+Stable commits:
+
+- `c714d1f` — add vocabulary strength / weakness insights
+- 3a8e7a8 — avoid premature vocabulary strength judgments
+
 ### Next planned work
 
-1. strength / weakness explanations
-2. long-term retention intelligence
-3. server-side completion protection for Vocabulary
-4. smarter daily Vocabulary recommendations
-5. then continue expanding Unit 1 vocabulary content
+1. long-term retention intelligence
+2. server-side completion protection for Vocabulary
+3. smarter daily Vocabulary recommendations
+4. then continue expanding Unit 1 vocabulary content
