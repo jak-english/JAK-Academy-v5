@@ -262,9 +262,89 @@ Stable commits:
 - `c714d1f` — add vocabulary strength / weakness insights
 - 3a8e7a8 — avoid premature vocabulary strength judgments
 
+### Long-Term Retention Intelligence — 2026-08-18
+
+Completed and integrated across the student learning flow.
+
+#### Study Intelligence v3
+
+Current authoritative function:
+
+`get_student_study_intelligence_v3()`
+
+It extends Vocabulary intelligence with long-term retention signals:
+
+- started items
+- due items
+- fragile due items
+- building items
+- stable items
+- mastered items
+- average retention
+- average stability days
+- next scheduled review
+- retention state and student guidance
+
+Current states:
+
+- `not_started`
+- `fragile_due`
+- `review_due`
+- `building`
+- `stable`
+
+Important rule:
+
+Low retention by itself does not mean the student should review immediately.
+Scheduled due time remains the primary review signal.
+
+#### Study Plan retention integration
+
+The Vocabulary recommendation card now shows:
+
+- memory stability state
+- due items
+- fragile items
+- average retention
+- average stability days
+- retention guidance
+- next review only when no review is currently due
+
+#### Dashboard retention integration
+
+The main Dashboard Vocabulary recommendation now prefers the retention-aware summary when available.
+
+It can distinguish between:
+
+- fragile memory that needs review now
+- review due now
+- memory currently building
+- stable memory
+
+#### Vocabulary answer feedback
+
+`VocabularyMasteryPanel.jsx` now shows a Memory State after each submitted answer.
+
+Possible student-facing states:
+
+- `مستحق الآن`
+- `ذاكرة هشة`
+- `قيد التثبيت`
+- `ذاكرة مستقرة`
+
+The result view also keeps the footer Mastery value synchronized with the latest submitted result instead of showing the stale session value.
+
+This UI does not change the Mastery engine or spaced-review scheduling logic.
+
+#### Stable Git milestones
+
+- `3ae4380` — integrate long-term vocabulary retention intelligence
+- `912f4f0` — surface vocabulary retention intelligence in Study Plan
+- `70e4c35` — surface vocabulary retention summary on Dashboard
+- `01da20b` — add vocabulary memory state feedback
+
 ### Next planned work
 
-1. long-term retention intelligence
-2. server-side completion protection for Vocabulary
-3. smarter daily Vocabulary recommendations
-4. then continue expanding Unit 1 vocabulary content
+1. server-side completion protection for Vocabulary
+2. smarter daily Vocabulary recommendations
+3. then continue expanding Unit 1 vocabulary content
