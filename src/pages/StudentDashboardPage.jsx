@@ -267,12 +267,33 @@ function StudentDashboardPage() {
               ? 'أنت قريب من الإتقان. واصل المراجعة المتباعدة حتى تثبت جميع العناصر.'
               : 'وصلت عناصر هذا الدرس إلى مستوى إتقان قوي.'
 
+  const dashboardVocabularyRetention =
+    studyIntelligence?.vocabularyRetention || null
+
+  const dashboardVocabularyRetentionSummary =
+    !dashboardVocabularyRetention
+      ? null
+      : dashboardVocabularyRetention.state ===
+          'fragile_due'
+        ? `ذاكرة المفردات تحتاج تثبيتًا الآن: ${dashboardVocabularyRetention.dueItems || 0} مستحقة، منها ${dashboardVocabularyRetention.fragileDueItems || 0} هشة.`
+        : dashboardVocabularyRetention.state ===
+            'review_due'
+          ? `لديك ${dashboardVocabularyRetention.dueItems || 0} مراجعات مفردات مستحقة الآن.`
+          : dashboardVocabularyRetention.state ===
+              'building'
+            ? 'ذاكرة المفردات قيد التثبيت. التزم بموعد المراجعة القادم ولا تكرر الكلمات مبكرًا.'
+            : dashboardVocabularyRetention.state ===
+                'stable'
+              ? 'ذاكرة المفردات مستقرة حاليًا. استمر بالمراجعات المجدولة.'
+              : null
+
   const dashboardRecommendation =
     recommendedAction?.type === 'vocabulary_review'
       ? {
           eyebrow: 'حان وقت مراجعة المفردات',
           title: 'راجع مفرداتك الآن',
           description:
+            dashboardVocabularyRetentionSummary ||
             dashboardVocabularyGuidance ||
             `لديك ${studyIntelligence?.vocabularyReview?.dueItems || 0} عناصر مفردات مستحقة للمراجعة الآن.`,
           buttonLabel: 'ابدأ مراجعة المفردات',
