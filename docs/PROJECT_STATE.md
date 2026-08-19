@@ -596,3 +596,31 @@ Stable Git milestone:
   `4d6ee8b feat: add unit 1 grammar intelligence lesson`
 - Next planned milestone:
   connect grammar interactions and diagnostic evidence to Grammar Intelligence / student grammar evidence.
+
+## Grammar Intelligence Dashboard Integration — 2026-08-19
+
+- Added `getStudentGrammarPrioritiesV2()` to the student study-plan service.
+- Connected grammar priorities to `StudentDashboardPage`.
+- High grammar priority now overrides normal dashboard recommendations.
+- Grammar recommendation uses bilingual student-facing copy from `get_student_grammar_priorities_v2`.
+- CTA currently opens Unit 1 Grammar lesson:
+  `unit-1-grammar-continuous-perfect-tenses`.
+- Added distinct `student-hero--grammar-intelligence` visual state.
+- Added RTL/LTR handling for mixed Arabic-English grammar titles.
+- Grammar priorities are refreshed after Focus Timer completion.
+- `npm run lint` passes.
+- `npm run build` passes.
+- Git milestone:
+  `211bf4f feat: connect grammar intelligence to student dashboard`.
+
+Current verified example:
+- Skill: `future_perfect_completed_before_future`
+- Priority: high
+- Score: 90
+- Error signal: `future_completion_vs_duration`
+- Recommendation: review Future Perfect vs Future Perfect Continuous.
+
+Next:
+- Deploy latest local build to Netlify production.
+- Verify production Dashboard and Grammar lesson on desktop and mobile.
+- Restore diagnostic exam max attempts from 2 to 1 after testing when appropriate.
