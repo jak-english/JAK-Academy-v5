@@ -26,6 +26,42 @@ function normalizeStudyPlanData(data) {
 }
 
 
+async function getStudentGrammarPrioritiesV2() {
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser()
+
+  if (userError) {
+    throw new Error(
+      userError.message ||
+        'Student identity could not be loaded.',
+    )
+  }
+
+  if (!user?.id) {
+    throw new Error(
+      'Student authentication is required.',
+    )
+  }
+
+  const { data, error } = await supabase.rpc(
+    'get_student_grammar_priorities_v2',
+    {
+      p_student_id: user.id,
+    },
+  )
+
+  if (error) {
+    throw new Error(
+      error.message ||
+        'Grammar priorities could not be loaded.',
+    )
+  }
+
+  return Array.isArray(data) ? data : []
+}
+
 async function getStudentStudyIntelligence() {
   const { data, error } = await supabase.rpc(
     'get_student_study_intelligence_v4',
@@ -173,6 +209,7 @@ async function submitSpacedReviewAnswer(
 export {
   getStudentStudyPlan,
   getStudentStudyIntelligence,
+  getStudentGrammarPrioritiesV2,
   getStudentUnresolvedMistakes,
   getStudentDueSpacedReviews,
   submitMistakeRetryAnswer,

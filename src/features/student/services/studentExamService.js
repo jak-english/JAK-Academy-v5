@@ -1,4 +1,4 @@
-﻿import { supabase } from '../../../lib/supabase'
+import { supabase } from '../../../lib/supabase'
 
 function getRpcErrorMessage(
   error,
@@ -125,7 +125,7 @@ async function submitStudentExamAttempt(
   }
 
   const { data, error } = await supabase.rpc(
-    'student_submit_exam_attempt',
+    'student_submit_exam_attempt_v2',
     {
       p_attempt_id: cleanAttemptId,
     },

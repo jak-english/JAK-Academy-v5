@@ -10,6 +10,7 @@ import {
 import {
   getStudentStudyPlan,
   getStudentStudyIntelligence,
+  getStudentGrammarPrioritiesV2,
 } from '../features/student/services/studentStudyPlanService'
 
 import {
@@ -111,11 +112,13 @@ function StudentDashboardPage() {
           availableExams,
           studyPlan,
           studyIntelligence,
+          grammarPriorities,
         ] = await Promise.all([
           getStudentDashboard(),
           listAvailableStudentExams(),
           getStudentStudyPlan(),
           getStudentStudyIntelligence(),
+          getStudentGrammarPrioritiesV2(),
         ])
 
         if (isMounted) {
@@ -123,6 +126,7 @@ function StudentDashboardPage() {
             ...data,
             studyPlan,
             studyIntelligence,
+            grammarPriorities,
           })
 
           setExams(availableExams)
@@ -221,6 +225,7 @@ function StudentDashboardPage() {
     units,
     studyPlan,
     studyIntelligence,
+    grammarPriorities,
   } = dashboardData
 
   const studentName =
@@ -287,8 +292,37 @@ function StudentDashboardPage() {
               ? 'ذاكرة المفردات مستقرة حاليًا. استمر بالمراجعات المجدولة.'
               : null
 
+  const topGrammarPriority =
+    Array.isArray(grammarPriorities)
+      ? grammarPriorities.find(
+          (priority) =>
+            priority?.priority_level === 'high',
+        ) || null
+      : null
+
+  const hasHighGrammarPriority =
+    Boolean(topGrammarPriority)
+
   const dashboardRecommendation =
-    recommendedAction?.type === 'vocabulary_review'
+    hasHighGrammarPriority
+      ? {
+          eyebrow: 'JAK INTELLIGENCE ALERT',
+          title:
+            topGrammarPriority?.action_title_ar ||
+            'لديك قاعدة تحتاج انتباهك الآن',
+          description:
+            topGrammarPriority?.reason_ar ||
+            'JAK اكتشف نمطًا يحتاج تصحيحًا قبل أن تكمل.',
+          buttonLabel: 'ابدأ التصحيح الآن',
+          action: () =>
+            navigate(
+              '/student/lessons/unit-1-grammar-continuous-perfect-tenses',
+            ),
+          isGrammarIntelligence: true,
+          priorityScore:
+            topGrammarPriority?.priority_score || 0,
+        }
+      : recommendedAction?.type === 'vocabulary_review'
       ? {
           eyebrow: 'حان وقت مراجعة المفردات',
           title: 'راجع مفرداتك الآن',
@@ -670,7 +704,12 @@ function StudentDashboardPage() {
         )}
 
         <section
-          className="student-hero"
+          className={[
+            'student-hero',
+            dashboardRecommendation.isGrammarIntelligence
+              ? 'student-hero--grammar-intelligence'
+              : '',
+          ].filter(Boolean).join(' ')}
           dir="rtl"
         >
           <div className="student-hero__content">
@@ -684,11 +723,22 @@ function StudentDashboardPage() {
             </div>
 
             <h1 className="student-dashboard-question">
-              ماذا تدرسين الآن؟
+              ماذا تدرس الآن؟
             </h1>
 
             <h2 className="student-dashboard-smart-title">
-              {dashboardRecommendation.title}
+              {dashboardRecommendation.isGrammarIntelligence &&
+              topGrammarPriority?.primary_error_signal ===
+                'future_completion_vs_duration' ? (
+                <>
+                  راجع الفرق بين{' '}
+                  <bdi>Future Perfect</bdi>
+                  {' '}و{' '}
+                  <bdi>Future Perfect Continuous</bdi>
+                </>
+              ) : (
+                dashboardRecommendation.title
+              )}
             </h2>
 
             <p>
@@ -1577,10 +1627,12 @@ function StudentDashboardPage() {
           refreshedDashboard,
           refreshedStudyPlan,
           refreshedStudyIntelligence,
+          refreshedGrammarPriorities,
         ] = await Promise.all([
           getStudentDashboard(),
           getStudentStudyPlan(),
           getStudentStudyIntelligence(),
+          getStudentGrammarPrioritiesV2(),
         ])
 
         setDashboardData({
@@ -1588,6 +1640,8 @@ function StudentDashboardPage() {
           studyPlan: refreshedStudyPlan,
           studyIntelligence:
             refreshedStudyIntelligence,
+          grammarPriorities:
+            refreshedGrammarPriorities,
         })
       }}
     />
