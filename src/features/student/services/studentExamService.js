@@ -125,7 +125,7 @@ async function submitStudentExamAttempt(
   }
 
   const { data, error } = await supabase.rpc(
-    'student_submit_exam_attempt_v2',
+    'student_submit_exam_attempt_v3',
     {
       p_attempt_id: cleanAttemptId,
     },
