@@ -640,3 +640,164 @@ Key outcomes:
 - Grammar priorityScore remains internal ranking logic and is not shown as a student mastery percentage.
 - npm run lint passed.
 - npm run build passed.
+
+## 2026-08-21 — Grammar Intelligence v2
+
+Completed the second-generation Grammar Intelligence learning flow and connected it to the live student experience.
+
+### Grammar Progress Engine v2
+
+Created and verified:
+
+- `recalculate_student_grammar_progress_v2(uuid)`
+- `update_student_grammar_status_v2(uuid)`
+- `student_submit_exam_attempt_v3(uuid)`
+
+Key behavior:
+
+- grammar recalculation no longer resets lifecycle state
+- existing mastery / retention lifecycle fields are preserved
+- unanswered questions are not treated as knowledge evidence
+- grammar evidence is recalculated from answered evidence only
+- lifecycle states now include:
+  - new
+  - diagnosing
+  - learning
+  - practising
+  - fragile
+  - mastered
+- retention checkpoints use staged review intervals:
+  - first review: +1 day
+  - then +3 days
+  - then +7 days
+  - then +14 days
+- early retention evidence does not advance the retention stage
+- retention failure returns the skill to fragile and schedules retry
+- mastery requires strong learning evidence plus retention evidence
+- only fragile skills may keep an active `next_review_at`
+
+### Grammar Journey v2
+
+Created:
+
+- `get_student_grammar_journey_v2()`
+
+Key rules:
+
+- diagnostic must be completed first
+- missing progress or zero evidence means the skill is still unassessed
+- unassessed skills block family progression
+- unresolved grammar errors remain high priority
+- `wait_for_retest` blocks progression until retention is due
+- corrective routing supports:
+  - `future_completion_vs_duration`
+- family readiness requires every published skill in the family to be truly mastered
+- family mixed exam pass mark = 80%
+- final mixed exam pass mark = 80%
+- attempting an exam is not considered passing it
+- final mixed exam opens only after all three grammar families are passed
+
+Grammar families:
+
+- Continuous
+- Perfect Simple
+- Perfect Continuous
+
+### Study Plan v4
+
+Created:
+
+- `get_student_study_plan_v4()`
+
+Behavior:
+
+- keeps the stable Study Plan v2 base
+- uses Grammar Journey v2
+- preserves Vocabulary Summary v3 metrics
+- returns `studyPlanEngineVersion: v4`
+
+Frontend service now calls:
+
+- `get_student_study_plan_v4`
+
+### Student Study Plan UI
+
+Connected Grammar Journey directly to the Smart Plan.
+
+The old generic grammar weakness card such as:
+
+- `قوِّ grammar`
+- generic accuracy percentage
+
+was replaced by the actual Grammar Journey decision.
+
+The grammar step now shows:
+
+- journey label
+- exact recommended action
+- target grammar mastery exam title
+- student-facing explanation of why this is the next step
+
+When an exam is available, the Grammar Journey card opens:
+
+- `/student/exams/:examId`
+
+Verified example:
+
+- Skill:
+  `future_perfect_completed_before_future`
+- Journey action:
+  `review_skill`
+- Student-facing action:
+  `راجع هذه المهارة قبل الانتقال`
+- Target exam:
+  `إتقان درس: المستقبل التام البسيط`
+
+### Verification
+
+- production exam submission confirmed to use `student_submit_exam_attempt_v3`
+- grammar progress updates after real exam submission
+- Study Plan confirmed to use Grammar Journey v2
+- smart grammar card confirmed visually
+- grammar exam routing confirmed from the existing student exam route
+- `npm run lint` passed
+- `npm run build` passed
+
+### Production / Git
+
+Frontend commits:
+
+- `e20c680` — connect exam submit to Grammar Progress Engine v2
+- `15551f6` — connect Study Plan to Grammar Journey v2
+- `380abe4` — surface Grammar Journey in Study Plan
+
+Database documentation migration:
+
+- `supabase/migrations/20260821_grammar_intelligence_v2.sql`
+
+Production deploy:
+
+- `6a8860f92e16bd33a6fb5810`
+
+Production URL:
+
+- `https://jak-academy-jo.netlify.app`
+
+### Current architecture
+
+Diagnostic
+→ Skill Evidence
+→ Grammar Progress
+→ Error Intelligence
+→ Targeted Mastery
+→ Retention
+→ Family Mixed Exam
+→ Final Mixed Exam
+→ Stable Grammar Mastery
+
+### Next planned work
+
+- continue building official Grammar content and question coverage
+- expand Grammar Intelligence beyond Unit 1
+- preserve the same evidence → mastery → retention architecture
+- later unify Grammar, Vocabulary, Reading, and Writing inside the same Student Learning Model
