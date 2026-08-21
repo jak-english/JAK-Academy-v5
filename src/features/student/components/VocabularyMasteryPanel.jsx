@@ -586,7 +586,7 @@ function VocabularyMasteryPanel({
                   color: '#fde68a',
                 }}
               >
-                {summary.learning_progress ?? 0}%
+                {summary.coverage_percent ?? 0}%
               </strong>
             </div>
           </div>
@@ -604,7 +604,7 @@ function VocabularyMasteryPanel({
             <div
               style={{
                 width: `${
-                  summary.learning_progress ?? 0
+                  summary.coverage_percent ?? 0
                 }%`,
                 height: '100%',
                 borderRadius: '999px',
@@ -641,12 +641,12 @@ function VocabularyMasteryPanel({
                 value: summary.due_items ?? 0,
               },
               {
-                label: 'Mastery',
+                label: 'إتقان ما درست',
                 value:
-                  `${summary.average_mastery ?? 0}%`,
+                  `${summary.average_mastery_started ?? summary.average_mastery ?? 0}%`,
               },
               {
-                label: 'Coverage',
+                label: 'التغطية',
                 value:
                   `${summary.coverage_percent ?? 0}%`,
               },

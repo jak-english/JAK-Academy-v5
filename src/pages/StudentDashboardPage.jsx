@@ -225,7 +225,6 @@ function StudentDashboardPage() {
     units,
     studyPlan,
     studyIntelligence,
-    grammarPriorities,
   } = dashboardData
 
   const studentName =
@@ -265,7 +264,7 @@ function StudentDashboardPage() {
         ? `لديك ${dashboardVocabularySummary.dueItems} عناصر مستحقة للمراجعة. ابدأ بتثبيتها قبل إضافة المزيد.`
         : dashboardVocabularySummary.coveragePercent < 60
           ? 'أنت في مرحلة بناء التغطية. أكمل عناصر جديدة مع تثبيت ما بدأت به.'
-          : dashboardVocabularySummary.averageMastery < 70
+          : (dashboardVocabularySummary.averageMasteryStarted ?? dashboardVocabularySummary.averageMastery ?? 0) < 70
             ? 'تغطيتك أصبحت جيدة. ركّز الآن على رفع الإتقان والاسترجاع من الذاكرة.'
             : dashboardVocabularySummary.masteredItems <
                 dashboardVocabularySummary.totalItems
@@ -292,35 +291,41 @@ function StudentDashboardPage() {
               ? 'ذاكرة المفردات مستقرة حاليًا. استمر بالمراجعات المجدولة.'
               : null
 
-  const topGrammarPriority =
-    Array.isArray(grammarPriorities)
-      ? grammarPriorities.find(
-          (priority) =>
-            priority?.priority_level === 'high',
-        ) || null
-      : null
+  const grammarJourney =
+    studyPlan?.grammarJourney ?? null
+
+  const grammarJourneyExamId =
+    grammarJourney?.exam?.id ?? null
 
   const hasHighGrammarPriority =
-    Boolean(topGrammarPriority)
+    grammarJourney?.priorityLevel === 'high' &&
+    Boolean(grammarJourneyExamId)
 
   const dashboardRecommendation =
     hasHighGrammarPriority
       ? {
-          eyebrow: 'JAK INTELLIGENCE ALERT',
+          eyebrow: 'JAK GRAMMAR INTELLIGENCE',
           title:
-            topGrammarPriority?.action_title_ar ||
+            grammarJourney?.actionTitleAr ||
             'لديك قاعدة تحتاج انتباهك الآن',
           description:
-            topGrammarPriority?.reason_ar ||
-            'JAK اكتشف نمطًا يحتاج تصحيحًا قبل أن تكمل.',
-          buttonLabel: 'ابدأ التصحيح الآن',
+            grammarJourney?.reasonAr ||
+            'JAK حدد لك الخطوة الأنسب في القواعد الآن.',
+          buttonLabel:
+            grammarJourney?.recommendedAction === 'retest_now'
+              ? 'ابدأ اختبار التثبيت'
+              : grammarJourney?.journeyStage === 'corrective'
+                ? 'ابدأ التدريب العلاجي'
+                : 'ابدأ الإتقان الآن',
           action: () =>
             navigate(
-              '/student/lessons/unit-1-grammar-continuous-perfect-tenses',
+              `/student/exams/${grammarJourneyExamId}`,
             ),
           isGrammarIntelligence: true,
           priorityScore:
-            topGrammarPriority?.priority_score || 0,
+            grammarJourney?.priorityScore || 0,
+          examTitle:
+            grammarJourney?.exam?.title || null,
         }
       : recommendedAction?.type === 'vocabulary_review'
       ? {
@@ -728,7 +733,7 @@ function StudentDashboardPage() {
 
             <h2 className="student-dashboard-smart-title">
               {dashboardRecommendation.isGrammarIntelligence &&
-              topGrammarPriority?.primary_error_signal ===
+              grammarJourney?.primaryErrorSignal ===
                 'future_completion_vs_duration' ? (
                 <>
                   راجع الفرق بين{' '}
@@ -764,20 +769,20 @@ function StudentDashboardPage() {
               >
                 {[
                   {
-                    label: 'تقدم التعلم',
-                    value:
-                      `${dashboardVocabularySummary.learningProgress || 0}%`,
-                    featured: true,
-                  },
-                  {
                     label: 'بدأت',
                     value:
                       `${dashboardVocabularySummary.startedItems || 0}/${dashboardVocabularySummary.totalItems || 0}`,
+                    featured: true,
                   },
                   {
-                    label: 'Mastery',
+                    label: 'التغطية',
                     value:
-                      `${dashboardVocabularySummary.averageMastery || 0}%`,
+                      `${dashboardVocabularySummary.coveragePercent || 0}%`,
+                  },
+                  {
+                    label: 'إتقان ما درست',
+                    value:
+                      `${dashboardVocabularySummary.averageMasteryStarted ?? dashboardVocabularySummary.averageMastery ?? 0}%`,
                   },
                   {
                     label: 'للمراجعة',
@@ -897,9 +902,9 @@ function StudentDashboardPage() {
             </p>
 
             <small>
-              التقدم في الكورس:
+              إكمال الكورس:
               {' '}
-              {statistics.overallCourseProgress || 0}%
+              {statistics.overallCourseCompletionPercent || 0}%
             </small>
           </div>
         </section>
@@ -925,10 +930,10 @@ function StudentDashboardPage() {
           <div className="student-overall-progress">
             <div className="student-overall-progress__top">
               <div>
-                <span>التقدم الكلي في الكورس</span>
+                <span>إكمال الكورس</span>
 
                 <strong>
-                  {statistics.overallCourseProgress || 0}%
+                  {statistics.overallCourseCompletionPercent || 0}%
                 </strong>
               </div>
 
@@ -945,7 +950,7 @@ function StudentDashboardPage() {
                     100,
                     Math.max(
                       0,
-                      statistics.overallCourseProgress || 0,
+                      statistics.overallCourseCompletionPercent || 0,
                     ),
                   )}%`,
                 }}
@@ -992,7 +997,7 @@ function StudentDashboardPage() {
 
                 <strong>
                   {
-                    statistics.overallCourseProgress
+                    statistics.overallCourseCompletionPercent
                   }
                   %
                 </strong>
@@ -1484,14 +1489,80 @@ function StudentDashboardPage() {
                 <span>خطوتك الحالية</span>
 
                 <h2 id="continue-learning-title">
-                  أكمل دراستك
+                  {hasHighGrammarPriority
+                    ? 'خطوتك الأهم الآن'
+                    : 'أكمل دراستك'}
                 </h2>
               </div>
 
-              <span className="continue-card__badge">{continueLearning?.status === 'completed' ? 'مكتمل' : continueLearning?.status === 'in_progress' ? 'قيد الدراسة' : 'لم يبدأ'}</span>
+              <span className="continue-card__badge">
+                {hasHighGrammarPriority
+                  ? 'أولوية عالية'
+                  : continueLearning?.status === 'completed'
+                    ? 'مكتمل'
+                    : continueLearning?.status === 'in_progress'
+                      ? 'قيد الدراسة'
+                      : 'لم يبدأ'}
+              </span>
             </div>
 
-            {continueLearning ? (
+            {hasHighGrammarPriority ? (
+              <>
+                <div className="continue-card__lesson">
+                  <span className="continue-card__lesson-icon">
+                    G
+                  </span>
+
+                  <div>
+                    <small>
+                      Grammar
+                      {' \u00b7 '}
+                      JAK Intelligence
+                    </small>
+
+                    <h3>
+                      {grammarJourney?.exam?.title ||
+                        'مراجعة القواعد'}
+                    </h3>
+
+                    <p>
+                      {grammarJourney?.reasonAr ||
+                        'JAK حدد لك هذه الخطوة بناءً على أدائك الحالي.'}
+                    </p>
+                  </div>
+                </div>
+
+
+                <div className="continue-card__footer">
+                  <span>
+                    {grammarJourney?.actionTitleAr ||
+                      'راجع هذه المهارة قبل الانتقال'}
+                  </span>
+
+                  <button
+                    className="student-button student-button--primary"
+                    type="button"
+                    onClick={() =>
+                      navigate(
+                        `/student/exams/${grammarJourneyExamId}`,
+                      )
+                    }
+                  >
+                    {grammarJourney?.recommendedAction ===
+                    'retest_now'
+                      ? 'ابدأ اختبار التثبيت'
+                      : grammarJourney?.journeyStage ===
+                          'corrective'
+                        ? 'ابدأ التدريب العلاجي'
+                        : 'ابدأ الإتقان'}
+
+                    <span aria-hidden="true">
+                      {'\u2192'}
+                    </span>
+                  </button>
+                </div>
+              </>
+            ) : continueLearning ? (
               <>
                 <div className="continue-card__lesson">
                   <span className="continue-card__lesson-icon">
@@ -1519,27 +1590,6 @@ function StudentDashboardPage() {
                       }
                     </p>
                   </div>
-                </div>
-
-                <div className="continue-card__progress-heading">
-                  <span>تقدمك في الدرس</span>
-
-                  <strong>
-                    {
-                      continueLearning.progressPercent
-                    }
-                    %
-                  </strong>
-                </div>
-
-                <div className="student-progress-bar">
-                  <span
-                    style={{
-                      width: `${
-                        continueLearning.progressPercent
-                      }%`,
-                    }}
-                  />
                 </div>
 
                 <div className="continue-card__footer">
@@ -1703,7 +1753,7 @@ function StudentDashboardPage() {
                     unit.isFree
                       ? 'student-unit-card--free'
                       : 'student-unit-card--premium',
-                    unit.progressPercent >= 100
+                    unit.completionPercent >= 100
                       ? 'student-unit-card--completed'
                       : '',
                   ].join(' ')}
@@ -1735,7 +1785,7 @@ function StudentDashboardPage() {
                       </span>
 
                       <strong>
-                        {unit.progressPercent}%
+                        {unit.completionPercent}%
                       </strong>
                     </div>
                   </div>
@@ -1753,14 +1803,14 @@ function StudentDashboardPage() {
                     </span>
 
                     <span>
-                      {unit.progressPercent}% تقدم
+                      {unit.completionPercent}% إكمال
                     </span>
                   </div>
 
                   <div className="student-progress-bar">
                     <span
                       style={{
-                        width: `${unit.progressPercent}%`,
+                        width: `${unit.completionPercent}%`,
                       }}
                     />
                   </div>

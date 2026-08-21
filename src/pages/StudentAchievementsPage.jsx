@@ -192,7 +192,7 @@ function StudentAchievementsPage() {
       Math.max(
         0,
         Number(
-          statistics.overallCourseProgress ||
+          statistics.overallCourseCompletionPercent ||
             0,
         ),
       ),
@@ -413,7 +413,7 @@ function StudentAchievementsPage() {
           <div className="student-achievements-progress__heading">
             <div>
               <span>
-                تقدمك في الكورس
+                إكمال الكورس
               </span>
 
               <strong>

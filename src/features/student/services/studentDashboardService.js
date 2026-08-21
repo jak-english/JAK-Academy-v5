@@ -1,4 +1,4 @@
-﻿import { supabase } from '../../../lib/supabase'
+import { supabase } from '../../../lib/supabase'
 
 function normalizeDashboardData(data) {
   return {
@@ -12,6 +12,8 @@ function normalizeDashboardData(data) {
       totalCourseLessons: data?.statistics?.totalCourseLessons ?? 0,
       completedCourseLessons: data?.statistics?.completedCourseLessons ?? 0,
       overallCourseProgress: data?.statistics?.overallCourseProgress ?? 0,
+      overallCourseCompletionPercent:
+        data?.statistics?.overallCourseCompletionPercent ?? 0,
       completedStudySessions: data?.statistics?.completedStudySessions ?? 0,
     },
 
@@ -23,7 +25,7 @@ function normalizeDashboardData(data) {
 }
 
 async function getStudentDashboard() {
-  const { data, error } = await supabase.rpc('get_student_dashboard')
+  const { data, error } = await supabase.rpc('get_student_dashboard_v2')
 
   if (error) {
     throw new Error(error.message || 'Student dashboard data could not be loaded.')

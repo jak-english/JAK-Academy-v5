@@ -216,7 +216,7 @@ function StudentStudyPlanPage() {
         ? `لديك ${vocabularySummary.dueItems} عناصر حان وقت مراجعتها. ابدأ بها أولًا لتثبيت الذاكرة.`
         : vocabularySummary.coveragePercent < 60
           ? 'أنت الآن في مرحلة بناء التغطية. ركّز على إضافة عناصر جديدة مع تثبيت ما بدأت به.'
-          : vocabularySummary.averageMastery < 70
+          : (vocabularySummary.averageMasteryStarted ?? vocabularySummary.averageMastery ?? 0) < 70
             ? 'تغطيتك جيدة، والخطوة الأهم الآن هي رفع مستوى الإتقان والاسترجاع.'
             : vocabularySummary.masteredItems <
                 vocabularySummary.totalItems
@@ -311,7 +311,9 @@ function StudentStudyPlanPage() {
           : recommendedLesson.title,
       description:
         recommendedAction?.type === 'continue_lesson'
-          ? `أنت قريب من إنهاء هذا الدرس بنسبة ${recommendedLesson.progressPercent || 0}%.`
+          ? isVocabularyRecommendation
+            ? `تابع هذا الدرس. وصلت تغطيتك إلى ${vocabularySummary.coveragePercent || 0}%، وإتقان ما درست إلى ${vocabularySummary.averageMasteryStarted ?? vocabularySummary.averageMastery ?? 0}%.`
+            : `أنت قريب من إنهاء هذا الدرس بنسبة ${recommendedLesson.progressPercent || 0}%.`
           : 'هذه أفضل خطوة تعليمية لك الآن.',
       minutes:
         recommendedLesson.estimatedMinutes || 10,
@@ -631,8 +633,17 @@ function StudentStudyPlanPage() {
                 </h3>
 
                 <p>
-                  أنجزت{' '}
-                  {recommendedLesson.progressPercent || 0}%
+                  {isVocabularyRecommendation ? (
+                    <>
+                      التغطية{' '}
+                      {vocabularySummary.coveragePercent || 0}%
+                    </>
+                  ) : (
+                    <>
+                      أنجزت{' '}
+                      {recommendedLesson.progressPercent || 0}%
+                    </>
+                  )}
                   {' • '}
                   الوقت المتوقع{' '}
                   {recommendedLesson.estimatedMinutes || 0}{' '}
@@ -663,9 +674,9 @@ function StudentStudyPlanPage() {
                     >
                       {[
                         {
-                          label: 'تقدم التعلم',
+                          label: 'التغطية',
                           value:
-                            `${vocabularySummary.learningProgress || 0}%`,
+                            `${vocabularySummary.coveragePercent || 0}%`,
                           featured: true,
                         },
                         {
@@ -674,9 +685,9 @@ function StudentStudyPlanPage() {
                             `${vocabularySummary.startedItems || 0}/${vocabularySummary.totalItems || 0}`,
                         },
                         {
-                          label: 'Mastery',
+                          label: 'إتقان ما درست',
                           value:
-                            `${vocabularySummary.averageMastery || 0}%`,
+                            `${vocabularySummary.averageMasteryStarted ?? vocabularySummary.averageMastery ?? 0}%`,
                         },
                         {
                           label: 'متقنة',
@@ -771,7 +782,7 @@ function StudentStudyPlanPage() {
                           </small>
 
                           <small>
-                            Retention:{' '}
+                            ثبات الذاكرة:{' '}
                             <strong>
                               {vocabularyRetention.averageRetention || 0}%
                             </strong>
@@ -1076,7 +1087,7 @@ function StudentStudyPlanPage() {
 
                       <p>
                         {lesson.status === 'in_progress'
-                          ? `مكتمل بنسبة ${lesson.progressPercent || 0}%`
+                          ? 'بدأت هذا الدرس'
                           : 'لم يبدأ بعد'}
                       </p>
                     </div>

@@ -624,3 +624,19 @@ Next:
 - Deploy latest local build to Netlify production.
 - Verify production Dashboard and Grammar lesson on desktop and mobile.
 - Restore diagnostic exam max attempts from 2 to 1 after testing when appropriate.
+## 2026-08-21 — Student progress percentage audit
+
+Completed a semantic audit of student-facing percentages and counters.
+
+Key outcomes:
+- Dashboard and Achievements now use real course completion percentage instead of mixed course progress.
+- Unit and section cards now use true completionPercent.
+- Vocabulary summary upgraded to get_student_vocabulary_lesson_summary_v3.
+- Vocabulary UI now shows coverage and "إتقان ما درست" instead of heuristic learningProgress.
+- Continue Learning no longer displays mixed lesson progress when semantics are uncertain.
+- Study Plan avoids vocabulary progressPercent and uses coverage/mastery metrics instead.
+- Mistake Review, Focus Timer, exam percentages, weakness accuracy, achievement unlock percentage, and vocabulary retention were verified as meaningful metrics.
+- Vocabulary averageRetention is a real average of retention_score across started vocabulary items only.
+- Grammar priorityScore remains internal ranking logic and is not shown as a student mastery percentage.
+- npm run lint passed.
+- npm run build passed.

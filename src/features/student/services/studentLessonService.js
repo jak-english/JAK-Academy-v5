@@ -298,7 +298,7 @@ async function getStudentVocabularyLessonSummary(
   }
 
   const { data, error } = await supabase.rpc(
-    'get_student_vocabulary_lesson_summary_v2',
+    'get_student_vocabulary_lesson_summary_v3',
     {
       p_lesson_id: cleanLessonId,
     },

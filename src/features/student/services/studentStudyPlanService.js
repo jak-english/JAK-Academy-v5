@@ -15,6 +15,12 @@ function normalizeStudyPlanData(data) {
     recommendedLesson:
       data?.recommendedLesson ?? null,
 
+    grammarJourney:
+      data?.grammarJourney ?? null,
+
+    studyPlanEngineVersion:
+      data?.studyPlanEngineVersion ?? null,
+
     upcomingLessons:
       Array.isArray(data?.upcomingLessons)
         ? data.upcomingLessons
@@ -103,7 +109,7 @@ async function getStudentUnresolvedMistakes() {
 
 async function getStudentStudyPlan() {
   const { data, error } = await supabase.rpc(
-    'get_student_study_plan_v2',
+    'get_student_study_plan_v3',
   )
 
   if (error) {

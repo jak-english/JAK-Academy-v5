@@ -44,6 +44,8 @@ function normalizeSection(section) {
       ) || 0,
     progressPercent:
       Number(section?.progressPercent) || 0,
+    completionPercent:
+      Number(section?.completionPercent) || 0,
     lessons: Array.isArray(section?.lessons)
       ? section.lessons.map(normalizeLesson)
       : [],
@@ -110,6 +112,11 @@ function normalizeUnitData(data) {
           Number(
             unit.statistics?.progressPercent,
           ) || 0,
+
+        completionPercent:
+          Number(
+            unit.statistics?.completionPercent,
+          ) || 0,
       },
 
       sections:
@@ -137,7 +144,7 @@ async function getStudentUnit(unitSlug) {
 
   const { data, error } =
     await supabase.rpc(
-      'get_student_unit',
+      'get_student_unit_v2',
       {
         target_unit_slug:
           cleanUnitSlug,

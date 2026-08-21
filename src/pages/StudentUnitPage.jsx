@@ -298,9 +298,9 @@ const [searchParams] = useSearchParams()
               <span>
                 {
                   unit.statistics
-                    .progressPercent
+                    .completionPercent
                 }
-                % تقدم
+                % إكمال
               </span>
             </div>
           </div>
@@ -310,7 +310,7 @@ const [searchParams] = useSearchParams()
               <strong>
                 {
                   unit.statistics
-                    .progressPercent
+                    .completionPercent
                 }
                 %
               </strong>
@@ -323,7 +323,7 @@ const [searchParams] = useSearchParams()
                 style={{
                   width: `${
                     unit.statistics
-                      .progressPercent
+                      .completionPercent
                   }%`,
                 }}
               />
@@ -379,7 +379,7 @@ const [searchParams] = useSearchParams()
 
                     <span className="student-unit-sections__percent">
                       {
-                        section.progressPercent
+                        section.completionPercent
                       }
                       %
                     </span>
