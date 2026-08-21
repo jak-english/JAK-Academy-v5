@@ -801,3 +801,169 @@ Diagnostic
 - expand Grammar Intelligence beyond Unit 1
 - preserve the same evidence → mastery → retention architecture
 - later unify Grammar, Vocabulary, Reading, and Writing inside the same Student Learning Model
+
+## 2026-08-21 — Grammar Unit 1 Assessment Architecture Complete
+
+Completed the full Unit 1 Grammar assessment coverage for Continuous and Perfect Tenses.
+
+### Skill Coverage
+
+All 20 published grammar skills now have real question coverage in all four learning dimensions:
+
+- function
+- form
+- context
+- contrast
+
+No published Unit 1 grammar skill remains with a zero count in any of these four dimensions.
+
+Retention is intentionally not treated as a separate question-bank category.
+Retention evidence is generated when suitable grammar questions are re-presented during scheduled retest checkpoints.
+
+### New Question Packs
+
+Added two targeted gap-filling packs:
+
+- Grammar Gap Pack 01:
+  - 24 questions
+  - 8 function
+  - 6 form
+  - 6 contrast
+  - 4 context
+
+- Grammar Gap Pack 02:
+  - 13 questions
+  - 5 function
+  - 1 form
+  - 7 contrast
+
+These packs were created specifically from the measured skill/dimension gaps in the existing question bank.
+
+### Mastery Exams
+
+Verified and balanced all 9 individual mastery exams:
+
+- Present Continuous
+- Past Continuous
+- Future Continuous
+- Present Perfect Simple
+- Past Perfect Simple
+- Future Perfect Simple
+- Present Perfect Continuous
+- Past Perfect Continuous
+- Future Perfect Continuous
+
+Where necessary, context-heavy questions were replaced with function questions from the new gap packs without changing exam length.
+
+Final verified examples:
+
+- Past Perfect Continuous:
+  - function: 1
+  - form: 2
+  - context: 5
+  - contrast: 2
+  - total: 10
+
+- Future Perfect Simple:
+  - function: 1
+  - form: 2
+  - context: 4
+  - contrast: 1
+  - total: 8
+
+- Future Perfect Continuous:
+  - function: 1
+  - form: 1
+  - context: 4
+  - contrast: 2
+  - total: 8
+
+- Present Perfect Continuous:
+  - function: 1
+  - form: 3
+  - context: 5
+  - contrast: 3
+  - total: 12
+
+### Family Mixed Exams
+
+Verified and balanced all three family exams:
+
+- Continuous
+- Perfect Simple
+- Perfect Continuous
+
+Perfect Simple Family Mixed final dimension distribution:
+
+- function: 1
+- form: 2
+- context: 5
+- contrast: 4
+- total: 12
+
+Perfect Continuous Family Mixed final dimension distribution:
+
+- function: 1
+- form: 2
+- context: 3
+- contrast: 6
+- total: 12
+
+### Final Mixed Exam
+
+The 20-question final mixed exam preserves one question for each of the 20 grammar skills.
+
+It was rebalanced without changing its total question count.
+
+The final exam now covers:
+
+- all 20 grammar skills
+- all three tense families
+- function
+- form
+- context
+- contrast
+
+Final target distribution:
+
+- Continuous:
+  - 2 function
+  - 2 form
+  - 3 context
+  - 2 contrast
+  - total: 9
+
+- Perfect Simple:
+  - 1 function
+  - 1 form
+  - 3 context
+  - 2 contrast
+  - total: 7
+
+- Perfect Continuous:
+  - 1 function
+  - 1 form
+  - 1 context
+  - 1 contrast
+  - total: 4
+
+Overall Final Mixed:
+
+- function: 4
+- form: 4
+- context: 7
+- contrast: 5
+- total: 20
+
+### Assessment Architecture Status
+
+Unit 1 Grammar assessment system is now structurally complete:
+
+Diagnostic
+→ Individual Skill Evidence
+→ Mastery Exams
+→ Retention Cycle
+→ Family Mixed Exams
+→ Final Mixed Exam
+
+The next development phase should build on this structure rather than create parallel grammar assessment logic.
