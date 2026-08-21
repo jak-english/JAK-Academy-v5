@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import {
   READING_QUESTION_TYPE_LIST,
 } from './readingQuestionTypes'
@@ -5,6 +7,25 @@ import {
 import './ReadingQuestionTypesGuide.css'
 
 function ReadingQuestionTypesGuide() {
+  const [activeCode, setActiveCode] = useState(
+    READING_QUESTION_TYPE_LIST[0]?.code || '',
+  )
+
+  const activeIndex = Math.max(
+    0,
+    READING_QUESTION_TYPE_LIST.findIndex(
+      (item) => item.code === activeCode,
+    ),
+  )
+
+  const activeQuestionType =
+    READING_QUESTION_TYPE_LIST[activeIndex] ||
+    READING_QUESTION_TYPE_LIST[0]
+
+  if (!activeQuestionType) {
+    return null
+  }
+
   return (
     <section
       className="reading-question-guide"
@@ -21,104 +42,166 @@ function ReadingQuestionTypesGuide() {
           </h2>
 
           <p>
-            افهم نوع السؤال أولًا، ثم استخدم طريقة الحل
-            المناسبة بدل البحث العشوائي داخل القطعة.
+            لا تبحث عشوائيًا داخل القطعة. حدّد نوع السؤال
+            أولًا، ثم استخدم الاستراتيجية المناسبة له.
           </p>
         </div>
 
         <div className="reading-question-guide__rule">
           <strong>القاعدة الذهبية</strong>
+
           <span>
-            اقرأ السؤال → حدّد نوعه → ابحث عن الدليل →
+            اقرأ السؤال ← حدّد نوعه ← ابحث عن الدليل ←
             استبعد الخيارات
           </span>
         </div>
       </div>
 
-      <div className="reading-question-guide__grid">
-        {READING_QUESTION_TYPE_LIST.map(
-          (questionType, index) => (
-            <article
-              key={questionType.code}
-              className="reading-question-guide__card"
-            >
-              <div className="reading-question-guide__number">
-                {index + 1}
-              </div>
+      <div className="reading-question-guide__workspace">
+        <nav
+          className="reading-question-guide__nav"
+          aria-label="أنواع أسئلة القراءة"
+        >
+          <div className="reading-question-guide__nav-heading">
+            <span>خريطة الأسئلة</span>
+            <strong>
+              {activeIndex + 1}/
+              {READING_QUESTION_TYPE_LIST.length}
+            </strong>
+          </div>
 
-              <div className="reading-question-guide__titles">
-                <h3>
-                  {questionType.labelEn}
-                </h3>
+          <div className="reading-question-guide__nav-list">
+            {READING_QUESTION_TYPE_LIST.map(
+              (questionType, index) => {
+                const isActive =
+                  questionType.code ===
+                  activeQuestionType.code
 
-                <p>
-                  {questionType.labelAr}
-                </p>
-              </div>
+                return (
+                  <button
+                    key={questionType.code}
+                    type="button"
+                    className={
+                      isActive
+                        ? 'reading-question-guide__nav-button reading-question-guide__nav-button--active'
+                        : 'reading-question-guide__nav-button'
+                    }
+                    onClick={() =>
+                      setActiveCode(questionType.code)
+                    }
+                  >
+                    <span className="reading-question-guide__nav-number">
+                      {index + 1}
+                    </span>
 
-              <p className="reading-question-guide__description">
-                {questionType.descriptionAr}
-              </p>
+                    <span className="reading-question-guide__nav-text">
+                      <strong dir="ltr">
+                        {questionType.labelEn}
+                      </strong>
 
-              <div className="reading-question-guide__signals">
-                <span className="reading-question-guide__label">
-                  كيف يأتي؟
-                </span>
+                      <small>
+                        {questionType.labelAr}
+                      </small>
+                    </span>
+                  </button>
+                )
+              },
+            )}
+          </div>
+        </nav>
 
-                <div className="reading-question-guide__chips">
-                  {questionType.signals.map(
-                    (signal) => (
-                      <span
-                        key={signal}
-                        className="reading-question-guide__chip"
-                        dir="ltr"
-                      >
-                        {signal}
-                      </span>
-                    ),
-                  )}
-                </div>
-              </div>
+        <article className="reading-question-guide__panel">
+          <div className="reading-question-guide__panel-top">
+            <div className="reading-question-guide__panel-number">
+              {activeIndex + 1}
+            </div>
 
-              <div className="reading-question-guide__strategy">
-                <span>
-                  طريقة الحل
-                </span>
+            <div>
+              <p>QUESTION TYPE</p>
 
-                <p>
-                  {questionType.strategyAr}
-                </p>
-              </div>
-            </article>
-          ),
-        )}
+              <h3 dir="ltr">
+                {activeQuestionType.labelEn}
+              </h3>
+
+              <h4>
+                {activeQuestionType.labelAr}
+              </h4>
+            </div>
+          </div>
+
+          <div className="reading-question-guide__section">
+            <span className="reading-question-guide__section-label">
+              ما هذا السؤال؟
+            </span>
+
+            <p>
+              {activeQuestionType.descriptionAr}
+            </p>
+          </div>
+
+          <div className="reading-question-guide__section">
+            <span className="reading-question-guide__section-label">
+              كيف أعرفه في الامتحان؟
+            </span>
+
+            <div className="reading-question-guide__chips">
+              {activeQuestionType.signals.map(
+                (signal) => (
+                  <span
+                    key={signal}
+                    className="reading-question-guide__chip"
+                    dir="ltr"
+                  >
+                    {signal}
+                  </span>
+                ),
+              )}
+            </div>
+          </div>
+
+          <div className="reading-question-guide__strategy">
+            <span>طريقة الحل</span>
+
+            <p>
+              {activeQuestionType.strategyAr}
+            </p>
+          </div>
+
+          <div className="reading-question-guide__coming">
+            <span>الخطوة القادمة</span>
+
+            <strong>
+              مثال وزاري + تحديد الجملة الدليلية + جرّب بنفسك
+            </strong>
+          </div>
+        </article>
       </div>
 
       <div className="reading-question-guide__steps">
-        <h3>
-          خطوات الحل السريع
-        </h3>
+        <div>
+          <strong>1</strong>
+          <span>اقرأ السؤال</span>
+        </div>
 
-        <div className="reading-question-guide__steps-grid">
-          <div>
-            <strong>1</strong>
-            <span>اقرأ السؤال أولًا</span>
-          </div>
+        <span>←</span>
 
-          <div>
-            <strong>2</strong>
-            <span>حدّد نوع السؤال</span>
-          </div>
+        <div>
+          <strong>2</strong>
+          <span>حدّد نوعه</span>
+        </div>
 
-          <div>
-            <strong>3</strong>
-            <span>ارجع للجملة الدليلية</span>
-          </div>
+        <span>←</span>
 
-          <div>
-            <strong>4</strong>
-            <span>استبعد ما لا يدعمه النص</span>
-          </div>
+        <div>
+          <strong>3</strong>
+          <span>حدد Evidence</span>
+        </div>
+
+        <span>←</span>
+
+        <div>
+          <strong>4</strong>
+          <span>استبعد الخيارات</span>
         </div>
       </div>
     </section>
