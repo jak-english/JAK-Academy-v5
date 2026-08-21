@@ -287,6 +287,12 @@ function StudentStudyPlanPage() {
   const smartScores =
     studyIntelligence?.scores || {}
 
+  const grammarJourney =
+    studyPlan?.grammarJourney || null
+
+  const hasGrammarJourney =
+    Boolean(grammarJourney?.recommendedAction)
+
   const nextDifferentLesson =
     upcomingLessons.find(
       (lesson) =>
@@ -379,7 +385,57 @@ function StudentStudyPlanPage() {
         navigate('/student/reviews'),
     })
   }
-  if (weakArea?.available) {
+  if (hasGrammarJourney) {
+    const grammarExamId =
+      grammarJourney?.exam?.id || null
+
+    const grammarExamTitle =
+      grammarJourney?.exam?.title || null
+
+    smartPlanSteps.push({
+      id: `grammar-${grammarJourney.skillCode || grammarJourney.journeyStage || 'journey'}`,
+      type: 'grammar-intelligence',
+      label:
+        grammarJourney.journeyStage === 'retest'
+          ? 'تثبيت'
+          : grammarJourney.journeyStage === 'corrective'
+            ? 'علاج'
+            : 'قواعد',
+      title:
+        grammarJourney.actionTitleAr ||
+        'تابع مسار إتقان القواعد',
+      description:
+        [
+          grammarExamTitle,
+          grammarJourney.reasonAr,
+        ]
+          .filter(Boolean)
+          .join(' — ') ||
+        'هذه هي الخطوة الأنسب لك الآن حسب مستوى إتقانك الفعلي.',
+      minutes: 10,
+      priorityScore:
+        grammarJourney.priorityScore ??
+        smartScores.weakness ??
+        0,
+      sequence: 4,
+      action:
+        grammarExamId
+          ? () =>
+              navigate(
+                `/student/exams/${grammarExamId}`,
+              )
+          : undefined,
+    })
+  }
+
+  if (
+    weakArea?.available &&
+    !(
+      hasGrammarJourney &&
+      String(weakArea?.sectionType || '').toLowerCase() ===
+        'grammar'
+    )
+  ) {
     smartPlanSteps.push({
       id: `weak-${weakArea.sectionType}`,
       type: 'weakness',
