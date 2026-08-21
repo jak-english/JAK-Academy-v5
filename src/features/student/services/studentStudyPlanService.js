@@ -109,7 +109,7 @@ async function getStudentUnresolvedMistakes() {
 
 async function getStudentStudyPlan() {
   const { data, error } = await supabase.rpc(
-    'get_student_study_plan_v3',
+    'get_student_study_plan_v4',
   )
 
   if (error) {
