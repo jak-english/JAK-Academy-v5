@@ -17,6 +17,7 @@ import GrammarLessonRenderer from '../features/student/components/GrammarLessonR
 import VocabularyMasteryPanel from '../features/student/components/VocabularyMasteryPanel'
 import VocabularyReferenceTables from '../features/student/components/VocabularyReferenceTables'
 import FocusTimer from '../features/student/components/FocusTimer'
+import ReadingQuestionTypesGuide from '../features/reading/ReadingQuestionTypesGuide'
 import {
   getStudentLesson,
   openStudentLesson,
@@ -1027,9 +1028,16 @@ function StudentLessonPage() {
                   content={lesson.content}
                 />
               ) : (
-                <LessonContentRenderer
-                  content={lesson.content}
-                />
+                <>
+                  {lesson.section?.sectionType ===
+                    'reading' && (
+                    <ReadingQuestionTypesGuide />
+                  )}
+
+                  <LessonContentRenderer
+                    content={lesson.content}
+                  />
+                </>
               )}
             </article>
 
