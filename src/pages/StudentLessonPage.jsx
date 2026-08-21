@@ -18,6 +18,7 @@ import VocabularyMasteryPanel from '../features/student/components/VocabularyMas
 import VocabularyReferenceTables from '../features/student/components/VocabularyReferenceTables'
 import FocusTimer from '../features/student/components/FocusTimer'
 import ReadingQuestionTypesGuide from '../features/reading/ReadingQuestionTypesGuide'
+import ReadingPassageLab from '../features/reading/ReadingPassageLab'
 import {
   getStudentLesson,
   openStudentLesson,
@@ -1031,7 +1032,10 @@ function StudentLessonPage() {
                 <>
                   {lesson.section?.sectionType ===
                     'reading' && (
-                    <ReadingQuestionTypesGuide />
+                    <>
+                      <ReadingQuestionTypesGuide />
+                      <ReadingPassageLab />
+                    </>
                   )}
 
                   <LessonContentRenderer
