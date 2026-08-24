@@ -103,6 +103,10 @@ const StudentResultsPage = lazy(
   () => import('./pages/StudentResultsPage'),
 )
 
+const StudentGamesPage = lazy(
+  () => import('./pages/StudentGamesPage'),
+)
+
 function RouteLoadingFallback() {
   return (
     <div
@@ -199,6 +203,11 @@ function App() {
           <Route
             path="/student/achievements"
             element={<StudentAchievementsPage />}
+          />
+
+          <Route
+            path="/student/games"
+            element={<StudentGamesPage />}
           />
 
           <Route

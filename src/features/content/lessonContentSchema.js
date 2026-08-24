@@ -72,6 +72,23 @@ const LESSON_BLOCK_DEFINITIONS = Object.freeze({
     },
   },
 
+  [LESSON_BLOCK_TYPES.AUDIO]: {
+    type: LESSON_BLOCK_TYPES.AUDIO,
+    label: 'Audio',
+    description:
+      'An audio lesson block with transcript and pronunciation support.',
+    defaultData: {
+      title: '',
+      titleAr: '',
+      storagePath: '',
+      transcript: '',
+      transcriptAr: '',
+      pronunciationLabel: '',
+      example: '',
+      exampleAr: '',
+    },
+  },
+
   [LESSON_BLOCK_TYPES.DIVIDER]: {
     type: LESSON_BLOCK_TYPES.DIVIDER,
     label: 'Divider',

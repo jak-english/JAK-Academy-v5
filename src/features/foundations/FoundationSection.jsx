@@ -1,8 +1,11 @@
+import { useNavigate } from 'react-router-dom'
 import { FOUNDATION_TOPICS } from '../../data/homeData'
 import SectionHeader from '../../shared/components/SectionHeader'
 import './FoundationSection.css'
 
 function FoundationSection() {
+  const navigate = useNavigate()
+
   return (
     <section id="foundations" className="foundations-section page-section">
       <div className="page-container">
@@ -34,7 +37,11 @@ function FoundationSection() {
                 organized activities.
               </p>
 
-              <button className="foundation-card__button" type="button">
+              <button
+                className="foundation-card__button"
+                type="button"
+                onClick={() => navigate('/student/foundations')}
+              >
                 Start lesson
                 <span aria-hidden="true">→</span>
               </button>

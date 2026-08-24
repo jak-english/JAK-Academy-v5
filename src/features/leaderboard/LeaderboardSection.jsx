@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import SectionHeader from '../../shared/components/SectionHeader'
 import './LeaderboardSection.css'
 
@@ -50,6 +51,8 @@ const leaderboardStudents = [
 ]
 
 function LeaderboardSection() {
+  const navigate = useNavigate()
+
   return (
     <section
       id="leaderboard"
@@ -84,7 +87,11 @@ function LeaderboardSection() {
               </div>
             </div>
 
-            <button className="leaderboard-highlight__button" type="button">
+            <button
+              className="leaderboard-highlight__button"
+              type="button"
+              onClick={() => navigate('/student')}
+            >
               View my progress
             </button>
           </div>

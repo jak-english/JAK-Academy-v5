@@ -224,6 +224,37 @@ async function getStudentVocabularySession(
   return data
 }
 
+async function getMeaningRushVocabularySession(
+  lessonId,
+  limit = 200,
+) {
+  const cleanLessonId =
+    String(lessonId || '').trim()
+
+  if (!cleanLessonId) {
+    throw new Error(
+      'Lesson id is required.',
+    )
+  }
+
+  const { data, error } = await supabase.rpc(
+    'get_meaning_rush_vocabulary_session_v1',
+    {
+      p_lesson_id: cleanLessonId,
+      p_limit: limit,
+    },
+  )
+
+  if (error) {
+    throw new Error(
+      error.message ||
+        'Meaning Rush vocabulary session could not be loaded.',
+    )
+  }
+
+  return data
+}
+
 async function submitStudentVocabularyAnswer({
   vocabularyItemId,
   questionType,
@@ -350,6 +381,7 @@ export {
   openStudentLesson,
   updateStudentLessonProgress,
   getStudentVocabularySession,
+  getMeaningRushVocabularySession,
   getStudentVocabularyLessonSummary,
   getStudentVocabularyCatalog,
   submitStudentVocabularyAnswer,

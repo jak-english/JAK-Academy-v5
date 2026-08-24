@@ -1,0 +1,2 @@
+export const UNIT1_VOCABULARY_LESSON_ID =
+  '0414ad4f-3ca6-401b-8f87-77b5d743e4f6'

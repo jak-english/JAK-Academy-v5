@@ -1,8 +1,12 @@
+import { useNavigate } from 'react-router-dom'
+
 import { GAME_CATEGORIES } from '../../data/homeData'
 import SectionHeader from '../../shared/components/SectionHeader'
 import './GamesSection.css'
 
 function GamesSection() {
+  const navigate = useNavigate()
+
   return (
     <section id="games" className="games-section page-section">
       <div className="page-container">
@@ -36,8 +40,19 @@ function GamesSection() {
                   Quick practice
                 </span>
 
-                <button className="game-card__button" type="button">
-                  Play now
+                <button
+                  className="game-card__button"
+                  type="button"
+                  disabled={game.id !== 'match-meaning'}
+                  onClick={() => {
+                    if (game.id === 'match-meaning') {
+                      navigate('/student/games')
+                    }
+                  }}
+                >
+                  {game.id === 'match-meaning'
+                    ? 'Play now'
+                    : 'Coming soon'}
                   <span aria-hidden="true">→</span>
                 </button>
               </div>

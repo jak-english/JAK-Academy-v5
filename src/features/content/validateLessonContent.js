@@ -1,5 +1,6 @@
 import {
   LESSON_BLOCK_TYPES,
+  isSupportedLessonBlockType,
 } from './lessonContentSchema'
 
 import {
@@ -296,11 +297,53 @@ function collectDuplicateWords(
 function validateLessonContent(
   content,
 ) {
-  const normalizedContent =
-    normalizeLessonContent(content)
-
   const report =
     createEmptyReport()
+
+  const rawBlocks =
+    Array.isArray(content?.blocks)
+      ? content.blocks
+      : []
+
+  rawBlocks.forEach(
+    (block, blockIndex) => {
+      if (
+        block === null ||
+        typeof block !== 'object' ||
+        Array.isArray(block)
+      ) {
+        addError(
+          report,
+          'invalid_block',
+          'A lesson block is not a valid object.',
+          {
+            blockIndex,
+          },
+        )
+
+        return
+      }
+
+      if (
+        !isSupportedLessonBlockType(
+          block.type,
+        )
+      ) {
+        addError(
+          report,
+          'unsupported_block',
+          `Unsupported block type: ${block.type}`,
+          {
+            blockId: block.id,
+            blockIndex,
+          },
+        )
+      }
+    },
+  )
+
+  const normalizedContent =
+    normalizeLessonContent(content)
 
   const blocks =
     normalizedContent.blocks

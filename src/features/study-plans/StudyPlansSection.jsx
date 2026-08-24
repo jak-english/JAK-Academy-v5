@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import SectionHeader from '../../shared/components/SectionHeader'
 import './StudyPlansSection.css'
 
@@ -36,6 +37,8 @@ const studyPlans = [
 ]
 
 function StudyPlansSection() {
+  const navigate = useNavigate()
+
   return (
     <section id="plans" className="study-plans-section page-section">
       <div className="page-container">
@@ -87,7 +90,11 @@ function StudyPlansSection() {
                 </div>
               </div>
 
-              <button className="study-plan-card__button" type="button">
+              <button
+                className="study-plan-card__button"
+                type="button"
+                onClick={() => navigate('/student/study-plan')}
+              >
                 View plan
                 <span aria-hidden="true">→</span>
               </button>

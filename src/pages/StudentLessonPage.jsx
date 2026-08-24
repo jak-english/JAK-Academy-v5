@@ -16,6 +16,7 @@ import LessonContentRenderer from '../features/student/components/LessonContentR
 import GrammarLessonRenderer from '../features/student/components/GrammarLessonRenderer'
 import VocabularyMasteryPanel from '../features/student/components/VocabularyMasteryPanel'
 import VocabularyReferenceTables from '../features/student/components/VocabularyReferenceTables'
+import { UNIT1_VOCABULARY_LESSON_ID } from '../features/student/constants/vocabularyConstants'
 import FocusTimer from '../features/student/components/FocusTimer'
 import ReadingQuestionTypesGuide from '../features/reading/ReadingQuestionTypesGuide'
 import ReadingPassageLab from '../features/reading/ReadingPassageLab'
@@ -31,8 +32,6 @@ import './StudentLessonPage.css'
 
 const AUTO_SAVE_DELAY = 2500
 
-const VOCABULARY_MASTERY_LESSON_ID =
-  '0414ad4f-3ca6-401b-8f87-77b5d743e4f6'
 
 const GRAMMAR_INTELLIGENCE_LESSON_ID =
   '7eab195c-4d5a-482f-83e3-379810624124'
@@ -237,7 +236,7 @@ function StudentLessonPage() {
 
         if (
           currentLesson.id ===
-          VOCABULARY_MASTERY_LESSON_ID
+          UNIT1_VOCABULARY_LESSON_ID
         ) {
           return
         }
@@ -1017,7 +1016,7 @@ function StudentLessonPage() {
           <div>
             <article className="student-lesson-content-card">
               {lesson.id ===
-              VOCABULARY_MASTERY_LESSON_ID ? (
+              UNIT1_VOCABULARY_LESSON_ID ? (
                 <VocabularyMasteryPanel
                   lessonId={lesson.id}
                   onProgressChange={
@@ -1061,7 +1060,7 @@ function StudentLessonPage() {
             </article>
 
             {lesson.id ===
-              '0414ad4f-3ca6-401b-8f87-77b5d743e4f6' && (
+              UNIT1_VOCABULARY_LESSON_ID && (
                 <VocabularyReferenceTables
                   lessonId={lesson.id}
                 />
@@ -1088,7 +1087,7 @@ function StudentLessonPage() {
               </p>
 
               {lesson.id ===
-              VOCABULARY_MASTERY_LESSON_ID ? (
+              UNIT1_VOCABULARY_LESSON_ID ? (
                 <p
                   style={{
                     marginTop: '14px',

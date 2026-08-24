@@ -542,6 +542,13 @@ function StudentDashboardPage() {
 
             <button type="button" onClick={() => navigate("/student/achievements")}>الإنجازات</button>
 
+            <button
+              type="button"
+              onClick={() => navigate('/student/games')}
+            >
+              الألعاب
+            </button>
+
               <button
                 type="button"
                 onClick={() => navigate("/student/foundations")}
@@ -654,6 +661,16 @@ function StudentDashboardPage() {
               }}
             >
               الإنجازات
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setIsMobileMenuOpen(false)
+                navigate('/student/games')
+              }}
+            >
+              الألعاب
             </button>
 
             <button
