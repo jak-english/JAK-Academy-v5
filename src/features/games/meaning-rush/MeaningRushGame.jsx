@@ -5,6 +5,10 @@ import {
   submitStudentVocabularyAnswer,
 } from '../../student/services/studentLessonService'
 
+import {
+  submitStudentGameResult,
+} from '../services/studentGameService'
+
 import { UNIT1_VOCABULARY_LESSON_ID } from '../../student/constants/vocabularyConstants'
 
 import {
@@ -73,6 +77,10 @@ function MeaningRushGame() {
   const [streak, setStreak] = useState(0)
   const [bestStreak, setBestStreak] = useState(0)
   const [correctCount, setCorrectCount] = useState(0)
+  const [totalCorrectAnswers, setTotalCorrectAnswers] =
+    useState(0)
+  const [totalAnsweredQuestions, setTotalAnsweredQuestions] =
+    useState(0)
   const [weakWordCount, setWeakWordCount] =
     useState(0)
 
@@ -83,6 +91,7 @@ function MeaningRushGame() {
   const questionStartedAtRef = useRef(0)
   const recycledVocabularyIdsRef = useRef(new Set())
   const weakVocabularyIdsRef = useRef(new Set())
+  const gameResultSavedRef = useRef(false)
 
   useEffect(() => {
     let isMounted = true
@@ -185,6 +194,57 @@ function MeaningRushGame() {
     stages.length > 0 &&
     currentStageIndex === stages.length - 1
 
+  useEffect(() => {
+    const shouldSaveResult =
+      isFinished &&
+      (
+        isBossRound ||
+        (
+          isLastStage &&
+          weakWordCount < 4
+        )
+      )
+
+    if (
+      !shouldSaveResult ||
+      gameResultSavedRef.current
+    ) {
+      return
+    }
+
+    gameResultSavedRef.current = true
+
+    async function saveResult() {
+      try {
+        await submitStudentGameResult({
+          gameKey: 'meaning_rush',
+          score,
+          bestStreak,
+          correctAnswers: totalCorrectAnswers,
+          totalAnswers: totalAnsweredQuestions,
+          weakWordsCount: weakWordCount,
+          bossCompleted: isBossRound,
+        })
+      } catch (error) {
+        setErrorMessage(
+          error.message ||
+            'تعذر حفظ نتيجة اللعبة.',
+        )
+      }
+    }
+
+    saveResult()
+  }, [
+    bestStreak,
+    isBossRound,
+    isFinished,
+    isLastStage,
+    score,
+    totalAnsweredQuestions,
+    totalCorrectAnswers,
+    weakWordCount,
+  ])
+
 
   const isReverse =
     currentQuestion?.questionType ===
@@ -235,9 +295,16 @@ function MeaningRushGame() {
       responseTimeMs,
     })
 
+    setTotalAnsweredQuestions(
+      (value) => value + 1,
+    )
+
     if (isCorrect) {
       setScore((value) => value + points)
       setCorrectCount((value) => value + 1)
+      setTotalCorrectAnswers(
+        (value) => value + 1,
+      )
       setStreak(nextStreak)
       setBestStreak((value) =>
         Math.max(value, nextStreak),
@@ -455,7 +522,11 @@ function MeaningRushGame() {
     )
 
     return (
-      <section className="meaning-rush meaning-rush--result">
+      <section
+        className={`meaning-rush meaning-rush--result${
+          isBossRound ? ' meaning-rush--boss' : ''
+        }`}
+      >
         <div className="meaning-rush__shell">
           <div className="meaning-rush__result">
             <div className="meaning-rush__result-bolt">
@@ -529,7 +600,11 @@ function MeaningRushGame() {
   }
 
   return (
-    <section className="meaning-rush">
+    <section
+      className={`meaning-rush${
+        isBossRound ? ' meaning-rush--boss' : ''
+      }`}
+    >
       <div className="meaning-rush__ambient meaning-rush__ambient--one" />
       <div className="meaning-rush__ambient meaning-rush__ambient--two" />
 
@@ -571,6 +646,16 @@ function MeaningRushGame() {
               <strong>{streak}</strong>
             </div>
           </div>
+
+          {isBossRound && (
+            <div className="meaning-rush__boss-banner">
+              <span>⚡ FINAL CHALLENGE</span>
+
+              <strong>
+                {weakWordCount} WEAK WORDS TO DEFEAT
+              </strong>
+            </div>
+          )}
 
           <div className="meaning-rush__progress-meta">
             <span>

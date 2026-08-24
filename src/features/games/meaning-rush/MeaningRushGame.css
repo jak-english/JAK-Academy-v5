@@ -673,3 +673,101 @@
     transition-duration: 0.01ms !important;
   }
 }
+/* ================================
+   Meaning Rush — Boss Round
+   Visual layer only
+================================ */
+
+.meaning-rush--boss {
+  position: relative;
+}
+
+.meaning-rush--boss::before {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  content: "";
+  background:
+    radial-gradient(
+      circle at 50% 18%,
+      rgba(215, 64, 64, 0.16),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 50% 72%,
+      rgba(233, 189, 63, 0.09),
+      transparent 42%
+    );
+}
+
+.meaning-rush--boss .meaning-rush__shell {
+  position: relative;
+  z-index: 1;
+}
+
+.meaning-rush--boss .meaning-rush__eyebrow {
+  color: #ffcf56;
+  text-shadow:
+    0 0 18px rgba(255, 207, 86, 0.28);
+}
+
+.meaning-rush--boss .meaning-rush__progress-bar {
+  background:
+    linear-gradient(
+      90deg,
+      #b72727,
+      #ef6b45,
+      #f1c94c
+    );
+  box-shadow:
+    0 0 15px rgba(239, 107, 69, 0.42);
+}
+
+.meaning-rush__boss-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 20px;
+  padding: 13px 16px;
+  border:
+    1px solid rgba(239, 107, 69, 0.34);
+  border-radius: 16px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(143, 28, 32, 0.2),
+      rgba(233, 189, 63, 0.08)
+    );
+  box-shadow:
+    inset 0 0 22px rgba(239, 107, 69, 0.05),
+    0 10px 28px rgba(0, 0, 0, 0.15);
+}
+
+.meaning-rush__boss-banner span {
+  color: #ffcf56;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+}
+
+.meaning-rush__boss-banner strong {
+  color: #f4d9d9;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.meaning-rush--boss .meaning-rush__result-bolt {
+  box-shadow:
+    0 0 0 1px rgba(239, 107, 69, 0.2),
+    0 0 38px rgba(239, 107, 69, 0.28);
+}
+
+@media (max-width: 560px) {
+  .meaning-rush__boss-banner {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 5px;
+  }
+}
