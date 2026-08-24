@@ -16,7 +16,7 @@ import LessonContentRenderer from '../features/student/components/LessonContentR
 import GrammarLessonRenderer from '../features/student/components/GrammarLessonRenderer'
 import VocabularyMasteryPanel from '../features/student/components/VocabularyMasteryPanel'
 import VocabularyReferenceTables from '../features/student/components/VocabularyReferenceTables'
-import { UNIT1_VOCABULARY_LESSON_ID } from '../features/student/constants/vocabularyConstants'
+import { VOCABULARY_MASTERY_LESSON_IDS } from '../features/student/constants/vocabularyConstants'
 import FocusTimer from '../features/student/components/FocusTimer'
 import ReadingQuestionTypesGuide from '../features/reading/ReadingQuestionTypesGuide'
 import ReadingPassageLab from '../features/reading/ReadingPassageLab'
@@ -235,8 +235,9 @@ function StudentLessonPage() {
         }
 
         if (
-          currentLesson.id ===
-          UNIT1_VOCABULARY_LESSON_ID
+          VOCABULARY_MASTERY_LESSON_IDS.includes(
+            currentLesson.id,
+          )
         ) {
           return
         }
@@ -1015,8 +1016,9 @@ function StudentLessonPage() {
         <section className="student-lesson-layout">
           <div>
             <article className="student-lesson-content-card">
-              {lesson.id ===
-              UNIT1_VOCABULARY_LESSON_ID ? (
+              {VOCABULARY_MASTERY_LESSON_IDS.includes(
+                lesson.id,
+              ) ? (
                 <VocabularyMasteryPanel
                   lessonId={lesson.id}
                   onProgressChange={
@@ -1059,12 +1061,13 @@ function StudentLessonPage() {
               )}
             </article>
 
-            {lesson.id ===
-              UNIT1_VOCABULARY_LESSON_ID && (
-                <VocabularyReferenceTables
-                  lessonId={lesson.id}
-                />
-              )}
+            {VOCABULARY_MASTERY_LESSON_IDS.includes(
+              lesson.id,
+            ) && (
+              <VocabularyReferenceTables
+                lessonId={lesson.id}
+              />
+            )}
           </div>
 
           <aside className="student-lesson-sidebar">
@@ -1086,8 +1089,9 @@ function StudentLessonPage() {
                 %
               </p>
 
-              {lesson.id ===
-              UNIT1_VOCABULARY_LESSON_ID ? (
+              {VOCABULARY_MASTERY_LESSON_IDS.includes(
+                lesson.id,
+              ) ? (
                 <p
                   style={{
                     marginTop: '14px',

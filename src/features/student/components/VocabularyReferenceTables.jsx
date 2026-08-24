@@ -375,6 +375,7 @@ function VocabularyReferenceTables({
               >
                 {itemType === 'word_families' ? (
                   <table
+                    dir="ltr"
                     style={{
                       width: '100%',
                       minWidth: '780px',
@@ -550,6 +551,7 @@ function VocabularyReferenceTables({
                   </table>
                 ) : (
                   <table
+                    dir="ltr"
                     style={{
                       width: '100%',
                       minWidth: '720px',
