@@ -1,4 +1,4 @@
-﻿import {
+import {
   useEffect,
   useMemo,
   useState,
@@ -292,14 +292,14 @@ function ExamEditorModal({
       return
     }
 
-    if (!selectedQuestionSetId) {
+    if (!exam && !selectedQuestionSetId) {
       setErrorMessage(
         'Please select a Question Set.',
       )
       return
     }
 
-    if (!selectedQuestionSet) {
+    if (!exam && !selectedQuestionSet) {
       setErrorMessage(
         'Question Set details are not loaded.',
       )
@@ -334,7 +334,7 @@ function ExamEditorModal({
           description:
             description.trim() || null,
           questionSetId:
-            selectedQuestionSetId,
+            selectedQuestionSetId || null,
           durationMinutes:
             safeDuration,
           status,
@@ -758,8 +758,9 @@ function ExamEditorModal({
                 isLoading ||
                 isLoadingSet ||
                 !selectedCourseId ||
-                !selectedQuestionSetId ||
-                !selectedQuestionSet ||
+                (!exam &&
+                  (!selectedQuestionSetId ||
+                    !selectedQuestionSet)) ||
                 !title.trim()
               }
             >

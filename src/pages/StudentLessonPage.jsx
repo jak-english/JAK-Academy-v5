@@ -19,6 +19,8 @@ import VocabularyReferenceTables from '../features/student/components/Vocabulary
 import FocusTimer from '../features/student/components/FocusTimer'
 import ReadingQuestionTypesGuide from '../features/reading/ReadingQuestionTypesGuide'
 import ReadingPassageLab from '../features/reading/ReadingPassageLab'
+import Unit1WritingSkills from '../features/writing/Unit1WritingSkills'
+import Unit1RemainingSkillsNotes from '../features/notes/Unit1RemainingSkillsNotes'
 import {
   getStudentLesson,
   openStudentLesson,
@@ -1038,9 +1040,22 @@ function StudentLessonPage() {
                     </>
                   )}
 
-                  <LessonContentRenderer
-                    content={lesson.content}
-                  />
+                  {lesson.section?.sectionType ===
+                    'writing' &&
+                    lesson.unit?.unitNumber === 1 && (
+                      <Unit1WritingSkills />
+                    )}
+                  {lesson.section?.sectionType ===
+                    'notes' &&
+                    lesson.unit?.unitNumber === 1 && (
+                      <Unit1RemainingSkillsNotes />
+                    )}
+
+                    {!(lesson.unit?.unitNumber === 1 && ['writing', 'notes'].includes(lesson.section?.sectionType)) && (
+                      <LessonContentRenderer
+                        content={lesson.content}
+                      />
+                    )}
                 </>
               )}
             </article>
