@@ -295,7 +295,7 @@ const UNIT1_READING_PASSAGE = Object.freeze({
           Object.freeze({
             id: 'both-1',
             expression: 'both',
-            type: 'pronoun_reference',
+            type: 'quantifier_reference',
             labelAr: 'العالِمان',
             refersToAr:
               'تعود على two scientists؛ أي أن كلا العالِمين كتب بشكل منفصل عن فكرة النسبية اللغوية.',
@@ -460,7 +460,7 @@ const UNIT1_READING_PASSAGE = Object.freeze({
               Object.freeze({
                 id: 'a',
                 text:
-                  'The fact that Inuit dialects have more ways of distinguishing types of snow',
+                  'The idea that there are more words or ways to describe and distinguish types of snow',
               }),
               Object.freeze({
                 id: 'b',
@@ -481,7 +481,7 @@ const UNIT1_READING_PASSAGE = Object.freeze({
             correctOptionId: 'a',
             evidenceSentenceId: 'a-s5',
             explanationAr:
-              'this تلخص الفكرة السابقة: أن لهجات الإنويت لديها طرق أكثر للتمييز بين أنواع الثلج.',
+              'this تلخص الفكرة السابقة في السياق: وجود كلمات أو طرق أكثر لوصف أنواع الثلج والتمييز بينها.',
           }),
 
           Object.freeze({
@@ -2739,7 +2739,7 @@ const UNIT1_READING_PASSAGE = Object.freeze({
               }),
             ]),
             correctOptionId: 'd',
-            evidenceSentenceId: 'd-s3',
+            evidenceSentenceId: 'd-s4',
             explanationAr:
               'الكاتب يعرض نتيجة دراسة ثم يفسرها بحذر في ضوء الثقافة وسياق التعلم، قبل أن يتأمل احتمال اختلاف الإحساس بالذات عند استخدام لغة ثانية.',
           }),

@@ -82,9 +82,9 @@ export const UNIT1_READING_FINAL_TEST = Object.freeze({
   
   Object.freeze({
     id: 'u1-final-5',
-    skill: 'reference',
-    skillLabelEn: 'Reference',
-    skillLabelAr: 'المرجع',
+    skill: 'inference',
+    skillLabelEn: 'Inference',
+    skillLabelAr: 'الاستنتاج',
     question: 'Which idea connects Paragraph A with the later examples in Paragraph B?',
     options: Object.freeze([
       Object.freeze({ id: 'a', text: 'The possibility that features of language may relate to how people organise or perceive experience.' }),
@@ -123,10 +123,10 @@ export const UNIT1_READING_FINAL_TEST = Object.freeze({
     skill: 'reference',
     skillLabelEn: 'Reference',
     skillLabelAr: 'المرجع',
-    question: "In Paragraph C, what does 'that' refer to in the idea that this may affect thinking?",
+    question: "In Paragraph C, what does the first 'that' refer to in 'Whether that means that their language affects their thinking ...'?",
     options: Object.freeze([
       Object.freeze({ id: 'a', text: 'A personality test.' }),
-      Object.freeze({ id: 'b', text: 'The language-related difference being discussed in that context.' }),
+      Object.freeze({ id: 'b', text: "The idea that a person's culture is likely to be reflected in their language." }),
       Object.freeze({ id: 'c', text: 'The year 2006.' }),
       Object.freeze({ id: 'd', text: 'The Inuit example alone.' }),
     ]),
@@ -134,7 +134,7 @@ export const UNIT1_READING_FINAL_TEST = Object.freeze({
     evidenceRefs: Object.freeze([
       Object.freeze({ paragraphId: 'paragraph-c', sentenceId: 'c-s8' }),
     ]),
-    explanationAr: 'المرجع يعود إلى الفكرة أو الاختلاف اللغوي الذي يناقشه السياق السابق.',
+    explanationAr: 'كلمة that الأولى تعود إلى الفكرة السابقة مباشرة: أن ثقافة الشخص من المحتمل أن تنعكس في لغته.',
   }),
 
   Object.freeze({
@@ -284,7 +284,7 @@ export const UNIT1_READING_FINAL_TEST = Object.freeze({
     options: Object.freeze([
       Object.freeze({ id: 'a', text: 'To show that language learning always changes nationality.' }),
       Object.freeze({ id: 'b', text: 'To prove that personality tests are inaccurate.' }),
-      Object.freeze({ id: 'c', text: 'To extend the discussion from perception to the possibility that language use may also relate to identity or self-presentation.' }),
+      Object.freeze({ id: 'c', text: 'To extend the discussion from perception to the possibility that language use may also relate to identity or personality.' }),
       Object.freeze({ id: 'd', text: 'To reject the role of culture entirely.' }),
     ]),
     correctOptionId: 'c',
